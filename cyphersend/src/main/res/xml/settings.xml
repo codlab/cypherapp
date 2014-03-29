@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/user_category">
+        <EditTextPreference
+                android:key="@string/device"
+                android:title="@string/settings_device_title"
+                android:summary="@string/settings_device_summary">
+        </EditTextPreference>
+        <EditTextPreference
+                android:key="@string/website"
+                android:title="@string/settings_website_title"
+                android:defaultValue="@string/default_server"
+                android:summary="@string/settings_website_summary">
+        </EditTextPreference>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/server_state_category">
+        <Preference
+                android:key="@string/register"
+                android:title="@string/settings_register_title"
+                android:summary="@string/settings_register_summary">
+        </Preference>
+        <Preference
+                android:key="@string/register_force"
+                android:title="@string/settings_force_title"
+                android:summary="@string/settings_force_summary">
+        </Preference>
+
+    </PreferenceCategory>
+</PreferenceScreen>

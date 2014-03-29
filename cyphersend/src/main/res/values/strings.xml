@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" >CypherSend</string>
+    <string name="action_settings" >Settings</string>
+    <string name="action_update">Update messages</string>
+
+    <string name="app_cypher_and_send">Encrypt and send via target\'s server</string>
+    <string name="app_cypher_and_apps">Encrypt and send via third party</string>
+
+    <string name="font">sans-serif-light</string>
+    <!-- main interface string definition-->
+    <string name="main_send">Share your public infos with a friend</string>
+    <string name="follow_me">Follow me on twitter</string>
+
+    <string name="personnal_data_subject">I\'m sharing my personnal CypherSend\'s public data with you</string>
+    <string name="personnal_data_subject_third_party">Sharing an encrypted message with your public information</string>
+
+    <string name="select_the_device_to_send_to">Select the device to send the message to</string>
+    <string name="select_the_device_to_send_to_and_share">Select the recipient device and you will then be able to use any Android\'s app to share the encrypted message</string>
+    <string name="share_via">Share via</string>
+    <string name="action_share">Share</string>
+
+    <string name="title_section_default">Principal</string>
+    <string name="title_section_friends">Friends/Devices</string>
+    <string name="title_section_help">Help</string>
+
+    <string name="help_part_1_title">Register device for server transaction</string>
+    <string name="help_part_1_content">Registering your device is very easy. \n First of all, open the settings via the menu and set your device name (remember the fact to stay anonymous). Then set the server url if you use your own server. Remember to register the device to the server (in order to retrieve your messages from it).\n
+    And.... it\'s done. You\'re ready to receive messages (use the refresh button from the Actionbar)</string>
+    <string name="help_part_2_title">Sharing public data with friends</string>
+    <string name="help_part_2_content">Don\'t forget to send to your friend your device public data : you can use Android Beam to share them OR use the button on the main screen to send them via a third party app.\n Once done, make sure your friend has your device name in his devices list from the second tab</string>
+    <string name="help_part_3_title">Send message to friend\'s device</string>
+    <string name="help_part_3_content">Two way to send a message.\n
+    The first one is to select the device of your friend in the second tab and select it. Then type your message and validate. Your friend can now retrieve the message from the server.\n \n
+    Second possibility, when you are in a browser, mail etc... select the message to send, and choose the share option from them. You will see the icon of the app with the title you can send the message to a device server. Select this one (not the other one) and validate the device of your friend. Once again, validate and it\'s done.</string>
+    <string name="help_part_4_title">Send an encrypted message to a device via third party apps</string>
+    <string name="help_part_4_content">Last but not the least. The app also permits you to transfer from an app, a message, text etc... encrypt it and then select an app to transfer the desired message.\n
+    To do so, select a text in an app and then use the share ption from it.\n
+    Locate the app icon in the list with the title indicating the use of third party app\n
+    Then select your friend device, and click on the button on the right of it to send the encrypted message\n
+    Finally, select the final app to send this encrypted message. Your friend will now be able to receive the encrypted message from his mail, etc...</string>
+    <string name="help_part_5_title">Notes</string>
+    <string name="help_part_5_content">Public infos are bounded to a device, not user\n
+    Using the force registering in the options will reset and create new public/private infos so your friends could not be able to send you messages you can unencrypt - remember to warn them\n
+    If you have multiple devices, you will be able to unencrypt a message only with the specified device! Not the other ones\n
+    \n Remember that the app was supposed to be used to keep privacy... so the sharing options are not supposed to be here to let you keep encrypted message, ensure to delete the mail/sms/everything which carried the message when read! Obviously, when you use the server update messages, the message are deleted server-side WHEN you retrieve them!</string>
+    <string name="help_part_6_title">Contact</string>
+    <string name="help_part_6_content">You can contact me directly here:\n
+    mail : codlabtech@gmail.com\n
+    twitter : http://twitter.com/codlab \n
+    web in general : search for codlab B)\n</string>
+
+    <string name="not_suppose_to_be_this_device">The message was not suppose to be decrypted by this device!</string>
+
+    <string name="device_send_message">New message</string>
+
+    <string name="settings_device_title">This Device name</string>
+    <string name="settings_device_summary">It will be sent to your friend to help them identify your device</string>
+
+    <string name="settings_website_title">Website root/url</string>
+    <string name="settings_website_summary">The website url with / (!) to use as root to retrieve new messages</string>
+
+    <string name="settings_register_title">Register to the server</string>
+    <string name="settings_register_summary">Register device info to register to this server with your default device serial</string>
+
+    <string name="settings_force_title">Force whole new registering</string>
+    <string name="settings_force_summary">Will generate new devices info AND link to the server. Use to force register - you will need to resend to your friend your data</string>
+
+
+    <string name="user_category">User</string>
+    <string name="server_state_category">Server state</string>
+
+    <string name="device">device</string>
+    <string name="website">website</string>
+    <string name="identifier">identifier</string>
+    <string name="pass">pass</string>
+    <string name="register">register</string>
+    <string name="register_force">register_force</string>
+
+    <string name="default_server">http://cypher.codlab.eu/</string>
+
+    <string name="dialog_message_register_title">Force new register</string>
+    <string name="dialog_message_register_message_ok">You have been successfully registered to the server!</string>
+    <string name="dialog_message_register_message_ko">The server did not accept the info : was already registered? if not try force (below)?</string>
+    <string name="dialog_message_register_message_timeout">The server is not up</string>
+
+    <string name="dialog_message_force_title">Force new register</string>
+    <string name="dialog_message_force_message_ok">The new register is ok. Please resend to your friend the data!</string>
+    <string name="dialog_message_force_message_ko">The server did not accept the info : correct server?</string>
+
+    <string name="successfully_saved">Saved successfully</string>
+    <string name="error_saved">Error while retrieveing the new value</string>
+    <string name="successfully_shared">Shared Successfully</string>
+
+    <string name="dialog_message_received_title">New message received</string>
+    <string name="dialog_message_received_title_error">Message error</string>
+    <string name="dialog_message_received_message">Message from A : \nB</string>
+    <string name="dialog_message_received_content_error_decypher">Could not decypher a message :(</string>
+    <string name="dialog_message_received_content_error_null">An exception occured during a reception. Is the server running? Are you registered on the server?</string>
+    <string name="dialog_message_received_title_empty">No new message</string>
+    <string name="dialog_message_received_content_empty">No new message have been found on the server</string>
+
+    <string name="dialog_message_send_title">Message send status</string>
+    <string name="dialog_message_send_content_ok">Your message have been successfully sent to the destination server</string>
+    <string name="dialog_message_send_content_error">An error occured while sending the message</string>
+
+    <string name="ok">Ok</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="dialog_request_send_title">Message to send</string>
+    <string name="dialog_request_send_message">Please provide the plain text message you want to send</string>
+</resources>

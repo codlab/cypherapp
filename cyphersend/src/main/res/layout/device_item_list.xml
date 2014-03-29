@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/light_light_grey"
+              android:gravity="center_horizontal|center_vertical">
+
+    <LinearLayout
+            android:id="@+id/color"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_width="8dp"
+            android:background="#000000"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"/>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="25dp">
+
+        <TextView
+                android:id="@+id/device_name"
+                android:singleLine="false"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="name"
+                android:textSize="25dp"/>
+
+        <TextView
+                android:id="@+id/device_publickey"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="6dp"
+                android:text="key"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="25dp"
+            android:padding="15dp">
+
+        <Button
+                android:id="@+id/device_send"
+                android:layout_width="80dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/little_grey"
+                android:text="@string/device_send_message"
+                android:padding="10dp"
+                android:textSize="12dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:textColor="#000000"
+
+        android:gravity="center_vertical|center_horizontal"
+        tools:context=".CypherMainActivity"
+
+        android:orientation="vertical">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:paddingLeft="20dp"
+                  android:paddingRight="20dp"
+                  android:paddingTop="@dimen/activity_vertical_margin"
+                  android:paddingBottom="@dimen/activity_vertical_margin"
+                  android:textColor="#000000"
+
+                  tools:context=".CypherMainActivity"
+
+                  android:orientation="vertical">
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_1_title"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:textSize="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_1_content"
+                android:layout_marginBottom="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_2_title"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:textSize="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_2_content"
+                android:layout_marginBottom="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_3_title"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:textSize="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_3_content"
+                android:layout_marginBottom="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_4_title"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:textSize="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_4_content"
+                android:layout_marginBottom="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_5_title"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:textSize="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_5_content"
+                android:layout_marginBottom="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_6_title"
+                android:layout_margin="5dp"
+                android:layout_marginTop="30dp"
+                android:textSize="25dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <TextView
+                android:dividerHeight="10dp"
+                android:textColor="#000000"
+                android:text="@string/help_part_6_content"
+                android:layout_marginBottom="5dp"
+                android:autoLink="web|email"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+    </LinearLayout>
+</ScrollView>
