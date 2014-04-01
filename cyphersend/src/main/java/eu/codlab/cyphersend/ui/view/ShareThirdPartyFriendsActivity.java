@@ -1,8 +1,8 @@
 package eu.codlab.cyphersend.ui.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -11,9 +11,7 @@ import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.model.Device;
-import eu.codlab.cyphersend.messages.controller.MessageSender;
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
-import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
@@ -25,7 +23,7 @@ import eu.codlab.cyphersend.utils.MD5;
 /**
  * Created by kevinleperf on 28/06/13.
  */
-public class ShareThirdPartyFriendsActivity extends Activity implements RequestSendListener, MessageSenderListener {
+public class ShareThirdPartyFriendsActivity extends FragmentActivity implements RequestSendListener, MessageSenderListener {
     private MainActivityController _controller;
     private MainActivityDialogController _dialog_controller;
 

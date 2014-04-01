@@ -1,20 +1,20 @@
 package eu.codlab.cyphersend.ui.controller;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
 import java.security.KeyPair;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
-import eu.codlab.cyphersend.dbms.model.Device;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
-import eu.codlab.cyphersend.ui.view.CypherMainActivity;
 import eu.codlab.cyphersend.ui.view.MainDefaultFragment;
 import eu.codlab.cyphersend.ui.view.MainFriendsFragment;
 import eu.codlab.cyphersend.ui.view.MainHelpFragment;
@@ -55,30 +55,33 @@ public class MainActivityController {
     }
 
 
+
+
+
     private static KeyPair _keys;
 
-    public static String getDeviceName(Activity activity) {
-        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.device), "device");
+    public static String getDeviceName(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.device), "device");
     }
 
-    public static String getDeviceURL(Activity activity) {
-        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "https://cypher.codlab.eu/");
+    public static String getDeviceURL(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.website), "https://cypher.codlab.eu/");
     }
 
-    public static String getDeviceIdentifier(Activity activity) {
-        String identifier = PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.identifier), null);
+    public static String getDeviceIdentifier(Context context) {
+        String identifier = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.identifier), null);
         if (identifier == null) {
             identifier = RandomStrings.generate(256);
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putString(activity.getString(R.string.identifier), identifier).commit();
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.identifier), identifier).commit();
         }
         return identifier;
     }
 
-    public static String getDevicePass(Activity activity) {
-        String identifier = PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.pass), null);
+    public static String getDevicePass(Context context) {
+        String identifier = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pass), null);
         if (identifier == null) {
             identifier = RandomStrings.generate(256);
-            PreferenceManager.getDefaultSharedPreferences(activity).edit().putString(activity.getString(R.string.pass), identifier).commit();
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.pass), identifier).commit();
         }
         return identifier;
     }

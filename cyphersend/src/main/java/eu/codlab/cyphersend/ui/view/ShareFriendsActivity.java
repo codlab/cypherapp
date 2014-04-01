@@ -1,22 +1,12 @@
 package eu.codlab.cyphersend.ui.view;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
-import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
@@ -34,7 +24,7 @@ import eu.codlab.cyphersend.ui.listener.RequestSendListener;
 /**
  * Created by kevinleperf on 28/06/13.
  */
-public class ShareFriendsActivity extends Activity implements RequestSendListener, MessageSenderListener {
+public class ShareFriendsActivity extends FragmentActivity implements RequestSendListener, MessageSenderListener {
     private MainActivityDialogController _dialog_controller;
 
     private synchronized MainActivityDialogController getDialogController() {

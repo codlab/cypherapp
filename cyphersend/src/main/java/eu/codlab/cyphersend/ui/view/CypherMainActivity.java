@@ -1,30 +1,29 @@
 package eu.codlab.cyphersend.ui.view;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.content.Intent;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
-import java.security.KeyPair;
-import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.ArrayList;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
@@ -45,10 +44,8 @@ import eu.codlab.cyphersend.utils.AppNfc;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
 
-public class CypherMainActivity extends Activity
-        implements ActionBar.TabListener,
-        NfcAdapter.CreateNdefMessageCallback,
-        NfcAdapter.OnNdefPushCompleteCallback,
+public class CypherMainActivity extends ActionBarActivity
+    implements
         MessageSenderListener,
         MessageReceiveListener {
     private final static String CURRENT_SELECTED_TAB = "ActionbarSelected";
@@ -69,14 +66,16 @@ public class CypherMainActivity extends Activity
     }
 
     private void registerNfc() {
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (nfcAdapter == null) return;  // NFC not available on this device
-        nfcAdapter.setNdefPushMessageCallback(this, this);
-        nfcAdapter.setOnNdefPushCompleteCallback(this, this);
+        if(Build.VERSION.SDK_INT >= 14){
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            if (nfcAdapter == null) return;  // NFC not available on this device
+            nfcAdapter.setNdefPushMessageCallback(ndefCallback, this);
+            nfcAdapter.setOnNdefPushCompleteCallback(ndefCompleteCallback, this);
+        }
     }
 
     private void sendNfc() {
-        if (getController().hasKeys()) {
+        if (getController().hasKeys() && Build.VERSION.SDK_INT >= 14) {
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (nfcAdapter == null) return;  // NFC not available on this device
 
@@ -134,19 +133,59 @@ public class CypherMainActivity extends Activity
         intent.putExtra(android.content.Intent.EXTRA_TEXT, share_string);
         return intent;
     }
-    @Override
-    public NdefMessage createNdefMessage(NfcEvent event) {
 
-        NdefMessage nfcmessage = new NdefMessage(new NdefRecord[]{NdefRecord.createUri(getController().createUri(this))});
+    public class Pager extends FragmentStatePagerAdapter {
+        public Pager(FragmentManager fm) {
+            super(fm);
+        }
 
-        return nfcmessage;
+        @Override
+        public Fragment getItem(int i) {
+            return getController().getFragment(i);
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return "OBJECT " + (position + 1);
+        }
     }
 
+    Pager pager;
+    ViewPager mViewPager;
+
+    NfcAdapter.CreateNdefMessageCallback ndefCallback;
+    NfcAdapter.OnNdefPushCompleteCallback ndefCompleteCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(Build.VERSION.SDK_INT >= 14){
+            ndefCallback = new NfcAdapter.CreateNdefMessageCallback(){
+                @Override
+                public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
+                    NdefMessage nfcmessage = new NdefMessage(new NdefRecord[]{NdefRecord.createUri(getController().createUri(CypherMainActivity.this))});
+                    return nfcmessage;
+                }
+            };
+            ndefCompleteCallback = new NfcAdapter.OnNdefPushCompleteCallback(){
+                @Override
+                public void onNdefPushComplete(NfcEvent nfcEvent) {
+                    mHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
+                }
+            };
+        }
+        pager =
+                new Pager(
+                        getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(pager);
 
         Thread t = new Thread() {
             public void run() {
@@ -161,18 +200,51 @@ public class CypherMainActivity extends Activity
 
         //instantiate tab elements
 
-        ActionBar bar = getActionBar();
+        ActionBar bar = getSupportActionBar();
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         //bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
         bar.setDisplayHomeAsUpEnabled(false);
 
+        // Create a tab listener that is called when the user changes tabs.
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+            }
+        };
 
         bar.addTab(bar.newTab().setText(R.string.title_section_default)
-                .setTabListener(this));
+                .setTabListener(tabListener));
         bar.addTab(bar.newTab().setText(R.string.title_section_friends)
-                .setTabListener(this));
+                .setTabListener(tabListener));
         bar.addTab(bar.newTab().setText(R.string.title_section_help)
-                .setTabListener(this));
+                .setTabListener(tabListener));
+
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                getActionBar().setSelectedNavigationItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 
@@ -287,13 +359,6 @@ public class CypherMainActivity extends Activity
 
     private static final int MESSAGE_SENT = 1;
 
-    @Override
-    public void onNdefPushComplete(NfcEvent arg0) {
-        // A handler is needed to send messages to the activity when this
-        // callback occurs, because it happens from a binder thread
-        mHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
-    }
-
     /**
      * This handler receives a message from onNdefPushComplete
      */
@@ -325,7 +390,7 @@ public class CypherMainActivity extends Activity
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore the previously serialized current tab position.
         //if (isSmartphone() && savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-        getActionBar().setSelectedNavigationItem(
+        getSupportActionBar().setSelectedNavigationItem(
                 savedInstanceState.getInt(CURRENT_SELECTED_TAB));
         //}
     }
@@ -333,24 +398,7 @@ public class CypherMainActivity extends Activity
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // Serialize the current tab position.
-        outState.putInt(CURRENT_SELECTED_TAB, getActionBar().getSelectedNavigationIndex());
-    }
-
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab,
-                              FragmentTransaction fragmentTransaction) {
-        fragmentTransaction.replace(R.id.content, getController().getFragment(tab.getPosition()));//.commit();
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
+        outState.putInt(CURRENT_SELECTED_TAB, getSupportActionBar().getSelectedNavigationIndex());
     }
 
     //receive
