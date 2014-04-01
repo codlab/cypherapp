@@ -14,12 +14,17 @@ import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import java.security.KeyPair;
+import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.ArrayList;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
@@ -30,9 +35,15 @@ import eu.codlab.cyphersend.messages.listeners.MessageReceiveListener;
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageRead;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
+import eu.codlab.cyphersend.messages.model.content.MessageContent;
+import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.security.Base64Coder;
+import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
+import eu.codlab.cyphersend.utils.AppNfc;
+import eu.codlab.cyphersend.utils.MD5;
+import eu.codlab.cyphersend.utils.RandomStrings;
 
 public class CypherMainActivity extends Activity
         implements ActionBar.TabListener,
@@ -195,6 +206,7 @@ public class CypherMainActivity extends Activity
                 return true;
             case R.id.action_friends:
 
+                Log.d("information",MainActivityController.getDeviceIdentifier(this));
                 MessageReceiver receiver = new MessageReceiver(this,
                         MainActivityController.getDeviceURL(this),
                         Base64Coder.encodeString(MainActivityController.getDeviceIdentifier(this)),
@@ -345,16 +357,29 @@ public class CypherMainActivity extends Activity
 
     @Override
     public void onMessageReceived(MessageRead message) {
-        String signature = message.getSenderIdentifier();//new String(Base64Coder.encodeString(message.getSenderIdentifier()));
-        String decoded = message.decode(MainActivityController.getKeys(this).getPrivate());
+        String signature = message.getSenderIdentifier();
+        MessageContent decoded = message.decode(MainActivityController.getKeys(this).getPrivate());
+        String msg = "";
+
+        if(decoded instanceof MessageString){
+            msg = ((MessageString) decoded).getMessage();
+        }
+        Log.d("received message", message.toString());
+        Log.d("received message", message.getMessage());
+        Log.d("identifier", signature);
+        Log.d("received message", msg);
 
         DevicesController controller = DevicesController.getInstance(this);
-        Device device = controller.getDeviceFromSignature(signature, decoded);
+        Device device = controller.getDeviceFromSignature(signature, msg);
 
         if (device != null) {
-            getDialogController().createDialogReceivedMessage(device.getName(), decoded);
+            getDialogController().createDialogReceivedMessage(device.getName(), msg);
         } else {
-            getDialogController().createDialogReceivedMessage("Unknown!", decoded);
+            if (MD5.encode(msg).equals(CypherRSA.decrypt(Base64Coder.decode(signature), MainActivityController.getKeys(this).getPublic()))) {
+                getDialogController().createDialogReceivedMessage(MainActivityController.getDeviceName(this), msg);
+            }else{
+                getDialogController().createDialogReceivedMessage("Unknown!", msg);
+            }
         }
 
     }
@@ -394,11 +419,11 @@ public class CypherMainActivity extends Activity
      */
 
     public void onValidateMessageSend(Device device, String message) {
-        PublicKey key = device.getPublicKey();
         String idReceiver = Base64Coder.encodeString(device.getIdentifier());
+        PublicKey key = device.getPublicKey();//
 
-        MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver, message);
-        MessageSender sender = new MessageSender(this, device.getWebsite(), write);
+        MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver);
+        MessageSender sender = new MessageSender(this, device.getWebsite(), write, message);
         sender.send();
 
     }

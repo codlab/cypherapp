@@ -1,27 +1,38 @@
 package eu.codlab.cyphersend.messages.model;
 
+import android.util.Log;
+
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
+import eu.codlab.cyphersend.messages.model.content.MessageContent;
+import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
-import eu.codlab.cyphersend.utils.SHA;
+import eu.codlab.cyphersend.utils.MD5;
 
 /**
  * Created by kevinleperf on 29/06/13.
  */
 public class MessageWrite extends Message{
     protected PublicKey _public_key;
-    protected String _b64_sender_identifier;
+    protected PrivateKey _private_key;
+
     protected String _b64_receiver_identifier;
 
+    protected String _signature;
+    protected String _encoded;
 
-    public MessageWrite(PublicKey public_key, PrivateKey personal, String b64_receiver_identifier, String message){
+
+    public MessageWrite(PublicKey public_key, PrivateKey my_private, String b64_receiver_identifier){
+        setPrivateKey(my_private);
         setPublicKey(public_key);
-        setMessage(message);
-        setSenderIdentifier(new String(Base64Coder.encode(CypherRSA.encrypt(SHA.encode(_message), personal))));
         setReceiverIdentifier(b64_receiver_identifier);
+    }
+
+    private void setPrivateKey(PrivateKey key){
+        _private_key = key;
     }
 
     private void setPublicKey(PublicKey key){
@@ -32,12 +43,8 @@ public class MessageWrite extends Message{
         return _public_key;
     }
 
-    private void setSenderIdentifier(String b64_sender_identifier){
-        _b64_sender_identifier = b64_sender_identifier;
-    }
-
     public String getSenderIdentifier(){
-        return _b64_sender_identifier;
+        return _signature;
     }
 
     private void setReceiverIdentifier(String b64_receiver_identifier){
@@ -48,7 +55,16 @@ public class MessageWrite extends Message{
         return _b64_receiver_identifier;
     }
 
-    public String encode(){
-        return new String(Base64Coder.encode(CypherRSA.encrypt(Base64Coder.encodeString(getMessage()), getPublicKey())));
+    public void encodeMessage(String message){
+        MessageString msg = new MessageString(message);
+        _signature = new String(Base64Coder.encode(CypherRSA.encrypt(MD5.encode(message), _private_key)));
+        Log.d("having first", _signature);
+        String hash = CypherRSA.decrypt(Base64Coder.decode(_signature), getPublicKey()).replaceAll("\0", "");
+        Log.d("hash",hash);
+        _encoded = new String(Base64Coder.encode(CypherRSA.encrypt(Base64Coder.encodeString(msg.toJSON().toString()), getPublicKey())));
+    }
+
+    public  String getEncodedMessage(){
+        return _encoded;
     }
 }

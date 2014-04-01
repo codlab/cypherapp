@@ -27,7 +27,7 @@ public class SettingsActivityController {
     }
 
     public static String getDeviceURL(SettingsActivity activity) {
-        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "http://cypher.codlab.eu/");
+        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "https://cypher.codlab.eu/");
     }
 
     public static String getDeviceIdentifier(SettingsActivity activity) {

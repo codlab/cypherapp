@@ -13,4 +13,10 @@ abstract class Message {
     public String getMessage(){
         return _message;
     }
+
+    public static enum Type{
+        STRING,
+        IMAGE,
+        FILE
+    }
 }

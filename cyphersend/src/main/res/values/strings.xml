@@ -78,7 +78,7 @@
     <string name="register">register</string>
     <string name="register_force">register_force</string>
 
-    <string name="default_server">http://cypher.codlab.eu/</string>
+    <string name="default_server">https://cypher.codlab.eu/</string>
 
     <string name="dialog_message_register_title">Force new register</string>
     <string name="dialog_message_register_message_ok">You have been successfully registered to the server!</string>

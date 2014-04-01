@@ -17,6 +17,8 @@ import eu.codlab.cyphersend.messages.controller.MessageSender;
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageRead;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
+import eu.codlab.cyphersend.messages.model.content.MessageContent;
+import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
@@ -62,16 +64,22 @@ public class DecodeUrlActivity extends Activity {
 
             MessageRead read = new MessageRead("", "", split[idx]);
 
-            String decoded_msg = read.decode(MainActivityController.getKeys(this).getPrivate());
-            Log.d("signature",decoded_msg);
+            MessageContent decoded_msg = read.decode(MainActivityController.getKeys(this).getPrivate());
+
+            String msg = "";
+
+            if(decoded_msg instanceof MessageString){
+                msg = ((MessageString) decoded_msg).getMessage();
+            }
+
             String identifier = split[idx - 1];
 
-            Device device = controller.getDeviceFromSignature(identifier, decoded_msg);
+            Device device = controller.getDeviceFromSignature(identifier, msg);
 
             if (device != null) {
-                decoded.setText(decoded_msg);
-            }else{
                 decoded.setText(getString(R.string.not_suppose_to_be_this_device)+" "+decoded_msg);
+            }else{
+                decoded.setText(msg);
             }
         } else {
             finish();

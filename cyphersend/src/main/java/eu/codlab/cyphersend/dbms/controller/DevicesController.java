@@ -1,6 +1,7 @@
 package eu.codlab.cyphersend.dbms.controller;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import eu.codlab.cyphersend.dbms.internal.SGBD;
 import eu.codlab.cyphersend.dbms.model.Device;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
-import eu.codlab.cyphersend.utils.SHA;
+import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.utils.MD5;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -58,7 +60,7 @@ public class DevicesController {
      * @return
      */
     public Device getDeviceFromSignature(String signature, String decoded_message){
-        String decoded_message_hash = SHA.encode(decoded_message);
+        String decoded_message_hash = MD5.encode(decoded_message);
 
         ArrayList<Device> devices = getDevices();
         Device device = null;
@@ -66,9 +68,13 @@ public class DevicesController {
         if(devices != null){
             for(Device dev : devices){
                 Log.d("signature", new String(Base64Coder.decode(signature)));
-                String hash = new String(CypherRSA.decrypt(Base64Coder.decode(signature), dev.getPublicKey())).replaceAll("[^\\x01-\\x7F]", "");
-                Log.d("signature",decoded_message_hash);
-                Log.d("signature", hash);
+                Log.d("pub1", new String(Base64Coder.encode(dev.getPublicKey().getEncoded())) );
+                Log.d("pub2", new String(Base64Coder.encode(MainActivityController.getKeys(_context).getPublic().getEncoded())) );
+                String hash = CypherRSA.decrypt(Base64Coder.decode(signature), dev.getPublicKey()).replaceAll("\0", "");
+
+                //CypherRSA.decrypt(Base64Coder.decode(_signature), getPublicKey()).replaceAll("\0", "");
+
+                Log.d("hash",hash);
                 if(hash.equals(decoded_message_hash)){
                     device = dev;
                 }

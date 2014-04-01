@@ -2,8 +2,12 @@ package eu.codlab.cyphersend.messages.model;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.PrivateKey;
 
+import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 
@@ -19,6 +23,7 @@ public class MessageRead extends Message{
     public MessageRead(String b64_sender_identifier, String b64_receiver_identifier, String message){
         setSenderIdentifier(b64_sender_identifier);
         setReceiverIdentifier(b64_receiver_identifier);
+        Log.d("Having", message);
         setMessage(message);
     }
 
@@ -46,7 +51,14 @@ public class MessageRead extends Message{
         return _b64_receiver_identifier;
     }
 
-    public String decode(PrivateKey key){
-        return Base64Coder.decodeString(CypherRSA.decrypt(Base64Coder.decode(getMessage()), key).replaceAll("[^\\x01-\\x7F]", ""));
+    public MessageContent decode(PrivateKey key){
+        Log.d("having",CypherRSA.decrypt(Base64Coder.decode(getMessage()), key).replaceAll("\0", ""));
+        String result = Base64Coder.decodeString(CypherRSA.decrypt(Base64Coder.decode(getMessage()), key).replaceAll("\0", ""));
+        try {
+            return MessageContent.getMessageFromJSON(new JSONObject(result));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

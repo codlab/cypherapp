@@ -62,7 +62,7 @@ public class MainActivityController {
     }
 
     public static String getDeviceURL(Activity activity) {
-        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "http://cypher.codlab.eu/");
+        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "https://cypher.codlab.eu/");
     }
 
     public static String getDeviceIdentifier(Activity activity) {
@@ -145,4 +145,19 @@ public class MainActivityController {
     }
 
 
+    public static KeyPair getKeys(Context context) {
+        if (_keys == null) {
+            if (!CypherRSA.areKeysPresent(context)) {
+                _keys = CypherRSA.generateKey();
+                CypherRSA.saveKeyPair(context, _keys);
+            } else {
+                try {
+                    _keys = CypherRSA.loadKeyPair(context);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return _keys;
+    }
 }

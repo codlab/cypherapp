@@ -77,13 +77,25 @@ public class ShareFriendsActivity extends Activity implements RequestSendListene
 
     @Override
     public void onRequestSend(Device device){
+        String idSender = Base64Coder.encodeString(MainActivityController.getDeviceIdentifier(this));
         String idReceiver = Base64Coder.encodeString(device.getIdentifier());
+        Log.d("device key", device.getPublic());
         PublicKey key = device.getPublicKey();//
+        //PrivateKey pri = MainActivityController.getKeys(this).getPrivate();
+        Class c = key.getClass();
+        Log.d("name", c.getName());
+        // MainActivityController.getKeys(this).getPublic();
 
         String message_encoded = new String(Base64Coder.encode(CypherRSA.encrypt(_message, key)));
+        //String message_decoded = CypherRSA.decrypt(Base64Coder.decode(message_encoded), pri);
+        Log.d("original sender", idSender);
+        Log.d("original receiver", idReceiver);
+        Log.d("original message", _message);
+        Log.d("encoded message", message_encoded);
+        //Log.d("decoded message",message_decoded);
 
-        MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver, _message);
-        MessageSender sender = new MessageSender(this, device.getWebsite(), write);
+        MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver);
+        MessageSender sender = new MessageSender(this, device.getWebsite(), write, _message);
         sender.send();
     }
 

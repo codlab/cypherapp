@@ -16,6 +16,7 @@ import eu.codlab.cyphersend.messages.model.MessageWrite;
 public class MessageSender {
     private String _url;
     private MessageWrite _message;
+    private String _msg;
 
     private MessageSenderListener _listener;
 
@@ -35,8 +36,9 @@ public class MessageSender {
         if(!website.endsWith("/")){
             website += "/";
         }
+        _message.encodeMessage(_msg);
         website+="service/add/"+_message.getSenderIdentifier()
-                +"/"+_message.getReceiverIdentifier()+"/"+_message.encode();
+                +"/"+_message.getReceiverIdentifier()+"/"+_message.getEncodedMessage();
 
         Log.d("website", website);
         return website;
@@ -46,7 +48,7 @@ public class MessageSender {
 
         @Override
         protected Boolean doInBackground(String... website) {
-            URL url = null;
+            URL url;
             try {
                 url = new URL(createUriString(website[0]));
                 URLConnection urlConnection = url.openConnection();
@@ -74,9 +76,10 @@ public class MessageSender {
         }
     }
 
-    public MessageSender(MessageSenderListener listener, String url, MessageWrite message) {
+    public MessageSender(MessageSenderListener listener, String url, MessageWrite message, String msg) {
         _url = url;
         _message = message;
+        _msg = msg;
         setMessageSenderListener(listener);
     }
 
