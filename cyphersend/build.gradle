@@ -8,21 +8,6 @@ buildscript {
 }
 apply plugin: 'android'
 
-def getDefinedVersionName() {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'log', '-n', '1', '--pretty=format:"%H"'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim().replace("\"","")
-}
-
-def getVersionCode = { ->
-
-    def code = Math.round(new Date().getTime()/1000).toInteger()
-    println "VersionCode is set to $code"
-    return code
-}
 
 
 dependencies {
