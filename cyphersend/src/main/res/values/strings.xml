@@ -25,31 +25,20 @@
     <string name="title_section_friends">Friends/Devices</string>
     <string name="title_section_help">Help</string>
 
-    <string name="help_part_1_title">Register device for server transaction</string>
-    <string name="help_part_1_content">Registering your device is very easy. \n First of all, open the settings via the menu and set your device name (remember the fact to stay anonymous). Then set the server url if you use your own server. Remember to register the device to the server (in order to retrieve your messages from it).\n
-    And.... it\'s done. You\'re ready to receive messages (use the refresh button from the Actionbar)</string>
-    <string name="help_part_2_title">Sharing public data with friends</string>
+    <string name="help_part_1_title">Register device for server side transactions</string>
+    <string name="help_part_1_content">Registering your device is very easy BUT ABSOLUTELY NOT THE MOST IMPORTANT THING TO DO. \n First of all, open the settings via the menu and set your device name (remember the fact to stay anonymous). Then set the server url if you use your own server. Remember to register the device to the server (in order to retrieve your messages from it).\nAnd.... it\'s done. You\'re ready to receive messages (use the refresh button from the Actionbar).\nNote that you can also receive push notifications from Google (the GCM) by using the default server AND accepting to receive push notifications. pros and cons about these things are in the last part of this document.</string>
+    <string name="help_part_2_title">Share your public information</string>
     <string name="help_part_2_content">Don\'t forget to send to your friend your device public data : you can use Android Beam to share them OR use the button on the main screen to send them via a third party app.\n Once done, make sure your friend has your device name in his devices list from the second tab</string>
     <string name="help_part_3_title">Send message to friend\'s device</string>
-    <string name="help_part_3_content">Two way to send a message.\n
-    The first one is to select the device of your friend in the second tab and select it. Then type your message and validate. Your friend can now retrieve the message from the server.\n \n
-    Second possibility, when you are in a browser, mail etc... select the message to send, and choose the share option from them. You will see the icon of the app with the title you can send the message to a device server. Select this one (not the other one) and validate the device of your friend. Once again, validate and it\'s done.</string>
+    <string name="help_part_3_content">Two way to send a message.\nThe first one is to select the device of your friend in the second tab and select it. Then type your message and validate. Your friend can now retrieve the message from the server.\n \nSecond possibility, when you are in a browser, mail etc... select the message to send, and choose the share option from them. You will see the icon of the app with the title you can send the message to a device server. Select this one (not the other one) and validate the device of your friend. Once again, validate and it\'s done.</string>
     <string name="help_part_4_title">Send an encrypted message to a device via third party apps</string>
-    <string name="help_part_4_content">Last but not the least. The app also permits you to transfer from an app, a message, text etc... encrypt it and then select an app to transfer the desired message.\n
-    To do so, select a text in an app and then use the share ption from it.\n
-    Locate the app icon in the list with the title indicating the use of third party app\n
-    Then select your friend device, and click on the button on the right of it to send the encrypted message\n
-    Finally, select the final app to send this encrypted message. Your friend will now be able to receive the encrypted message from his mail, etc...</string>
+    <string name="help_part_4_content">Last but not the least. The app also permits you to transfer from an app, a message, text etc... encrypt it and then select an app to transfer the desired message.\nTo do so, select a text in an app and then use the share ption from it.\nLocate the app icon in the list with the title indicating the use of third party app\nThen select your friend device, and click on the button on the right of it to send the encrypted message\nFinally, select the final app to send this encrypted message. Your friend will now be able to receive the encrypted message from his mail, etc...</string>
     <string name="help_part_5_title">Notes</string>
-    <string name="help_part_5_content">Public infos are bounded to a device, not user\n
-    Using the force registering in the options will reset and create new public/private infos so your friends could not be able to send you messages you can unencrypt - remember to warn them\n
-    If you have multiple devices, you will be able to unencrypt a message only with the specified device! Not the other ones\n
-    \n Remember that the app was supposed to be used to keep privacy... so the sharing options are not supposed to be here to let you keep encrypted message, ensure to delete the mail/sms/everything which carried the message when read! Obviously, when you use the server update messages, the message are deleted server-side WHEN you retrieve them!</string>
+    <string name="help_part_5_content">Public infos are bounded to a device, not user so... when you change your device, you need to backup the information of your device if you want to restore/copy them to the new device.Warning : doing so will create a file on your sdcard (export.zip), you absolutely need to keep it secret, even if it is password protected, you can never trust any apps or anybody (even me and my apps...).\nUsing the force registering in the options will reset and create new public/private infos so your friends could not be able to send you messages you can unencrypt - remember to warn them\nIf you have multiple devices, you will be able to unencrypt a message only with the specified device! Not the other ones\n\n Remember that the app was supposed to be used to keep privacy... so the sharing options are not supposed to be here to let you keep encrypted message, ensure to delete the mail/sms/everything which carried the message when read! Obviously, when you use the server update messages, the message are deleted server-side WHEN you retrieve them!</string>
+    <string name="help_part_7_title">ProTips</string>
+    <string name="help_part_7_content">Never trust anybody you don\'t know when you receive a message.\nNever give someon the export.zip file or ALL your keys! Since the private key is obviously a key to keep secret - anyone with your keys will be able to send message and tell anyone he is yourself! Also the real time messenger available via GCM+my server is to use at your own risk.\n\nNote that when you use the GCM, Google will be able to know you possibly received a new content notification but will never be able to decode it since the encrypted information never pass through their servers.\nYou can obviously use the third party apps to be used as proxy, but remember that companies often only needs your metadata from your data : here it can be 1/ when did you send/receive a message. 2/ how long was the encrypted message! 3/ With who did you share the message?</string>
     <string name="help_part_6_title">Contact</string>
-    <string name="help_part_6_content">You can contact me directly here:\n
-    mail : codlabtech@gmail.com\n
-    twitter : http://twitter.com/codlab \n
-    web in general : search for codlab B)\n</string>
+    <string name="help_part_6_content">You can contact me directly here:\nmail : codlabtech@gmail.com\ntwitter : http://twitter.com/codlab \nweb in general : search for codlab B)\n</string>
 
     <string name="not_suppose_to_be_this_device">The message was not suppose to be decrypted by this device!</string>
 
@@ -77,6 +66,7 @@
     <string name="pass">pass</string>
     <string name="register">register</string>
     <string name="register_force">register_force</string>
+    <string name="gcm_settings">gcm</string>
 
     <string name="default_server">https://cypher.codlab.eu/</string>
 
@@ -111,4 +101,40 @@
 
     <string name="dialog_request_send_title">Message to send</string>
     <string name="dialog_request_send_message">Please provide the plain text message you want to send</string>
+
+    <string name="known_sender">Message sent from %s\n</string>
+    <string name="unknown_sender">Message sent from unknown sender</string>
+
+    <string name="gcm_title">New messages from the cloud</string>
+    <string name="gcm_message">Someone just send you a message. Click here to open the app and manually load the messages.</string>
+
+    <string name="settings_gcm_title">GCM Push Notification</string>
+    <string name="settings_gcm_summary">Accept the GCM notification</string>
+    <string name="settings_gcm_summary_on">You will be notify in real time</string>
+    <string name="settings_gcm_summary_off">You will not be notified</string>
+
+    <string name="no_info_title">Oups no settings detected</string>
+    <string name="no_info_text">You are currently using the default settings. You should edit the settings. Do you want to go to edit them?</string>
+
+    <string name="gcm_acceptance">Do you accept using the GCM service? Note that using it makes Google be aware of every notification of new messages BUT does not give Google the message</string>
+
+    <string name="keys_export_title">Export your keys</string>
+    <string name="keys_export_message">Export the keys into the file /sdcard/keys.zip</string>
+
+    <string name="keys_import_title">Import your keys</string>
+    <string name="keys_import_message">Import the keys from the /sdcard/keys.zip file</string>
+
+    <string name="keys_import">keys_import</string>
+    <string name="keys_export">keys_export</string>
+
+    <string name="keys_import_export">Manage your keys</string>
+
+    <string name="keys_input_export">Set a password to export your keys</string>
+    <string name="keys_input_import">Give the password you provided</string>
+    <string name="keys_import_error">Error while importing your keys</string>
+
+    <string name="error">Error !</string>
+
+    <string name="restart_app_title">Informations enregistrées</string>
+    <string name="restart_app_message">L\'application nécessite d\'être redémarrée. CLiquez sur OK pour relancer l\'app automatiquement.</string>
 </resources>

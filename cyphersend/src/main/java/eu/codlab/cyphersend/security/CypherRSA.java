@@ -46,6 +46,11 @@ public class CypherRSA {
         return x509EncodedKeySpec.getEncoded();
     }
 
+    public static byte [] exportPrivateKey(PrivateKey key){
+        PKCS8EncodedKeySpec x509EncodedKeySpec = new PKCS8EncodedKeySpec(key.getEncoded());
+        return x509EncodedKeySpec.getEncoded();
+    }
+
     public static PublicKey importPublicKey(byte[] encoded)
             throws NoSuchAlgorithmException,
             InvalidKeySpecException {
@@ -55,14 +60,27 @@ public class CypherRSA {
         return publicKey;
     }
 
-    public static void saveKeyPair(Context context, KeyPair keyPair) {
-        PrivateKey privateKey = keyPair.getPrivate();
-        PublicKey publicKey = keyPair.getPublic();
+    public static PrivateKey importPrivateKey(byte [] encoded)
+        throws NoSuchAlgorithmException,
+                InvalidKeySpecException {
+        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(encoded);
+            KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
+            PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+            return privateKey;
+    }
 
+    public static void saveKeyPublicPrivate(Context context, PublicKey publicKey, PrivateKey privateKey){
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(publicKey.getEncoded());
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
         context.getSharedPreferences("Context", 0).edit().putString("public", new String(Base64Coder.encode(x509EncodedKeySpec.getEncoded())))
                 .putString("private", new String(Base64Coder.encode(pkcs8EncodedKeySpec.getEncoded()))).commit();
+    }
+
+    public static void saveKeyPair(Context context, KeyPair keyPair) {
+        PrivateKey privateKey = keyPair.getPrivate();
+        PublicKey publicKey = keyPair.getPublic();
+
+        saveKeyPublicPrivate(context, publicKey, privateKey);
     }
 
     public static KeyPair loadKeyPair(Context context)

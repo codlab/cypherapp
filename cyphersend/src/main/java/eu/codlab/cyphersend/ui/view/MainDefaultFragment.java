@@ -1,5 +1,7 @@
 package eu.codlab.cyphersend.ui.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -38,6 +40,18 @@ public class MainDefaultFragment extends Fragment {
             }
         });
 
+        Button twitter = (Button)v.findViewById(R.id.main_follow);
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("twitter://user?screen_name=codlab"));
+                    startActivity(intent);
+                }catch (Exception e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://twitter.com/#!/codlab")));
+                }
+            }
+        });
         return v;
     }
 

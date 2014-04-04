@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.codlab.cyphersend"
     android:versionCode="1"
-    android:versionName="0.1" >
+    android:versionName="0.1">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -10,16 +10,28 @@
 
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="eu.codlab.cypher.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="eu.codlab.cypher.gcm.permission.C2D_MESSAGE" />
+
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
 
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-                android:name="eu.codlab.cyphersend.ui.view.CypherMainActivity"
-                android:label="@string/app_name" >
+            android:name="eu.codlab.cyphersend.ui.view.CypherMainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,40 +40,45 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="http"
-                      android:host="254.254.254.254"
-                      android:pathPrefix="/me"/>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="254.254.254.254"
+                    android:pathPrefix="/me"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
             android:name="eu.codlab.cyphersend.ui.view.DecodeUrlActivity"
             android:label="@string/app_name"
-            android:theme="@style/DialogTheme" >
+            android:theme="@style/DialogTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="http"
-                      android:host="254.254.254.254"
-                      android:pathPrefix="/decode"/>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="254.254.254.254"
+                    android:pathPrefix="/decode"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
-                android:name="eu.codlab.cyphersend.ui.view.SettingsActivity"
-                android:label="@string/app_name" >
-        </activity>
+            android:name="eu.codlab.cyphersend.ui.view.SettingsActivity"
+            android:label="@string/app_name"></activity>
         <activity
-                android:name="eu.codlab.cyphersend.ui.view.ShareFriendsActivity"
-                android:icon="@drawable/ic_encrypt"
-                android:label="@string/app_cypher_and_send"
-                android:theme="@style/DialogTheme" >
+            android:name="eu.codlab.cyphersend.ui.view.ShareFriendsActivity"
+            android:icon="@drawable/ic_encrypt"
+            android:label="@string/app_cypher_and_send"
+            android:theme="@style/DialogTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -69,16 +86,28 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="eu.codlab.cyphersend.ui.view.ShareThirdPartyFriendsActivity"
-                android:icon="@drawable/ic_third_party"
-                android:label="@string/app_cypher_and_apps"
-                android:theme="@style/DialogTheme" >
+            android:name="eu.codlab.cyphersend.ui.view.ShareThirdPartyFriendsActivity"
+            android:icon="@drawable/ic_third_party"
+            android:label="@string/app_cypher_and_apps"
+            android:theme="@style/DialogTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+
+        <receiver
+            android:name="eu.codlab.cyphersend.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="eu.codlab.cyphersend.gcm" />
+            </intent-filter>
+        </receiver>
+        <service android:name="eu.codlab.cyphersend.GcmIntentService" />
+
     </application>
 
 </manifest>

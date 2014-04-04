@@ -77,9 +77,9 @@ public class DecodeUrlActivity extends Activity {
             Device device = controller.getDeviceFromSignature(identifier, msg);
 
             if (device != null) {
-                decoded.setText(getString(R.string.not_suppose_to_be_this_device)+" "+decoded_msg);
+                decoded.setText(getString(R.string.known_sender).replace("%s", device.getName())+" "+msg);
             }else{
-                decoded.setText(msg);
+                decoded.setText(getString(R.string.unknown_sender)+" "+msg);
             }
         } else {
             finish();

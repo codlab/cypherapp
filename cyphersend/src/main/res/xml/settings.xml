@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/user_category">
         <EditTextPreference
-                android:key="@string/device"
-                android:title="@string/settings_device_title"
-                android:summary="@string/settings_device_summary">
-        </EditTextPreference>
+            android:key="@string/device"
+            android:summary="@string/settings_device_summary"
+            android:title="@string/settings_device_title"></EditTextPreference>
         <EditTextPreference
-                android:key="@string/website"
-                android:title="@string/settings_website_title"
-                android:defaultValue="@string/default_server"
-                android:summary="@string/settings_website_summary">
-        </EditTextPreference>
+            android:defaultValue="@string/default_server"
+            android:key="@string/website"
+            android:summary="@string/settings_website_summary"
+            android:title="@string/settings_website_title"></EditTextPreference>
 
     </PreferenceCategory>
 
 
     <PreferenceCategory android:title="@string/server_state_category">
         <Preference
-                android:key="@string/register"
-                android:title="@string/settings_register_title"
-                android:summary="@string/settings_register_summary">
-        </Preference>
-        <Preference
-                android:key="@string/register_force"
-                android:title="@string/settings_force_title"
-                android:summary="@string/settings_force_summary">
-        </Preference>
+            android:key="@string/register"
+            android:summary="@string/settings_register_summary"
+            android:title="@string/settings_register_title"></Preference>
+        <CheckBoxPreference
+            android:key="@string/gcm_settings"
+            android:summary="@string/settings_gcm_summary"
+            android:summaryOff="@string/settings_gcm_summary_off"
+            android:summaryOn="@string/settings_gcm_summary_on"
+            android:title="@string/gcm_title" />
+    </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/keys_import_export">
+        <Preference
+            android:key="@string/keys_export"
+            android:summary="@string/keys_export_message"
+            android:title="@string/keys_export_title"></Preference>
+        <Preference
+            android:key="@string/keys_import"
+            android:summary="@string/keys_import_message"
+            android:title="@string/keys_import_title"></Preference>
     </PreferenceCategory>
 </PreferenceScreen>

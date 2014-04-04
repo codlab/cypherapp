@@ -1,5 +1,12 @@
 package eu.codlab.cyphersend.ui.view;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -23,6 +30,11 @@ import android.view.MenuItem;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
 import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
@@ -37,9 +49,14 @@ import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.security.Base64Coder;
+import eu.codlab.cyphersend.security.Cypher;
 import eu.codlab.cyphersend.security.CypherRSA;
+import eu.codlab.cyphersend.settings.controller.GCMServerRegister;
+import eu.codlab.cyphersend.settings.controller.ServerRegister;
+import eu.codlab.cyphersend.settings.listener.GCMServerRegisterListener;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
+import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.utils.AppNfc;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
@@ -47,7 +64,14 @@ import eu.codlab.cyphersend.utils.RandomStrings;
 public class CypherMainActivity extends ActionBarActivity
     implements
         MessageSenderListener,
-        MessageReceiveListener {
+        MessageReceiveListener, GCMServerRegisterListener {
+    private String regId;
+    GoogleCloudMessaging gcm;
+    public static final String EXTRA_MESSAGE = "message";
+    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
+    String SENDER_ID = "85511368887";
+
     private final static String CURRENT_SELECTED_TAB = "ActionbarSelected";
 
     private MainActivityController _controller;
@@ -64,6 +88,8 @@ public class CypherMainActivity extends ActionBarActivity
         if (_dialog_controller == null) _dialog_controller = new MainActivityDialogController(this);
         return _dialog_controller;
     }
+
+    private AlertDialog _alert;
 
     private void registerNfc() {
         if(Build.VERSION.SDK_INT >= 14){
@@ -90,6 +116,21 @@ public class CypherMainActivity extends ActionBarActivity
     public void onRequestShare(){
         Intent intent = getShareIntent();
         startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+
+    }
+
+    @Override
+    public void onRegisterOk() {
+
+    }
+
+    @Override
+    public void onRegisterKo() {
+
+    }
+
+    @Override
+    public void onRegisterTimeout() {
 
     }
 
@@ -237,7 +278,7 @@ public class CypherMainActivity extends ActionBarActivity
 
             @Override
             public void onPageSelected(int position) {
-                getActionBar().setSelectedNavigationItem(position);
+                getSupportActionBar().setSelectedNavigationItem(position);
             }
 
             @Override
@@ -278,11 +319,11 @@ public class CypherMainActivity extends ActionBarActivity
                 return true;
             case R.id.action_friends:
 
-                Log.d("information",MainActivityController.getDeviceIdentifier(this));
+                Log.d("information",SettingsActivityController.getDeviceIdentifier(this));
                 MessageReceiver receiver = new MessageReceiver(this,
-                        MainActivityController.getDeviceURL(this),
-                        Base64Coder.encodeString(MainActivityController.getDeviceIdentifier(this)),
-                        Base64Coder.encodeString(MainActivityController.getDevicePass(this))
+                        SettingsActivityController.getDeviceURL(this),
+                        Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this)),
+                        Base64Coder.encodeString(SettingsActivityController.getDevicePass(this))
                 );
                 receiver.retrieve();
                 return true;
@@ -294,6 +335,40 @@ public class CypherMainActivity extends ActionBarActivity
     public void onResume() {
         registerNfc();
         super.onResume();
+
+        if(SettingsActivityController.isDeviceNameSet(this) == false){
+            if(_alert == null){
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        this);
+
+                // set title
+                alertDialogBuilder.setTitle("Your Title");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setTitle(getString(R.string.no_info_title))
+                        .setMessage(getString(R.string.no_info_text))
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                Intent intent = new Intent(CypherMainActivity.this, SettingsActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+
+                // create alert dialog
+                _alert = alertDialogBuilder.create();
+                _alert.show();
+            }
+        }
 
         try {
             getDialogController().onResume();
@@ -323,11 +398,36 @@ public class CypherMainActivity extends ActionBarActivity
 
         };
         t.run();
+
+        checkAndOrStartGCM();
+
+    }
+
+
+    private void checkAndOrStartGCM(){
+        if (SettingsActivityController.getGCMAccepted(this) && checkPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(this);
+            regId = getRegistrationId(this);
+
+            if ("".equals(regId)) {
+                registerInBackground();
+            }else{
+                Log.d("having version","regId "+regId);
+                sendRegistrationIdToBackend();
+            }
+        } else {
+            Log.i("-", "No valid Google Play Services APK found.");
+        }
     }
 
     @Override
     public void onPause() {
+        if(_alert != null){
+            _alert.dismiss();
+            _alert = null;
+        }
         super.onPause();
+
 
         try {
             getDialogController().onPause();
@@ -424,7 +524,7 @@ public class CypherMainActivity extends ActionBarActivity
             getDialogController().createDialogReceivedMessage(device.getName(), msg);
         } else {
             if (MD5.encode(msg).equals(CypherRSA.decrypt(Base64Coder.decode(signature), MainActivityController.getKeys(this).getPublic()))) {
-                getDialogController().createDialogReceivedMessage(MainActivityController.getDeviceName(this), msg);
+                getDialogController().createDialogReceivedMessage(SettingsActivityController.getDeviceName(this), msg);
             }else{
                 getDialogController().createDialogReceivedMessage("Unknown!", msg);
             }
@@ -475,4 +575,118 @@ public class CypherMainActivity extends ActionBarActivity
         sender.send();
 
     }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        9000).show();
+            } else {
+                Log.i("-", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private String getRegistrationId(Context context) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+        if ("".equals(registrationId) || registrationId == null || registrationId.trim().length() == 0) {
+            Log.i("-", "Registration not found.");
+            return "";
+        }
+        // Check if app was updated; if so, it must clear the registration ID
+        // since the existing regID is not guaranteed to work with the new
+        // app version.
+        int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+        int currentVersion = getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            Log.i("-", "App version changed.");
+            return "";
+        }
+        return registrationId;
+    }
+
+    private SharedPreferences getGCMPreferences(Context context) {
+        // This sample app persists the registration ID in shared preferences, but
+        // how you store the regID in your app is up to you.
+        return getSharedPreferences(this.getPackageName(),
+                Context.MODE_PRIVATE);
+    }
+
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+    private void registerInBackground() {
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(CypherMainActivity.this);
+                    }
+                    regId = gcm.register(SENDER_ID);
+                    msg = "Device registered, registration ID=" + regId;
+                    Log.d("sending notification"," ");
+                    // You should send the registration ID to your server over HTTP,
+                    // so it can use GCM/HTTP or CCS to send messages to your app.
+                    // The request to your server should be authenticated if your app
+                    // is using accounts.
+                    sendRegistrationIdToBackend();
+
+                    // For this demo: we don't need to send it because the device
+                    // will send upstream messages to a server that echo back the
+                    // message using the 'from' address in the message.
+
+                    // Persist the regId - no need to register again.
+                    storeRegistrationId(CypherMainActivity.this, regId);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    msg = "Error :" + ex.getMessage();
+                    // If there is an error, don't just keep trying to register.
+                    // Require the user to click a button again, or perform
+                    // exponential back-off.
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String v) {
+                return;
+            }
+        }.execute(null, null, null);
+    }
+
+    private void sendRegistrationIdToBackend(){
+        String regId = this.regId;
+
+        String identifier = Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this));
+        String pass = Base64Coder.encodeString(SettingsActivityController.getDevicePass(this));
+        String website = SettingsActivityController.getDeviceURL(this);
+        GCMServerRegister register = new GCMServerRegister(this, website, identifier, pass, regId);
+        register.send();
+    }
+
+    private void storeRegistrationId(Context context, String regId) {
+        final SharedPreferences prefs = getGCMPreferences(context);
+        int appVersion = getAppVersion(context);
+        Log.i("-", "Saving regId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.commit();
+    }
+
 }

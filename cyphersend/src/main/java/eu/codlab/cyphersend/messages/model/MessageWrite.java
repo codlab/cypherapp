@@ -59,8 +59,6 @@ public class MessageWrite extends Message{
         MessageString msg = new MessageString(message);
         _signature = new String(Base64Coder.encode(CypherRSA.encrypt(MD5.encode(message), _private_key)));
         Log.d("having first", _signature);
-        String hash = CypherRSA.decrypt(Base64Coder.decode(_signature), getPublicKey()).replaceAll("\0", "");
-        Log.d("hash",hash);
         _encoded = new String(Base64Coder.encode(CypherRSA.encrypt(Base64Coder.encodeString(msg.toJSON().toString()), getPublicKey())));
     }
 

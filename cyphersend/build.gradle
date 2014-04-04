@@ -29,6 +29,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:19.0.1"
     compile "com.android.support:support-v13:19.0.1+"
     compile files('libs/zip4j_1.3.2.jar')
+    compile "com.google.android.gms:play-services:3.1.+"
 }
 
 android {
@@ -36,9 +37,25 @@ android {
     buildToolsVersion "19.0.1"
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 19
         versionCode getVersionCode()
         versionName getDefinedVersionName()
+    }
+
+
+    signingConfigs {
+        debug {
+            storeFile file(PATH)
+            storePassword MDP
+            keyAlias ALIAS
+            keyPassword MDP
+        }
+        release {
+            storeFile file(PATH)
+            storePassword MDP
+            keyAlias ALIAS
+            keyPassword MDP
+        }
     }
 }

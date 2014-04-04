@@ -19,6 +19,7 @@ import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
+import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
 
 /**
@@ -67,7 +68,7 @@ public class ShareFriendsActivity extends FragmentActivity implements RequestSen
 
     @Override
     public void onRequestSend(Device device){
-        String idSender = Base64Coder.encodeString(MainActivityController.getDeviceIdentifier(this));
+        String idSender = Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this));
         String idReceiver = Base64Coder.encodeString(device.getIdentifier());
         Log.d("device key", device.getPublic());
         PublicKey key = device.getPublicKey();//

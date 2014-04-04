@@ -60,31 +60,6 @@ public class MainActivityController {
 
     private static KeyPair _keys;
 
-    public static String getDeviceName(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.device), "device");
-    }
-
-    public static String getDeviceURL(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.website), "https://cypher.codlab.eu/");
-    }
-
-    public static String getDeviceIdentifier(Context context) {
-        String identifier = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.identifier), null);
-        if (identifier == null) {
-            identifier = RandomStrings.generate(256);
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.identifier), identifier).commit();
-        }
-        return identifier;
-    }
-
-    public static String getDevicePass(Context context) {
-        String identifier = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pass), null);
-        if (identifier == null) {
-            identifier = RandomStrings.generate(256);
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.pass), identifier).commit();
-        }
-        return identifier;
-    }
 
     public static String getDevicePublicKey(Activity activity) {
         return new String(Base64Coder.encode(CypherRSA.exportPublicKey(getKeys(activity).getPublic())));
@@ -96,11 +71,11 @@ public class MainActivityController {
 
     public String createUriString(Activity activity){
         return "http://254.254.254.254/me/"
-                + Base64Coder.encodeString(getDeviceName(activity))
+                + Base64Coder.encodeString(SettingsActivityController.getDeviceName(activity))
                 + "/"
-                + Base64Coder.encodeString(getDeviceURL(activity))
+                + Base64Coder.encodeString(SettingsActivityController.getDeviceURL(activity))
                 + "/"
-                + Base64Coder.encodeString(getDeviceIdentifier(activity))
+                + Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(activity))
                 + "/"
                 + getDevicePublicKey(activity)
                 + "/";
