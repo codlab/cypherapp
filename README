@@ -1,0 +1,126 @@
+This project is here to provide example of public/private keys based on RSA in an Android Java project.
+
+It is not intended to be weaponized and put in nuclear nuke missiles (yeah, I don't complain with US EUA but they are really funny,
+you should go to read some :p ... also look at those in your country, you have some great lawyer and politicians :') )
+
+but by the way, the app is mostly here for educationnal purposes, I really enjoyed creating this little app - who said that it was because
+I didn't like seeing that the "great" SnapChat like which told us they were destroying instant messages and was simply ... storing them server side?
+
+Yeah yeah still complaining... Let's go into the best part of this README, the PROJECT !
+
+So What do we have here?
+
+The project is based on the RSA protocol, a private key / public key cyphering method.
+
+What it does is quite simple to understand but the underlying Maths being is quite more tricky (but you still don't need to have a PhD
+or similar to understand it btw :)  )
+What are the predicates? You and someone wants to share some messages, well it is ok, you want to cypher it with :
+- a way to keep the message secret
+- be sure your friend will know you sent it
+- wants to make it hard for an attacker or someone else to find the original message (by hard, I mean, you don't want he reads it B) )
+
+ENCRYPTION
+
+OK then, how you cypher and decypher a message :
+you have a public key, pubY and you have a private key privY
+your friend have a public key, pubF, and a private key privF
+
+What are the scanerii?
+You have your friend public key, pubF - ALSO MAKE SURE HE GAVE IT AND NOBODY DOES (to prevent Man In The Middle)
+Your friend have yours, pubY
+
+you create a message, you cypher it with your friends's key and your friend use his private key to decypher it
+msg -> msg^pubF = msg_cyphered       msg_cyphered -> msg_cyphered^privF = msg
+simply because the msg^pubF^privF = msg    (applying the function with pubF and then privF simply returns the clear message)
+
+Do you know understand why it is important to keep the private key secret? Since you are likely to give your public key ;)
+
+SIGNATUREEEEESSSSSS
+
+But in this case how to give a signature to the message to let your friend be sure you send the message?
+
+Well it is very simple here too. What does your friend have ? Your public key !
+What do you have? Your private key (cap'tain obvious?)
+
+in the first scenario, when you sent your message, the following was applied :
+msg ^ pubF ^ privF to give the msg in plain texte
+
+So what about know the possibility to add :
+cyphered message to send : message ^ pubF = cyphered
+signature to send        : message ^ privY = signature1
+
+your friend will receive : (cyphered, signature1)
+know he can do the following :
+
+clear :         cyphered ^ privF = message
+signature_clear signature1 ^ pubY = message
+
+He can now compare if the decyphered signature is equal to the clear message, if so he knows you sent the message B)
+
+BUT WHAT IF SOMEONE INTERCEPTED THE (cyphered, signature) AND KNOWS YOUR PUBLIC KEY ?
+
+Simple...
+
+he can do : signature ^ pubY = message and ... ouch ... he has the clear text :s
+
+Not that cool...
+
+How can we prevent someone else to use the signature to have the message in clear ?
+
+Easy one :)
+
+We will use non reversible functions this means :
+you have an entry text, you use a function on it and then ... you can't use any other function which applied to the result of the first
+to have the the entry text.
+Let's say :
+We note F the function to apply on a text which gives :
+F : msg -> hash
+
+We can't have (G = F^-1):
+G : hash -> msg
+
+You have this kind of result with md5, sha1, etc...
+
+Know we apply this following in our algorithm:
+You send:
+cyphered_message = message ^ pubF
+signature_msg    = hash(message) ^ privY
+
+==> (cyphered, signature)
+
+Your friend receive this and does :
+cyphered ^ privF = message
+signature ^ pubY = some_hash
+and finally compare hash(message) and some_hash -- if they are equals : a knows he received a text (message) from you and nobody else
+
+
+BUT BE CAREFULL
+
+This thing can only work if :
+- you keep your private key secret !
+- be always suspicious about what you read since it is possible algorithms can give information (if you cypher a text of 10 words and
+a text of 40, an attacker can know you send one message which is longer than the previous one) -- he can't read it but can deduce some
+information
+- be sure about what you do in general, never give anyone access to secret information (remember what your parents tell you about
+strangers, most are not dangerous but you can fell on an NSA ag... sorry on a malicious person)
+
+
+About the Android part.
+
+Well this project uses those features :
+
+- the Google Cloud Messaging service which permits my own server to send you notification when you can refresh your awaiting messages
+- Fragments, they are powerful, not difficult to use, so let's play with them!
+- gradle (functions and variables used in the project, have a look ;) - i'm also preparing some sort of book about Gradle)
+- zip compression using an alternate library (which provides password management)
+- Android Beam with NFC enabled functions (I'm preparing a Android KitKat HCE feature to use on enabled device also)
+
+CONTACTS
+
+You can contact me :
+twitter = @codlab
+m@il = codlabtech___gmail.com
+
+or the web : codlab // Kévin Le Perf
+
+
