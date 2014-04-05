@@ -1,14 +1,11 @@
 package eu.codlab.cyphersend.utils.keys;
 
 import android.content.Context;
-import android.util.Log;
 
 import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -106,8 +103,6 @@ public class KeyManager {
                 }catch(Exception ee){}
 
                 outZip.delete();
-                Log.d("MainActivity", lines.toString());
-
 
                 String [] split = lines.toString().split(";");
                 if(split.length == 6){
@@ -123,7 +118,6 @@ public class KeyManager {
                 }
 
             }else{
-                Log.d("MainActivity","does not exist");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,8 +1,6 @@
 package eu.codlab.cyphersend.dbms.controller;
 
 import android.content.Context;
-import android.util.Base64;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -68,19 +66,12 @@ public class DevicesController {
         if(devices != null){
             for(Device dev : devices){
                 try {
-                    Log.d("signature", new String(Base64Coder.decode(signature)));
-                    Log.d("pub1", new String(Base64Coder.encode(dev.getPublicKey().getEncoded())));
-                    Log.d("pub2", new String(Base64Coder.encode(MainActivityController.getKeys(_context).getPublic().getEncoded())));
                     String hash = CypherRSA.decrypt(Base64Coder.decode(signature), dev.getPublicKey()).replaceAll("\0", "");
-
-                    //CypherRSA.decrypt(Base64Coder.decode(_signature), getPublicKey()).replaceAll("\0", "");
-
-                    Log.d("hash", hash);
                     if (hash.equals(decoded_message_hash)) {
                         device = dev;
                     }
                 }catch(Exception e){
-
+                    //this was not the good public key...
                 }
             }
         }

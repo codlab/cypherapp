@@ -3,22 +3,16 @@ package eu.codlab.cyphersend.ui.controller;
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 
 import java.security.KeyPair;
 
-import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.view.MainDefaultFragment;
 import eu.codlab.cyphersend.ui.view.MainFriendsFragment;
 import eu.codlab.cyphersend.ui.view.MainHelpFragment;
-import eu.codlab.cyphersend.utils.RandomStrings;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -83,7 +77,6 @@ public class MainActivityController {
 
     public boolean onNewUri(Context context, Uri uri){
         if(uri != null){
-            Log.d("path", uri.getPath());
             String [] splitted = uri.getPath().split("/");
             if(splitted.length >= 6){
                 String device_name = Base64Coder.decodeString(splitted[2]);

@@ -53,10 +53,8 @@ public class Device {
             return false;
         }else{
             if(object instanceof Device){
-                Log.d("equals?", "! "+_name + " " + ((Device) object).getName());
                 return _name != null && _name.equals(((Device) object).getName());
             }else if(object instanceof String){
-                Log.d("equals?", "> "+_name + " " + ((String) object));
                 return _name != null && _name.equals((String)object);
             }
         }

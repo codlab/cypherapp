@@ -1,15 +1,11 @@
 package eu.codlab.cyphersend.messages.model;
 
-import android.util.Log;
-
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.utils.MD5;
 
 /**
@@ -58,7 +54,6 @@ public class MessageWrite extends Message{
     public void encodeMessage(String message){
         MessageString msg = new MessageString(message);
         _signature = new String(Base64Coder.encode(CypherRSA.encrypt(MD5.encode(message), _private_key)));
-        Log.d("having first", _signature);
         _encoded = new String(Base64Coder.encode(CypherRSA.encrypt(Base64Coder.encodeString(msg.toJSON().toString()), getPublicKey())));
     }
 

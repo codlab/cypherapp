@@ -2,10 +2,8 @@ package eu.codlab.cyphersend.security;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;

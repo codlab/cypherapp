@@ -2,7 +2,6 @@ package eu.codlab.cyphersend.settings.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -14,7 +13,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import eu.codlab.cyphersend.settings.listener.GCMServerRegisterListener;
-import eu.codlab.cyphersend.settings.listener.ServerRegisterListener;
 
 public class GCMServerRegister {
     private String _url;
@@ -43,7 +41,6 @@ public class GCMServerRegister {
         website += "service/register_gcm/" + _identifier
                 + "/" + _pass+"/"+_regId;
 
-        Log.d("website", website);
         return website;
 
     }
@@ -69,7 +66,6 @@ public class GCMServerRegister {
                     read = br.readLine();
                 }
 
-                Log.d("url received", sb.toString() + "");
                 JSONObject object = new JSONObject(sb.toString());
 
                 return object != null && object.has("output") && "ok".equals(object.optString("output",null));

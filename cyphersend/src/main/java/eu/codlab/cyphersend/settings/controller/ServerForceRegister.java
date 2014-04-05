@@ -2,9 +2,7 @@ package eu.codlab.cyphersend.settings.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -14,9 +12,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
-import eu.codlab.cyphersend.messages.model.MessageRead;
-import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.settings.listener.ServerForceRegisterListener;
 
 public class ServerForceRegister {
@@ -45,7 +40,6 @@ public class ServerForceRegister {
         website += "service/register/" + _identifier
                 + "/" + _pass;
 
-        Log.d("website", website);
         return website;
 
     }
@@ -71,7 +65,6 @@ public class ServerForceRegister {
                     read = br.readLine();
                 }
 
-                Log.d("url received", sb.toString() + "");
                 JSONObject object = new JSONObject(sb.toString());
 
                 return object != null && object.has("output") && "ok".equals(object.optString("output",null));

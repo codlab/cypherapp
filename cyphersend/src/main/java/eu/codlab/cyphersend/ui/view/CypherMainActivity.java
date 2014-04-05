@@ -24,7 +24,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ShareActionProvider;
@@ -49,17 +48,13 @@ import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.security.Base64Coder;
-import eu.codlab.cyphersend.security.Cypher;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.settings.controller.GCMServerRegister;
-import eu.codlab.cyphersend.settings.controller.ServerRegister;
 import eu.codlab.cyphersend.settings.listener.GCMServerRegisterListener;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
-import eu.codlab.cyphersend.utils.AppNfc;
 import eu.codlab.cyphersend.utils.MD5;
-import eu.codlab.cyphersend.utils.RandomStrings;
 
 public class CypherMainActivity extends ActionBarActivity
     implements
@@ -318,8 +313,6 @@ public class CypherMainActivity extends ActionBarActivity
                 startActivity(intent);
                 return true;
             case R.id.action_friends:
-
-                Log.d("information",SettingsActivityController.getDeviceIdentifier(this));
                 MessageReceiver receiver = new MessageReceiver(this,
                         SettingsActivityController.getDeviceURL(this),
                         Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this)),
@@ -412,11 +405,9 @@ public class CypherMainActivity extends ActionBarActivity
             if ("".equals(regId)) {
                 registerInBackground();
             }else{
-                Log.d("having version","regId "+regId);
                 sendRegistrationIdToBackend();
             }
         } else {
-            Log.i("-", "No valid Google Play Services APK found.");
         }
     }
 
@@ -512,10 +503,6 @@ public class CypherMainActivity extends ActionBarActivity
         if(decoded instanceof MessageString){
             msg = ((MessageString) decoded).getMessage();
         }
-        Log.d("received message", message.toString());
-        Log.d("received message", message.getMessage());
-        Log.d("identifier", signature);
-        Log.d("received message", msg);
 
         DevicesController controller = DevicesController.getInstance(this);
         Device device = controller.getDeviceFromSignature(signature, msg);
@@ -583,7 +570,6 @@ public class CypherMainActivity extends ActionBarActivity
                 GooglePlayServicesUtil.getErrorDialog(resultCode, this,
                         9000).show();
             } else {
-                Log.i("-", "This device is not supported.");
                 finish();
             }
             return false;
@@ -595,7 +581,6 @@ public class CypherMainActivity extends ActionBarActivity
         final SharedPreferences prefs = getGCMPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
         if ("".equals(registrationId) || registrationId == null || registrationId.trim().length() == 0) {
-            Log.i("-", "Registration not found.");
             return "";
         }
         // Check if app was updated; if so, it must clear the registration ID
@@ -604,7 +589,6 @@ public class CypherMainActivity extends ActionBarActivity
         int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
-            Log.i("-", "App version changed.");
             return "";
         }
         return registrationId;
@@ -639,7 +623,6 @@ public class CypherMainActivity extends ActionBarActivity
                     }
                     regId = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regId;
-                    Log.d("sending notification"," ");
                     // You should send the registration ID to your server over HTTP,
                     // so it can use GCM/HTTP or CCS to send messages to your app.
                     // The request to your server should be authenticated if your app
@@ -682,7 +665,6 @@ public class CypherMainActivity extends ActionBarActivity
     private void storeRegistrationId(Context context, String regId) {
         final SharedPreferences prefs = getGCMPreferences(context);
         int appVersion = getAppVersion(context);
-        Log.i("-", "Saving regId on app version " + appVersion);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);

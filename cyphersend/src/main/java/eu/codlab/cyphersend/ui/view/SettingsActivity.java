@@ -13,9 +13,6 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import java.security.Key;
-import java.security.PublicKey;
-
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;

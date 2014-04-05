@@ -2,11 +2,9 @@ package eu.codlab.cyphersend.messages.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 

@@ -3,28 +3,18 @@ package eu.codlab.cyphersend.ui.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
 import eu.codlab.cyphersend.dbms.model.Device;
-import eu.codlab.cyphersend.messages.controller.MessageSender;
-import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageRead;
-import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.messages.model.content.MessageString;
-import eu.codlab.cyphersend.security.Base64Coder;
-import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
-import eu.codlab.cyphersend.ui.listener.RequestSendListener;
 
 /**
  * Created by kevinleperf on 28/06/13.

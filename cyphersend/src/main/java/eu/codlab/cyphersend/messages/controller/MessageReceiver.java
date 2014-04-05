@@ -2,7 +2,6 @@ package eu.codlab.cyphersend.messages.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,12 +13,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 
 import eu.codlab.cyphersend.messages.listeners.MessageReceiveListener;
 import eu.codlab.cyphersend.messages.model.MessageRead;
-import eu.codlab.cyphersend.security.Base64Coder;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
 
 /**
  * Created by kevinleperf on 29/06/13.
@@ -49,7 +45,6 @@ public class MessageReceiver{
         }
         website+="service/list/"+_identifier+"/"+_pass;
 
-        Log.d("website", website);
         return website;
 
     }
@@ -78,7 +73,6 @@ public class MessageReceiver{
 
                 }
 
-                Log.d("url received", sb.toString()+"");
                 JSONArray array = new JSONArray(sb.toString());
 
                 if(array.length() > 0){
