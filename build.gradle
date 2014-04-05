@@ -7,9 +7,14 @@ def getDefinedVersionName() {
     return stdout.toString().trim().replace("\"","")
 }
 
-def getVersionCode = { ->
-
+def getVersionCode() {
     def code = Math.round(new Date().getTime()/1000).toInteger()
     println "VersionCode is set to $code"
     return code
 }
+
+PATH=
+ALIAS=
+MDP=
+
+
