@@ -1,29 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
-    }
-}
 apply plugin: 'android'
-
-
-def getDefinedVersionName() {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'log', '-n', '1', '--pretty=format:"%H"'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim().replace("\"","")
-}
-
-def getVersionCode = { ->
-
-    def code = Math.round(new Date().getTime()/1000).toInteger()
-    println "VersionCode is set to $code"
-    return code
-}
 
 dependencies {
     compile "com.android.support:appcompat-v7:19.0.1"
@@ -39,7 +14,7 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 19
-        versionCode getVersionCode()
+        versionCode getDefinedVersionCode()
         versionName getDefinedVersionName()
     }
 
@@ -58,4 +33,15 @@ android {
             keyPassword MDP
         }
     }
+
+    productFlavors {
+        android {
+            buildConfigField "String", "DONATION_BITCOIN" ,"\"1NFa375dWNT7hLTdAd8sr1YQHzmYU9PjSQ\""
+        }
+    }
+
+}
+
+dependencies {
+    compile project(':bitcoin')
 }

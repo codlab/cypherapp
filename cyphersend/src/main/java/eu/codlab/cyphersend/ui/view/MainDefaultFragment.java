@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import de.schildbach.wallet.integration.android.BitcoinIntegration;
+import eu.codlab.cyphersend.BuildConfig;
 import eu.codlab.cyphersend.R;
 
 /**
@@ -49,6 +51,18 @@ public class MainDefaultFragment extends Fragment {
                     startActivity(intent);
                 }catch (Exception e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://twitter.com/#!/codlab")));
+                }
+            }
+        });
+
+        Button donate = (Button)v.findViewById(R.id.main_donate);
+        donate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+
+                    BitcoinIntegration.requestForResult(MainDefaultFragment.this.getActivity(), 42, BuildConfig.DONATION_BITCOIN);
+                }catch (Exception e) {
                 }
             }
         });

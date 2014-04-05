@@ -38,7 +38,6 @@ public class MessageSender {
         website+="service/add/"+_message.getSenderIdentifier()
                 +"/"+_message.getReceiverIdentifier()+"/"+_message.getEncodedMessage();
 
-        Log.d("website", website);
         return website;
 
     }

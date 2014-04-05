@@ -34,5 +34,14 @@
             android:background="#dddddd"
             android:text="@string/follow_me"/>
 
+    <Button
+        android:fontFamily="@string/font"
+        android:id="@+id/main_donate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:background="#dddddd"
+        android:text="@string/bitcoin_donate"/>
 
 </LinearLayout>

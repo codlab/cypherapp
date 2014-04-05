@@ -137,4 +137,6 @@
 
     <string name="restart_app_title">Informations enregistrées</string>
     <string name="restart_app_message">L\'application nécessite d\'être redémarrée. CLiquez sur OK pour relancer l\'app automatiquement.</string>
+
+    <string name="bitcoin_donate">Make a bitcoin donation</string>
 </resources>

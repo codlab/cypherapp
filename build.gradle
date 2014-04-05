@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.+'
+    }
+}
+
 def getDefinedVersionName() {
     def stdout = new ByteArrayOutputStream()
     exec {
@@ -7,14 +16,12 @@ def getDefinedVersionName() {
     return stdout.toString().trim().replace("\"","")
 }
 
-def getVersionCode() {
+def getDefinedVersionCode() {
     def code = Math.round(new Date().getTime()/1000).toInteger()
-    println "VersionCode is set to $code"
     return code
 }
 
 PATH=
 ALIAS=
 MDP=
-
 

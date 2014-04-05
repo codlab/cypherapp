@@ -1,1 +1,1 @@
-include ':cyphersend'
+include ':bitcoin', ':cyphersend'
