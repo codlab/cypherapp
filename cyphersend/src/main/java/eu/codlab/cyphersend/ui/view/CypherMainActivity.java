@@ -312,6 +312,10 @@ public class CypherMainActivity extends ActionBarActivity
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_guided:
+                Intent helps = new Intent(this, HelpMainActivity.class);
+                startActivity(helps);
+                return true;
             case R.id.action_friends:
                 MessageReceiver receiver = new MessageReceiver(this,
                         SettingsActivityController.getDeviceURL(this),

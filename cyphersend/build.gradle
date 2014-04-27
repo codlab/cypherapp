@@ -1,3 +1,9 @@
+repositories {
+    maven { url "http://dl.bintray.com/populov/maven" }
+    mavenCentral()
+}
+
+
 apply plugin: 'android'
 
 dependencies {
@@ -5,6 +11,9 @@ dependencies {
     compile "com.android.support:support-v13:19.0.1+"
     compile files('libs/zip4j_1.3.2.jar')
     compile "com.google.android.gms:play-services:3.1.+"
+    compile 'com.viewpagerindicator:library:2.4.1@aar'
+    compile project(':bitcoin')
+
 }
 
 android {
@@ -34,14 +43,19 @@ android {
         }
     }
 
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
     productFlavors {
         android {
             buildConfigField "String", "DONATION_BITCOIN" ,"\"1NFa375dWNT7hLTdAd8sr1YQHzmYU9PjSQ\""
         }
     }
 
-}
-
-dependencies {
-    compile project(':bitcoin')
 }

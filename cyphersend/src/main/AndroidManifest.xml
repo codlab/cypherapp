@@ -46,6 +46,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
+                    android:host="me"
+                    android:pathPrefix="/"
+                    android:scheme="cypher" />
+                <data
+                    android:host="cypher.codlab.eu"
+                    android:pathPrefix="/me"
+                    android:scheme="https" />
+                <data
+                    android:host="cypher.codlab.eu"
+                    android:pathPrefix="/me"
+                    android:scheme="http" />
+                <data
                     android:host="254.254.254.254"
                     android:pathPrefix="/me"
                     android:scheme="http" />
@@ -65,6 +77,18 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
 
+                <data
+                    android:host="decode"
+                    android:pathPrefix="/"
+                    android:scheme="cypher" />
+                <data
+                    android:host="cypher.codlab.eu"
+                    android:pathPrefix="/decode"
+                    android:scheme="https" />
+                <data
+                    android:host="cypher.codlab.eu"
+                    android:pathPrefix="/decode"
+                    android:scheme="http" />
                 <data
                     android:host="254.254.254.254"
                     android:pathPrefix="/decode"
@@ -96,6 +120,9 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+        <activity android:name="eu.codlab.cyphersend.ui.view.HelpMainActivity"
+            android:label="@string/action_guided"
+            android:theme="@style/DialogTheme"/>
 
 
         <receiver

@@ -13,6 +13,7 @@ import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.view.MainDefaultFragment;
 import eu.codlab.cyphersend.ui.view.MainFriendsFragment;
 import eu.codlab.cyphersend.ui.view.MainHelpFragment;
+import eu.codlab.cyphersend.utils.UrlsHelper;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -64,34 +65,30 @@ public class MainActivityController {
     }
 
     public String createUriString(Activity activity){
-        return "http://254.254.254.254/me/"
-                + Base64Coder.encodeString(SettingsActivityController.getDeviceName(activity))
-                + "/"
-                + Base64Coder.encodeString(SettingsActivityController.getDeviceURL(activity))
-                + "/"
-                + Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(activity))
-                + "/"
-                + getDevicePublicKey(activity)
-                + "/";
+        return UrlsHelper.getPublicInfoURL(activity, getDevicePublicKey(activity));
     }
 
     public boolean onNewUri(Context context, Uri uri){
         if(uri != null){
             String [] splitted = uri.getPath().split("/");
-            if(splitted.length >= 6){
-                String device_name = Base64Coder.decodeString(splitted[2]);
-                String device_url = Base64Coder.decodeString(splitted[3]);
-                String device_identifier = Base64Coder.decodeString(splitted[4]);
-                String public_key = splitted[5];
+            if(splitted.length > 0) {
+                int idx_publick_key = splitted[splitted.length-1].length()>0 ? splitted.length-1 : splitted.length-2;
 
-                if(DevicesController.getInstance(context).hasDevice(device_name)){
-                    return false;
-                }else{
-                    DevicesController.getInstance(context).addDevice(device_name, device_identifier, public_key, device_url);
-                    return true;
+                if (idx_publick_key >= 4) {
+                    String device_name = Base64Coder.decodeString(splitted[idx_publick_key-3]);
+                    String device_url = Base64Coder.decodeString(splitted[idx_publick_key-2]);
+                    String device_identifier = Base64Coder.decodeString(splitted[idx_publick_key-1]);
+                    String public_key = splitted[idx_publick_key];
+
+                    if (DevicesController.getInstance(context).hasDevice(device_name)) {
+                        return false;
+                    } else {
+                        DevicesController.getInstance(context).addDevice(device_name, device_identifier, public_key, device_url);
+                        return true;
+                    }
                 }
+                return true;
             }
-            return true;
         }
         return false;
     }

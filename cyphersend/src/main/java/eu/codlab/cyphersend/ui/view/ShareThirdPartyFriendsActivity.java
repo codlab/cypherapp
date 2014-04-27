@@ -17,6 +17,7 @@ import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
+import eu.codlab.cyphersend.utils.UrlsHelper;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -76,7 +77,8 @@ public class ShareThirdPartyFriendsActivity extends FragmentActivity implements 
 
         MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver);
         write.encodeMessage(_message);
-        String share_string = "http://254.254.254.254/decode/"+write.getSenderIdentifier()+"/"+write.getEncodedMessage();
+        //http://254.254.254.254/
+        String share_string = UrlsHelper.getDecodeURL(write);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.personnal_data_subject_third_party));

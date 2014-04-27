@@ -10,7 +10,6 @@ import java.net.URLConnection;
 
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
-
 public class MessageSender {
     private String _url;
     private MessageWrite _message;
@@ -34,6 +33,7 @@ public class MessageSender {
         if(!website.endsWith("/")){
             website += "/";
         }
+
         _message.encodeMessage(_msg);
         website+="service/add/"+_message.getSenderIdentifier()
                 +"/"+_message.getReceiverIdentifier()+"/"+_message.getEncodedMessage();

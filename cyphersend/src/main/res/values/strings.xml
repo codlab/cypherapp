@@ -4,6 +4,7 @@
     <string name="app_name" >CypherSend</string>
     <string name="action_settings" >Settings</string>
     <string name="action_update">Update messages</string>
+    <string name="action_guided">Guided Tour</string>
 
     <string name="app_cypher_and_send">Encrypt and send via target\'s server</string>
     <string name="app_cypher_and_apps">Encrypt and send via third party</string>
@@ -25,6 +26,15 @@
     <string name="title_section_friends">Friends/Devices</string>
     <string name="title_section_help">Help</string>
 
+    <string name="guided_tour_1">Use this application to share private messages with your Android device !</string>
+    <string name="guided_tour_1_shortcut"></string>
+    <string name="guided_tour_2">First step is to share your public information with some friends. These information look like a simple URL. Tell them to click on it while having the app installed.</string>
+    <string name="guided_tour_3">Ask your friends for their own public information. You will receive urls you will need to click on to add theirs on your device.</string>
+    <string name="guided_tour_4">Every secret message you will send are signed with your own information, exactly the same for your friends. You can know they sent them.</string>
+    <string name="guided_tour_5">Take care of messages from unknown person, but don\'t be paranoid, it\'s unlikely a virus will arrive :p</string>
+    <string name="guided_tour_6">Use your own chat apps, emails, etc... to send messages to your friends! Don\'t stop using them!</string>
+    <string name="guided_tour_7">You also can subscribe to servers to manage your messages for you. In the settings, set your device name, ask to register on the server and you are ready to receive messages! The message are AUTOMATICALLY erased when you retrieve them! NO messages are stored, you don\'t trust me? Next slide ;)</string>
+    <string name="guided_tour_8">You can create your own server : it is Open Source, then simply edit your settings to add its URL and finally share your public information with your friends, they will then send (not read) messages to the server</string>
     <string name="help_part_1_title">Register device for server side transactions</string>
     <string name="help_part_1_content">Registering your device is very easy BUT ABSOLUTELY NOT THE MOST IMPORTANT THING TO DO. \n First of all, open the settings via the menu and set your device name (remember the fact to stay anonymous). Then set the server url if you use your own server. Remember to register the device to the server (in order to retrieve your messages from it).\nAnd.... it\'s done. You\'re ready to receive messages (use the refresh button from the Actionbar).\nNote that you can also receive push notifications from Google (the GCM) by using the default server AND accepting to receive push notifications. pros and cons about these things are in the last part of this document.</string>
     <string name="help_part_2_title">Share your public information</string>
