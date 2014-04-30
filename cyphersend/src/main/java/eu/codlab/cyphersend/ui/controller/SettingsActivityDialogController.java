@@ -3,12 +3,9 @@ package eu.codlab.cyphersend.ui.controller;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.widget.EditText;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.model.Device;
-import eu.codlab.cyphersend.ui.view.CypherMainActivity;
-import eu.codlab.cyphersend.ui.view.SettingsActivity;
+import eu.codlab.cyphersend.ui.view.activity.SettingsActivity;
 
 /**
  * Created by kevinleperf on 29/06/13.

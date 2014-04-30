@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +12,7 @@ import android.widget.Button;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import eu.codlab.cyphersend.BuildConfig;
 import eu.codlab.cyphersend.R;
+import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -31,38 +32,60 @@ public class MainDefaultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle bundle) {
         View v = inflater.inflate(R.layout.main_default, parent, false);
 
-        Button button = (Button)v.findViewById(R.id.main_send);
-        button.setOnClickListener(new View.OnClickListener(){
 
+        Button web_send = (Button) v.findViewById(R.id.main_web_send);
+        Button share_send = (Button) v.findViewById(R.id.main_share_sendsend);
+
+        web_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getActivity() != null){
-                    ((CypherMainActivity)getActivity()).onRequestShare();
+                if (getActivity() != null) {
+                    ((CypherMainActivity) getActivity()).onRequestWebSend();
+                }
+            }
+        });
+        share_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getActivity() != null) {
+                    ((CypherMainActivity) getActivity()).onRequestSend();
                 }
             }
         });
 
-        Button twitter = (Button)v.findViewById(R.id.main_follow);
+
+        Button button = (Button) v.findViewById(R.id.main_send);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (getActivity() != null) {
+                    ((CypherMainActivity) getActivity()).onRequestShare();
+                }
+            }
+        });
+
+        Button twitter = (Button) v.findViewById(R.id.main_follow);
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("twitter://user?screen_name=codlab"));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=codlab"));
                     startActivity(intent);
-                }catch (Exception e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://twitter.com/#!/codlab")));
+                } catch (Exception e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/codlab")));
                 }
             }
         });
 
-        Button donate = (Button)v.findViewById(R.id.main_donate);
+        Button donate = (Button) v.findViewById(R.id.main_donate);
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
 
                     BitcoinIntegration.requestForResult(MainDefaultFragment.this.getActivity(), 42, BuildConfig.DONATION_BITCOIN);
-                }catch (Exception e) {
+                } catch (Exception e) {
                 }
             }
         });

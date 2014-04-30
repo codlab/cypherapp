@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -29,7 +29,7 @@
 
         android:theme="@style/AppTheme">
         <activity
-            android:name="eu.codlab.cyphersend.ui.view.CypherMainActivity"
+            android:name=".ui.view.activity.CypherMainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="eu.codlab.cyphersend.ui.view.DecodeUrlActivity"
+            android:name=".ui.view.activity.DecodeUrlActivity"
             android:label="@string/app_name"
             android:theme="@style/DialogTheme">
             <intent-filter>
@@ -96,10 +96,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="eu.codlab.cyphersend.ui.view.SettingsActivity"
+            android:name=".ui.view.activity.SettingsActivity"
             android:label="@string/app_name"></activity>
         <activity
-            android:name="eu.codlab.cyphersend.ui.view.ShareFriendsActivity"
+            android:name=".ui.view.activity.ShareFriendsActivity"
             android:icon="@drawable/ic_encrypt"
             android:label="@string/app_cypher_and_send"
             android:theme="@style/DialogTheme">
@@ -110,7 +110,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="eu.codlab.cyphersend.ui.view.ShareThirdPartyFriendsActivity"
+            android:name=".ui.view.activity.ShareThirdPartyFriendsActivity"
             android:icon="@drawable/ic_third_party"
             android:label="@string/app_cypher_and_apps"
             android:theme="@style/DialogTheme">
@@ -120,7 +120,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name="eu.codlab.cyphersend.ui.view.HelpMainActivity"
+        <activity android:name=".ui.view.activity.HelpMainActivity"
             android:label="@string/action_guided"
             android:theme="@style/DialogTheme"/>
 

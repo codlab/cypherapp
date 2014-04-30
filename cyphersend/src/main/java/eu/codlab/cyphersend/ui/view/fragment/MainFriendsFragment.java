@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,7 @@ import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.model.Device;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
+import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -41,7 +42,7 @@ public class MainFriendsFragment extends Fragment implements RequestSendListener
     public void onViewCreated(View v, Bundle savedInstanceState){
 
         ListView list = (ListView)v.findViewById(R.id.main_friends_list);
-        _adapter = new DeviceAdapter(getActivity(), this);
+        _adapter = new DeviceAdapter(getActivity(), this, DeviceAdapter.BOTH);
         list.setAdapter(_adapter);
     }
 
@@ -55,6 +56,13 @@ public class MainFriendsFragment extends Fragment implements RequestSendListener
         switch(item.getItemId()){
         }
         return false;
+    }
+
+    @Override
+    public void onRequestWebSend(Device device) {
+        if(getActivity() != null){
+            ((CypherMainActivity) getActivity()).onRequestWebSend(device);
+        }
     }
 
     public void onRequestSend(Device device){

@@ -1,47 +1,84 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
 
-              android:gravity="center_vertical|center_horizontal"
-              tools:context=".CypherMainActivity"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
 
-              android:orientation="vertical">
+    tools:context=".CypherMainActivity">
 
 
     <!-- style to homogenize the main layout -->
     <Button
-            android:fontFamily="@string/font"
-            android:id="@+id/main_send"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_margin="10dp"
-            android:background="#dddddd"
-            android:text="@string/main_send"/>
-
-    <Button
-            android:fontFamily="@string/font"
-            android:id="@+id/main_follow"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_margin="10dp"
-            android:background="#dddddd"
-            android:text="@string/follow_me"/>
-
-    <Button
-        android:fontFamily="@string/font"
-        android:id="@+id/main_donate"
+        android:id="@+id/main_send"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:layout_margin="10dp"
         android:background="#dddddd"
-        android:text="@string/bitcoin_donate"/>
+        android:fontFamily="@string/font"
+        android:padding="5dp"
+        android:text="@string/main_send" />
+
+    <Button
+        android:id="@+id/main_web_send"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#dddddd"
+        android:fontFamily="@string/font"
+        android:padding="5dp"
+        android:text="@string/main_web_send" />
+
+    <Button
+        android:id="@+id/main_share_sendsend"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#dddddd"
+        android:fontFamily="@string/font"
+        android:padding="5dp"
+        android:text="@string/main_share_send" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"></LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/main_follow"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#dddddd"
+            android:fontFamily="@string/font"
+            android:padding="5dp"
+            android:text="@string/follow_me" />
+
+        <Button
+            android:id="@+id/main_donate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="#dddddd"
+            android:fontFamily="@string/font"
+            android:padding="5dp"
+            android:text="@string/bitcoin_donate" />
+        </LinearLayout>
+
 
 </LinearLayout>

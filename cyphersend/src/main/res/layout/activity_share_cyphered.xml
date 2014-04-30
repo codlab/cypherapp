@@ -17,7 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/select_the_device_to_send_to_and_share"
-            android:textSize="35dp"
+            android:textSize="15dp"
             android:textColor="#000000"
             android:layout_margin="10dp"/>
     <ListView

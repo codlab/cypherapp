@@ -1,21 +1,9 @@
 package eu.codlab.cyphersend.ui.controller;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.util.Log;
-
-import java.security.KeyPair;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.controller.DevicesController;
-import eu.codlab.cyphersend.security.Base64Coder;
-import eu.codlab.cyphersend.security.CypherRSA;
-import eu.codlab.cyphersend.ui.view.CypherMainActivity;
-import eu.codlab.cyphersend.ui.view.MainDefaultFragment;
-import eu.codlab.cyphersend.ui.view.MainFriendsFragment;
-import eu.codlab.cyphersend.ui.view.SettingsActivity;
 import eu.codlab.cyphersend.utils.RandomStrings;
 
 /**
@@ -35,6 +23,9 @@ public class SettingsActivityController {
 
     public static void setDeviceUrl(Context context, String url){
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.website), url).commit();
+    }
+    public static String getDeviceURLOrEmpty(Context activity){
+        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "");
     }
     public static String getDeviceURL(Context activity) {
         return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.website), "https://cypher.codlab.eu/");

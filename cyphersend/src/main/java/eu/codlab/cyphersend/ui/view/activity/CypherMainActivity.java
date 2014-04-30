@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,6 +26,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
@@ -55,9 +57,10 @@ import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.utils.MD5;
+import eu.codlab.cyphersend.utils.UrlsHelper;
 
 public class CypherMainActivity extends ActionBarActivity
-    implements
+        implements
         MessageSenderListener,
         MessageReceiveListener, GCMServerRegisterListener {
     private String regId;
@@ -87,7 +90,7 @@ public class CypherMainActivity extends ActionBarActivity
     private AlertDialog _alert;
 
     private void registerNfc() {
-        if(Build.VERSION.SDK_INT >= 14){
+        if (Build.VERSION.SDK_INT >= 14) {
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (nfcAdapter == null) return;  // NFC not available on this device
             nfcAdapter.setNdefPushMessageCallback(ndefCallback, this);
@@ -108,7 +111,7 @@ public class CypherMainActivity extends ActionBarActivity
         }
     }
 
-    public void onRequestShare(){
+    public void onRequestShare() {
         Intent intent = getShareIntent();
         startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
 
@@ -129,31 +132,77 @@ public class CypherMainActivity extends ActionBarActivity
 
     }
 
-    private class UpdateShareClass{
-        public void onUpdate(Intent intent){
+    private void showNoDevices() {
+        if (_alert == null) {
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    this);
+
+            // set title
+            alertDialogBuilder.setTitle(R.string.main_send_no_friends_title);
+
+            // set dialog message
+            alertDialogBuilder
+                    .setTitle(getString(R.string.main_send_no_friends_title))
+                    .setMessage(getString(R.string.main_send_no_friends_message))
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            _alert = null;
+                        }
+                    });
+
+            // create alert dialog
+            _alert = alertDialogBuilder.create();
+            _alert.show();
+        }
+    }
+
+    public void onRequestSend() {
+        if (DevicesController.getInstance(this).hasDevices() == false) {
+            showNoDevices();
+            return;
+        }
+        createDialogRequestMessage(false);
+    }
+
+    public void onRequestWebSend() {
+        if (DevicesController.getInstance(this).hasWebDevices() == false) {
+            showNoDevices();
+            return;
+        }
+        createDialogRequestMessage(true);
+    }
+
+    private class UpdateShareClass {
+        public void onUpdate(Intent intent) {
 
         }
     }
-    private class UpdateShareClassv14 extends UpdateShareClass{
+
+    private class UpdateShareClassv14 extends UpdateShareClass {
         private ShareActionProvider _provider;
-        public void setShareActionProvider(ShareActionProvider provider){
+
+        public void setShareActionProvider(ShareActionProvider provider) {
             _provider = provider;
         }
 
-        public ShareActionProvider getShareActionProvider(){
+        public ShareActionProvider getShareActionProvider() {
             return _provider;
         }
 
         @Override
-        public void onUpdate(Intent intent){
-            if(_provider != null)
+        public void onUpdate(Intent intent) {
+            if (_provider != null)
                 _provider.setShareIntent(intent);
         }
     }
+
     private UpdateShareClass _share_class;
-    private UpdateShareClass getShareClass(){
-        if(_share_class == null){
-            if(isv14Sup())
+
+    private UpdateShareClass getShareClass() {
+        if (_share_class == null) {
+            if (isv14Sup())
                 _share_class = new UpdateShareClassv14();
             else
                 _share_class = new UpdateShareClass();
@@ -161,7 +210,7 @@ public class CypherMainActivity extends ActionBarActivity
         return _share_class;
     }
 
-    private Intent getShareIntent(){
+    private Intent getShareIntent() {
         String share_string = getController().createUriString(this);
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -202,15 +251,15 @@ public class CypherMainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(Build.VERSION.SDK_INT >= 14){
-            ndefCallback = new NfcAdapter.CreateNdefMessageCallback(){
+        if (Build.VERSION.SDK_INT >= 14) {
+            ndefCallback = new NfcAdapter.CreateNdefMessageCallback() {
                 @Override
                 public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
                     NdefMessage nfcmessage = new NdefMessage(new NdefRecord[]{NdefRecord.createUri(getController().createUri(CypherMainActivity.this))});
                     return nfcmessage;
                 }
             };
-            ndefCompleteCallback = new NfcAdapter.OnNdefPushCompleteCallback(){
+            ndefCompleteCallback = new NfcAdapter.OnNdefPushCompleteCallback() {
                 @Override
                 public void onNdefPushComplete(NfcEvent nfcEvent) {
                     mHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
@@ -284,21 +333,22 @@ public class CypherMainActivity extends ActionBarActivity
     }
 
 
-    public boolean isv14Sup(){
+    public boolean isv14Sup() {
         return Build.VERSION.SDK_INT >= 14;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if(isv14Sup()){
+        if (isv14Sup()) {
             getMenuInflater().inflate(R.menu.cypher_main, menu);
-            ((UpdateShareClassv14)getShareClass()).onUpdate(getShareIntent());
+            ((UpdateShareClassv14) getShareClass()).onUpdate(getShareIntent());
             MenuItem item = menu.findItem(R.id.action_item_share);
-            ((UpdateShareClassv14)getShareClass()).setShareActionProvider((ShareActionProvider) item.getActionProvider());
-            if(getController().getKeys(this) != null){
-                ((UpdateShareClassv14)getShareClass()).onUpdate(getShareIntent());
+            ((UpdateShareClassv14) getShareClass()).setShareActionProvider((ShareActionProvider) item.getActionProvider());
+            if (getController().getKeys(this) != null) {
+                ((UpdateShareClassv14) getShareClass()).onUpdate(getShareIntent());
             }
-        }else{
+        } else {
             getMenuInflater().inflate(R.menu.cypher_main_simple, menu);
         }
         return true;
@@ -333,31 +383,32 @@ public class CypherMainActivity extends ActionBarActivity
         registerNfc();
         super.onResume();
 
-        if(SettingsActivityController.isDeviceNameSet(this) == false){
-            if(_alert == null){
+        if (SettingsActivityController.isDeviceNameSet(this) == false) {
+            if (_alert == null) {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         this);
 
                 // set title
-                alertDialogBuilder.setTitle("Your Title");
-
                 // set dialog message
                 alertDialogBuilder
                         .setTitle(getString(R.string.no_info_title))
                         .setMessage(getString(R.string.no_info_text))
                         .setCancelable(false)
-                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 Intent intent = new Intent(CypherMainActivity.this, SettingsActivity.class);
                                 startActivity(intent);
+                                dialog.dismiss();
+                                _alert = null;
                             }
                         })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
                                 // if this button is clicked, just close
                                 // the dialog box and do nothing
                                 dialog.cancel();
+                                _alert = null;
                             }
                         });
 
@@ -375,10 +426,12 @@ public class CypherMainActivity extends ActionBarActivity
 
         if (getIntent() != null && getIntent().getData() != null) {
 
-            boolean saved = getController().onNewUri(this, getIntent().getData());
+            int saved = getController().onNewUri(this, getIntent().getData());
 
-            if (saved) {
+            if (MainActivityController.SAVED == saved) {
                 Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
+            } else if (MainActivityController.NOT_SAVED == saved) {
+                //nothing
             } else {
                 Toast.makeText(getApplicationContext(), R.string.error_saved, Toast.LENGTH_LONG).show();
             }
@@ -401,14 +454,14 @@ public class CypherMainActivity extends ActionBarActivity
     }
 
 
-    private void checkAndOrStartGCM(){
+    private void checkAndOrStartGCM() {
         if (SettingsActivityController.getGCMAccepted(this) && checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(this);
             regId = getRegistrationId(this);
 
             if ("".equals(regId)) {
                 registerInBackground();
-            }else{
+            } else {
                 sendRegistrationIdToBackend();
             }
         } else {
@@ -417,7 +470,7 @@ public class CypherMainActivity extends ActionBarActivity
 
     @Override
     public void onPause() {
-        if(_alert != null){
+        if (_alert != null) {
             _alert.dismiss();
             _alert = null;
         }
@@ -441,10 +494,12 @@ public class CypherMainActivity extends ActionBarActivity
             processIntent(intent);
 
 
-            boolean saved = getController().onNewUri(this, getIntent().getData());
+            int saved = getController().onNewUri(this, getIntent().getData());
 
-            if (saved) {
+            if (MainActivityController.SAVED == saved) {
                 Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
+            } else if (MainActivityController.NOT_SAVED == saved) {
+                //nothing
             } else {
                 Toast.makeText(getApplicationContext(), R.string.error_saved, Toast.LENGTH_LONG).show();
             }
@@ -504,7 +559,7 @@ public class CypherMainActivity extends ActionBarActivity
         MessageContent decoded = message.decode(MainActivityController.getKeys(this).getPrivate());
         String msg = "";
 
-        if(decoded instanceof MessageString){
+        if (decoded instanceof MessageString) {
             msg = ((MessageString) decoded).getMessage();
         }
 
@@ -516,7 +571,7 @@ public class CypherMainActivity extends ActionBarActivity
         } else {
             if (MD5.encode(msg).equals(CypherRSA.decrypt(Base64Coder.decode(signature), MainActivityController.getKeys(this).getPublic()))) {
                 getDialogController().createDialogReceivedMessage(SettingsActivityController.getDeviceName(this), msg);
-            }else{
+            } else {
                 getDialogController().createDialogReceivedMessage("Unknown!", msg);
             }
         }
@@ -545,8 +600,12 @@ public class CypherMainActivity extends ActionBarActivity
         getDialogController().createDialogSendOk();
     }
 
+    public void onRequestWebSend(Device device) {
+        getDialogController().createDialogRequestSend(this, device, true);
+    }
+
     public void onRequestSend(Device device) {
-        getDialogController().createDialogRequestSend(this, device);
+        getDialogController().createDialogRequestSend(this, device, false);
     }
 
     /*
@@ -556,8 +615,86 @@ public class CypherMainActivity extends ActionBarActivity
      n   eUtzdGswRnh0cjNNRTVmNzFzQ0lPbHJNcG5ZZmNEZ2k2cVIxbHFTRzVCcTdSTlNxaDI3SGNsa1o2ZUtLWE9VVXBpbmFCdlVNQ1M5ZWhRNWJqMEVESFAwalpST1NvWDJTcGl2aVNUUjU0Rzh6dXJlWUNMbXBiT3F3bUVRR2puRmdpdlhRNEVRYzdiWjVZTlB5MTRuNGJzRTdwcUlMQjhDeE85aDVXS0pJczF5ZEk4bFhJUUxHdUJpMlpCd2RGTzFYMll6ZzdSbGwwVnVFTmw3eXRVYUNhM2lOMXBjclhFMWN2TVgwSHA2M255OHpWUHlOUjFpQmwyVTh4em5FN29vS3g=/JF_7Ud_2cfRbMMuXusDXFxduoiE_9kC_ufFlWALsTJd_3zw_iZ0NOKCYyAgGZNPrwHecUhiziDvz8nwjJUrZbM4KZysooxomALdMUCDRJHlWzhX2liNrlSJGv5ISlDVP4ZoegO2hgjW9kCKPM8Cvbn5SFHkZS-UHBM4j8DkEM4WdMae5gst74nBhugGklHa8V7kYlNEIgz2awUVhn-NNhf2fYvXICOgNZIEpxCSC7zbhd8TXCd-D4vZ8A-UdD2L9gT8jzE6DcSmLc6jN4nQnX8B2oBTDd08MDKBnrddM6dJcCYd_ipWWz6WKF3co23sKCeMlNqrEnr7pa64yo54vLQ==
 
      */
+    public void createDialogRequestMessage(final boolean use_web_service) {
+        final EditText edit_text = new EditText(this);
+        _alert = new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_request_send_title)
+                .setCancelable(true)
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        _alert.dismiss();
+                        _alert = null;
+                    }
+                })
+                .setMessage(use_web_service ? R.string.dialog_request_send_message_web : R.string.dialog_request_send_message)
+                .setView(edit_text)
+                .setPositiveButton(R.string.ok, null).create();
+        _alert.show();
+        _alert.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (edit_text.getText().toString().length() > 0) {
+                    if (use_web_service) {
+                        Intent intent = new Intent(CypherMainActivity.this, ShareFriendsActivity.class);
+                        intent.putExtra("message", edit_text.getText().toString());
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(CypherMainActivity.this, ShareThirdPartyFriendsActivity.class);
+                        intent.putExtra("message", edit_text.getText().toString());
+                        startActivity(intent);
+                    }
+                    _alert.dismiss();
+                    _alert = null;
+                } else {
+                }
+            }
+        });
+    }
+
+    public void createDialogRequestSend(final CypherMainActivity parent, final Device device, final boolean use_web_service) {
+        final EditText edit_text = new EditText(parent);
+        _alert = new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_request_send_title)
+                .setMessage(use_web_service ? R.string.dialog_request_send_message_web : R.string.dialog_request_send_message)
+                .setView(edit_text)
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        _alert = null;
+                    }
+                })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (use_web_service) {
+                            parent.onValidateMessageWebSend(device, edit_text.getText().toString());
+                        } else {
+                            parent.onValidateMessageSend(device, edit_text.getText().toString());
+                        }
+                        _alert = null;
+                        dialog.dismiss();
+                    }
+                }).create();
+        _alert.show();
+    }
 
     public void onValidateMessageSend(Device device, String message) {
+        PublicKey key = device.getPublicKey();//
+        String idReceiver = Base64Coder.encodeString(device.getIdentifier());
+
+
+        MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver);
+        write.encodeMessage(message);
+        //http://254.254.254.254/
+        String share_string = UrlsHelper.getDecodeURL(write);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.personnal_data_subject_third_party));
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, share_string);
+        startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+    }
+
+    public void onValidateMessageWebSend(Device device, String message) {
         String idReceiver = Base64Coder.encodeString(device.getIdentifier());
         PublicKey key = device.getPublicKey();//
 
@@ -656,7 +793,7 @@ public class CypherMainActivity extends ActionBarActivity
         }.execute(null, null, null);
     }
 
-    private void sendRegistrationIdToBackend(){
+    private void sendRegistrationIdToBackend() {
         String regId = this.regId;
 
         String identifier = Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this));
@@ -674,5 +811,4 @@ public class CypherMainActivity extends ActionBarActivity
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.commit();
     }
-
 }

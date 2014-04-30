@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,7 +32,7 @@ public class GuidedTour extends Fragment {
                 getArguments().containsKey("str")){
             TextView str = (TextView)view.findViewById(R.id.guided_text);
             ImageView img = (ImageView)view.findViewById(R.id.guided_img);
-            str.setText(getArguments().getInt("str"));
+            str.setText(getArguments().getString("str"));
             img.setImageResource(getArguments().getInt("res"));
         }
     }

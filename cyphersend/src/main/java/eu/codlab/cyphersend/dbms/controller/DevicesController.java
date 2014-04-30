@@ -45,8 +45,8 @@ public class DevicesController {
     }
 
 
-    public boolean hasDevice(String name) {
-        Device _if = new Device(new Long(0), name, "", "", "");
+    public boolean hasDevice(String identifier) {
+        Device _if = new Device(new Long(0), "", identifier, "", "");
 
         return _devices.contains(_if);
     }
@@ -96,4 +96,19 @@ public class DevicesController {
         return null;
     }
 
+    public boolean hasWebDevices() {
+        boolean has = false;
+        ArrayList<Device> devices = getDevices();
+        for(int i=0;i<devices.size();i++){
+            if(devices.get(i).hasWebSite()){
+                has = true;
+                break;
+            }
+        }
+        return has;
+    }
+
+    public boolean hasDevices(){
+        return getDevices().size() > 0;
+    }
 }

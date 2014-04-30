@@ -10,9 +10,9 @@ import java.security.KeyPair;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
-import eu.codlab.cyphersend.ui.view.MainDefaultFragment;
-import eu.codlab.cyphersend.ui.view.MainFriendsFragment;
-import eu.codlab.cyphersend.ui.view.MainHelpFragment;
+import eu.codlab.cyphersend.ui.view.fragment.MainDefaultFragment;
+import eu.codlab.cyphersend.ui.view.fragment.MainFriendsFragment;
+import eu.codlab.cyphersend.ui.view.fragment.MainHelpFragment;
 import eu.codlab.cyphersend.utils.UrlsHelper;
 
 /**
@@ -68,7 +68,11 @@ public class MainActivityController {
         return UrlsHelper.getPublicInfoURL(activity, getDevicePublicKey(activity));
     }
 
-    public boolean onNewUri(Context context, Uri uri){
+    public final static int SAVED = 0;
+    public final static int NOT_SAVED = 1;
+    public final static int ERROR = 2;
+
+    public int onNewUri(Context context, Uri uri){
         if(uri != null){
             String [] splitted = uri.getPath().split("/");
             if(splitted.length > 0) {
@@ -80,17 +84,18 @@ public class MainActivityController {
                     String device_identifier = Base64Coder.decodeString(splitted[idx_publick_key-1]);
                     String public_key = splitted[idx_publick_key];
 
-                    if (DevicesController.getInstance(context).hasDevice(device_name)) {
-                        return false;
+                    if (DevicesController.getInstance(context).hasDevice(device_identifier)) {
+                        //TODO ask for different infos to manage save or not
+                        return NOT_SAVED;
                     } else {
                         DevicesController.getInstance(context).addDevice(device_name, device_identifier, public_key, device_url);
-                        return true;
+                        return SAVED;
                     }
                 }
-                return true;
+                return ERROR;
             }
         }
-        return false;
+        return ERROR;
     }
 
     public static boolean hasKeys(){

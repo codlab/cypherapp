@@ -12,6 +12,12 @@
     <string name="font">sans-serif-light</string>
     <!-- main interface string definition-->
     <string name="main_send">Share your public infos with a friend</string>
+    <string name="main_web_send">Send using the web</string>
+    <string name="main_share_send">Send encrypted using other app</string>
+
+    <string name="main_send_no_friends_title">Error</string>
+    <string name="main_send_no_friends_message">You have currently no friends registered. Ask them for their public infos before clicking here.</string>
+
     <string name="follow_me">Follow me on twitter</string>
 
     <string name="personnal_data_subject">I\'m sharing my personnal CypherSend\'s public data with you</string>
@@ -53,6 +59,7 @@
     <string name="not_suppose_to_be_this_device">The message was not suppose to be decrypted by this device!</string>
 
     <string name="device_send_message">New message</string>
+    <string name="device_web_send_message">New Web message</string>
 
     <string name="settings_device_title">This Device name</string>
     <string name="settings_device_summary">It will be sent to your friend to help them identify your device</string>
@@ -110,7 +117,8 @@
     <string name="no">No</string>
 
     <string name="dialog_request_send_title">Message to send</string>
-    <string name="dialog_request_send_message">Please provide the plain text message you want to send</string>
+    <string name="dialog_request_send_message">Please provide the plain text message you want to send using a third party app</string>
+    <string name="dialog_request_send_message_web">Please provide the plain text message you want to send using the receiver\'s webservice</string>
 
     <string name="known_sender">Message sent from %s\n</string>
     <string name="unknown_sender">Message sent from unknown sender</string>
@@ -149,4 +157,16 @@
     <string name="restart_app_message">L\'application nécessite d\'être redémarrée. CLiquez sur OK pour relancer l\'app automatiquement.</string>
 
     <string name="bitcoin_donate">Make a bitcoin donation</string>
+
+    <string name="name_title">Device name</string>
+    <string name="name_message">What is your device\'s name?</string>
+
+    <string name="gcm_register_title">Push notification</string>
+    <string name="gcm_register_message">Do you want to receive push notification of new content available</string>
+
+    <string name="register_title">Online service</string>
+    <string name="register_message">Do you want to register onto the online service?</string>
+
+    <string name="register_password_title">Password</string>
+    <string name="register_password_message">Set a password for the online service</string>
 </resources>

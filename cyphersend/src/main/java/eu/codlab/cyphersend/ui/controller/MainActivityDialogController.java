@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.model.Device;
-import eu.codlab.cyphersend.ui.view.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 29/06/13.
@@ -114,20 +114,8 @@ public class MainActivityDialogController {
         show();
     }
 
-    public void createDialogRequestSend(final CypherMainActivity parent, final Device device) {
-        final EditText edit_text = new EditText(parent);
-        _alert_dialog = new AlertDialog.Builder(getView())
-                .setTitle(R.string.dialog_request_send_title)
-                .setMessage(R.string.dialog_request_send_message)
-                .setView(edit_text)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        parent.onValidateMessageSend(device, edit_text.getText().toString());
-                        _alert_dialog = null;
-                        dialog.dismiss();
-                    }
-                }).create();
-        show();
+    public void createDialogRequestSend(final CypherMainActivity parent, final Device device, final boolean use_web_service) {
+        parent.createDialogRequestSend(parent, device, use_web_service);
     }
 
     private void show() {

@@ -17,7 +17,7 @@ public class UrlsHelper {
         return "https://cypher.codlab.eu/me/"
                 + Base64Coder.encodeString(SettingsActivityController.getDeviceName(activity))
                 + "/"
-                + Base64Coder.encodeString(SettingsActivityController.getDeviceURL(activity))
+                + Base64Coder.encodeString(SettingsActivityController.getDeviceURLOrEmpty(activity))
                 + "/"
                 + Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(activity))
                 + "/"

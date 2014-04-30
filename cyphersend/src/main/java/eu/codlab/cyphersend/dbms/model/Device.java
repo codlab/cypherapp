@@ -53,11 +53,15 @@ public class Device {
             return false;
         }else{
             if(object instanceof Device){
-                return _name != null && _name.equals(((Device) object).getName());
+                return _name != null && _identifier.equals(((Device) object).getIdentifier());//_name.equals(((Device) object).getName());
             }else if(object instanceof String){
-                return _name != null && _name.equals((String)object);
+                return _name != null && _identifier.equals((String) object);//_name.equals((String)object);
             }
         }
         return false;
+    }
+
+    public boolean hasWebSite() {
+        return ! (getWebsite() == null || getWebsite().length() < 4);
     }
 }

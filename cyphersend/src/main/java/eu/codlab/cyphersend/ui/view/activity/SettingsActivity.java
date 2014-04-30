@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.activity;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;

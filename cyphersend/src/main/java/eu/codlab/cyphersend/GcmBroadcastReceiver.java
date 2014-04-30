@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
-import eu.codlab.cyphersend.ui.view.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 01/04/2014.
