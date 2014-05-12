@@ -29,6 +29,11 @@
 
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.view.activity.GeneratingActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
             android:name=".ui.view.activity.CypherMainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
@@ -49,18 +54,19 @@
                     android:host="me"
                     android:pathPrefix="/"
                     android:scheme="cypher" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="cypher.codlab.eu"
                     android:pathPrefix="/me"
                     android:scheme="https" />
-                <data
-                    android:host="cypher.codlab.eu"
-                    android:pathPrefix="/me"
-                    android:scheme="http" />
-                <data
-                    android:host="254.254.254.254"
-                    android:pathPrefix="/me"
-                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity
@@ -78,21 +84,21 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="decode"
-                    android:pathPrefix="/"
-                    android:scheme="cypher" />
-                <data
                     android:host="cypher.codlab.eu"
                     android:pathPrefix="/decode"
                     android:scheme="https" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data
-                    android:host="cypher.codlab.eu"
-                    android:pathPrefix="/decode"
-                    android:scheme="http" />
-                <data
-                    android:host="254.254.254.254"
-                    android:pathPrefix="/decode"
-                    android:scheme="http" />
+                    android:host="decode"
+                    android:pathPrefix="/"
+                    android:scheme="cypher" />
             </intent-filter>
         </activity>
         <activity

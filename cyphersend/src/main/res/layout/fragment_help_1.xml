@@ -17,10 +17,10 @@
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
-        android:paddingBottom="50dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="50dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:paddingTop="5dp"
         android:textColor="#000000">
 
         <LinearLayout
@@ -47,14 +47,15 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <eu.codlab.cyphersend.ui.RobotoTextview
+                typeface="thin"
                 android:id="@+id/guided_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:dividerHeight="10dp"
                 android:text="@string/guided_tour_1"
-                android:textColor="#000000" />
+                android:textColor="@android:color/black" />
         </LinearLayout>
 
     </LinearLayout>

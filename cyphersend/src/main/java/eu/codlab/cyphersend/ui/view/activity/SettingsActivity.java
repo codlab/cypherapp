@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
@@ -50,6 +51,12 @@ public class SettingsActivity extends PreferenceActivity
 
         if (Build.VERSION.SDK_INT >= 11)
             getActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        EditTextPreference device = (EditTextPreference) this.findPreference(getString(R.string.device));
+        if(device != null && (device.getText() == null || device.getText().length() == 0)){
+            device.setText(Build.MODEL);
+        }
 
         Preference server_register = this.findPreference(getString(R.string.register));
         if (server_register != null) {

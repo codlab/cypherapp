@@ -43,6 +43,13 @@ public class MainFriendsFragment extends Fragment implements RequestSendListener
 
         ListView list = (ListView)v.findViewById(R.id.main_friends_list);
         _adapter = new DeviceAdapter(getActivity(), this, DeviceAdapter.BOTH);
+        if(_adapter.getCount() == 0){
+            list.setVisibility(View.GONE);
+            v.findViewById(R.id.main_friends_empty).setVisibility(View.VISIBLE);
+        }else{
+            list.setVisibility(View.VISIBLE);
+            v.findViewById(R.id.main_friends_empty).setVisibility(View.GONE);
+        }
         list.setAdapter(_adapter);
     }
 

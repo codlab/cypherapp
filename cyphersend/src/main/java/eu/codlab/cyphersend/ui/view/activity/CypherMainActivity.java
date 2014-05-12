@@ -1,5 +1,6 @@
 package eu.codlab.cyphersend.ui.view.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -57,6 +58,7 @@ import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.utils.MD5;
+import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
 
 public class CypherMainActivity extends ActionBarActivity
@@ -74,6 +76,8 @@ public class CypherMainActivity extends ActionBarActivity
 
     private MainActivityController _controller;
     private MainActivityDialogController _dialog_controller;
+    private final static String CALLER = "me";
+    static String CALLER_VALUE;
 
     //TODO set jit instruction to optimize loader
     //approximation : 25ms
@@ -249,6 +253,13 @@ public class CypherMainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!MainActivityController.hasKey(this)){
+            Intent intent = new Intent(this, GeneratingActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_main);
 
         if (Build.VERSION.SDK_INT >= 14) {
@@ -270,6 +281,7 @@ public class CypherMainActivity extends ActionBarActivity
                 new Pager(
                         getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(pager);
 
         Thread t = new Thread() {
@@ -343,11 +355,11 @@ public class CypherMainActivity extends ActionBarActivity
         if (isv14Sup()) {
             getMenuInflater().inflate(R.menu.cypher_main, menu);
             ((UpdateShareClassv14) getShareClass()).onUpdate(getShareIntent());
-            MenuItem item = menu.findItem(R.id.action_item_share);
-            ((UpdateShareClassv14) getShareClass()).setShareActionProvider((ShareActionProvider) item.getActionProvider());
-            if (getController().getKeys(this) != null) {
+            //MenuItem item = menu.findItem(R.id.action_item_share);
+            //((UpdateShareClassv14) getShareClass()).setShareActionProvider((ShareActionProvider) item.getActionProvider());
+            /*if (getController().getKeys(this) != null) {
                 ((UpdateShareClassv14) getShareClass()).onUpdate(getShareIntent());
-            }
+            }*/
         } else {
             getMenuInflater().inflate(R.menu.cypher_main_simple, menu);
         }
@@ -687,11 +699,30 @@ public class CypherMainActivity extends ActionBarActivity
         write.encodeMessage(message);
         //http://254.254.254.254/
         String share_string = UrlsHelper.getDecodeURL(write);
+        sendTextIntent(this, share_string);
+    }
+
+    static void sendTextIntent(Activity activity, String string){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.personnal_data_subject_third_party));
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, share_string);
-        startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+        intent.putExtra(CALLER, createRandomString());
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, activity.getString(R.string.personnal_data_subject_third_party));
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, string);
+        activity.startActivity(Intent.createChooser(intent, activity.getString(R.string.share_via)));
+    }
+
+    static private String createRandomString() {
+        CALLER_VALUE = RandomStrings.generate(256);
+        return CALLER_VALUE;
+    }
+
+    static boolean isCallerMyself(Intent intent){
+        return intent.hasExtra(CALLER);
+    }
+
+    static String getStringIntent(Intent intent){
+        return intent.hasExtra(Intent.EXTRA_TEXT) ? intent.getStringExtra(Intent.EXTRA_TEXT)
+                : "";
     }
 
     public void onValidateMessageWebSend(Device device, String message) {

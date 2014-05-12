@@ -9,6 +9,7 @@ import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.security.PublicKey;
 
@@ -57,7 +58,13 @@ public class ShareFriendsActivity extends FragmentActivity implements RequestSen
         if (Intent.ACTION_SEND.equals(getIntent().getAction()) &&
                 getIntent().hasExtra(Intent.EXTRA_TEXT)) {
             String message = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            _message = message;
+            if(!CypherMainActivity.isCallerMyself(getIntent())){
+                _message = message;
+            }else{
+                CypherMainActivity.sendTextIntent(this, message);
+                Toast.makeText(this, R.string.no_intent, Toast.LENGTH_LONG).show();
+                finish();
+            }
         } else if(getIntent().hasExtra("message") && getIntent().getStringExtra("message") != null){
             _message = getIntent().getStringExtra("message");
         } else {

@@ -5,11 +5,11 @@
             android:key="@string/device"
             android:summary="@string/settings_device_summary"
             android:title="@string/settings_device_title"></EditTextPreference>
-        <EditTextPreference
+        <!--<EditTextPreference
             android:defaultValue="@string/default_server"
             android:key="@string/website"
             android:summary="@string/settings_website_summary"
-            android:title="@string/settings_website_title"></EditTextPreference>
+            android:title="@string/settings_website_title"></EditTextPreference>-->
 
     </PreferenceCategory>
 

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="generating">Generating your information...</string>
+
     <string name="app_name" >CypherSend</string>
-    <string name="action_settings" >Settings</string>
+    <string name="action_settings">Settings</string>
     <string name="action_update">Update messages</string>
     <string name="action_guided">Guided Tour</string>
 
     <string name="app_cypher_and_send">Encrypt and send via target\'s server</string>
     <string name="app_cypher_and_apps">Encrypt and send via third party</string>
 
-    <string name="font">sans-serif-light</string>
     <!-- main interface string definition-->
     <string name="main_send">Share your public infos with a friend</string>
     <string name="main_web_send">Send using the web</string>
@@ -28,10 +29,13 @@
     <string name="share_via">Share via</string>
     <string name="action_share">Share</string>
 
-    <string name="title_section_default">Principal</string>
-    <string name="title_section_friends">Friends/Devices</string>
+    <string name="title_section_default">Main</string>
+    <string name="title_section_friends">Friends</string>
     <string name="title_section_help">Help</string>
 
+    <string name="no_intent">Please select another way to share the message</string>
+
+    <string name="no_friends">You currently have no friends saved on this device.</string>
     <string name="guided_tour_1">Use this application to share private messages with your Android device !</string>
     <string name="guided_tour_1_shortcut"></string>
     <string name="guided_tour_2">First step is to share your public information with some friends. These information look like a simple URL. Tell them to click on it while having the app installed.</string>

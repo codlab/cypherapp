@@ -27,7 +27,8 @@
 
         tools:context=".CypherMainActivity">
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
@@ -37,7 +38,8 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="5dp"
@@ -46,7 +48,8 @@
             android:textColor="#000000" />
 
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
@@ -56,7 +59,9 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <TextView
+
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="5dp"
@@ -64,7 +69,8 @@
             android:text="@string/help_part_2_content"
             android:textColor="#000000" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
@@ -74,7 +80,8 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="5dp"
@@ -82,7 +89,8 @@
             android:text="@string/help_part_3_content"
             android:textColor="#000000" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
@@ -92,7 +100,8 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="5dp"
@@ -100,25 +109,8 @@
             android:text="@string/help_part_4_content"
             android:textColor="#000000" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_margin="5dp"
-            android:layout_marginTop="30dp"
-            android:dividerHeight="10dp"
-            android:text="@string/help_part_5_title"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginBottom="5dp"
-            android:dividerHeight="10dp"
-            android:text="@string/help_part_5_content"
-            android:textColor="#000000" />
-
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
@@ -128,7 +120,8 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="5dp"
@@ -137,7 +130,8 @@
             android:text="@string/help_part_7_content"
             android:textColor="#000000" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_margin="5dp"
@@ -147,7 +141,8 @@
             android:textColor="#000000"
             android:textSize="25dp" />
 
-        <TextView
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            typeface="thin"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="5dp"

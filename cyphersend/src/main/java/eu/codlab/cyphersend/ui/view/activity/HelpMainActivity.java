@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,8 @@ public class HelpMainActivity extends FragmentActivity {
             GuidedTour guided = new GuidedTour();
             Bundle b = new Bundle();
             b.putInt("res",res[i % res.length]);
-            b.putInt("str",str[i % str.length]);
+            Log.d("MainActivity", "set arguments " + str[i % str.length]);
+            b.putString("str",getString(str[i % str.length]));
             guided.setArguments(b);
 
             return guided;

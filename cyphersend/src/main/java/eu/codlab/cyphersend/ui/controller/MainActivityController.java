@@ -101,12 +101,19 @@ public class MainActivityController {
     public static boolean hasKeys(){
         return _keys != null;
     }
+
+    public static boolean hasKey(Activity activity){
+        return CypherRSA.areKeysPresent(activity);
+    }
+
+    public static KeyPair generateKey(Activity activity){
+        _keys = CypherRSA.generateKey();
+        CypherRSA.saveKeyPair(activity, _keys);
+        return _keys;
+    }
     public static KeyPair getKeys(Activity activity) {
         if (_keys == null) {
-            if (!CypherRSA.areKeysPresent(activity)) {
-                _keys = CypherRSA.generateKey();
-                CypherRSA.saveKeyPair(activity, _keys);
-            } else {
+            if (CypherRSA.areKeysPresent(activity)) {
                 try {
                     _keys = CypherRSA.loadKeyPair(activity);
                 } catch (Exception e) {

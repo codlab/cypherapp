@@ -18,7 +18,7 @@ public class SettingsActivityController {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.device), name).commit();
     }
     public static String getDeviceName(Context activity) {
-        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.device), "device");
+        return PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.device), android.os.Build.MODEL);
     }
 
     public static void setDeviceUrl(Context context, String url){

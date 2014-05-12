@@ -1,5 +1,6 @@
 package eu.codlab.cyphersend.ui.view.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.security.PublicKey;
 
@@ -20,6 +22,7 @@ import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
+import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
 
 /**
@@ -62,7 +65,14 @@ public class ShareThirdPartyFriendsActivity extends FragmentActivity implements 
         if (Intent.ACTION_SEND.equals(getIntent().getAction()) &&
                 getIntent().hasExtra(Intent.EXTRA_TEXT)) {
             String message = getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            _message = message;
+
+            if(!CypherMainActivity.isCallerMyself(getIntent())){
+                _message = message;
+            }else{
+                CypherMainActivity.sendTextIntent(this, message);
+                Toast.makeText(this, R.string.no_intent, Toast.LENGTH_LONG).show();
+                finish();
+            }
         } else if(getIntent().hasExtra("message") && getIntent().getStringExtra("message") != null){
             _message = getIntent().getStringExtra("message");
         } else {
@@ -130,11 +140,7 @@ public class ShareThirdPartyFriendsActivity extends FragmentActivity implements 
         write.encodeMessage(_message);
         //http://254.254.254.254/
         String share_string = UrlsHelper.getDecodeURL(write);
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.personnal_data_subject_third_party));
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, share_string);
-        startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
+        CypherMainActivity.sendTextIntent(this, share_string);
     }
 
     @Override
