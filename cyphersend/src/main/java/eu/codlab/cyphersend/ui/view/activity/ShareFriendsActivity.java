@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
@@ -43,6 +45,7 @@ public class ShareFriendsActivity extends FragmentActivity implements RequestSen
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
+        Crashlytics.start(this);
         setContentView(R.layout.activity_friends);
 
         ListView list = (ListView)findViewById(R.id.main_friends_list);

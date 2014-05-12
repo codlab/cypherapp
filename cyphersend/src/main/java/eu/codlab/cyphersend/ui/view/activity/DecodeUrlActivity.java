@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
 import eu.codlab.cyphersend.dbms.model.Device;
@@ -34,6 +36,7 @@ public class DecodeUrlActivity extends Activity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        Crashlytics.start(this);
         setContentView(R.layout.activity_decode);
 
 

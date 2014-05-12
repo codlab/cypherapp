@@ -107,4 +107,15 @@ public class SGBD
         db.delete(TABLE_DEVICES, "id="+id, null);
     }
 
+    public void updateDeviceUrl(long id, String device_url) {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put("website", device_url);
+        db.update(TABLE_DEVICES, initialValues, "id="+id, null);
+    }
+
+    public void updateDeviceName(long id, String device_name) {
+        ContentValues initialValues = new ContentValues();
+        initialValues.put("device", device_name);
+        db.update(TABLE_DEVICES, initialValues, "id="+id, null);
+    }
 }

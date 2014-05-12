@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import java.security.KeyPair;
 
 import eu.codlab.cyphersend.dbms.controller.DevicesController;
+import eu.codlab.cyphersend.dbms.model.Device;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.view.fragment.MainDefaultFragment;
@@ -86,6 +87,13 @@ public class MainActivityController {
 
                     if (DevicesController.getInstance(context).hasDevice(device_identifier)) {
                         //TODO ask for different infos to manage save or not
+                        Device device = DevicesController.getInstance(context).getDevice(device_identifier);
+                        //TODO manage elsewhere
+                        boolean res = false;
+                        res = DevicesController.getInstance(context).updateDeviceUrl(device, device_url);
+                        res |= DevicesController.getInstance(context).updateDeviceName(device, device_name);
+                        if(res)
+                            return SAVED;
                         return NOT_SAVED;
                     } else {
                         DevicesController.getInstance(context).addDevice(device_name, device_identifier, public_key, device_url);

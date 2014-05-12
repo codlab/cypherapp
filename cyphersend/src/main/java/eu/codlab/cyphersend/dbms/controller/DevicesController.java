@@ -88,14 +88,13 @@ public class DevicesController {
         return inter;
     }
 
-    public Device getDevice(String name) {
-        if (hasDevice(name)) {
-            Device _if = new Device(new Long(0), name, "", "", "");
+    public Device getDevice(String identifier) {
+        if (hasDevice(identifier)) {
+            Device _if = new Device(new Long(0), "", identifier, "", "");
             return _devices.get(_devices.indexOf(_if));
         }
         return null;
     }
-
     public boolean hasWebDevices() {
         boolean has = false;
         ArrayList<Device> devices = getDevices();
@@ -110,5 +109,27 @@ public class DevicesController {
 
     public boolean hasDevices(){
         return getDevices().size() > 0;
+    }
+
+    public boolean updateDeviceUrl(Device device, String device_url) {
+        if(device_url == null)return false;
+        if( (device.getWebsite() == null && device_url != null) ||
+                (device.getWebsite() != null && device.getWebsite().equals(device_url) == false)){
+            _sgbd.updateDeviceUrl(device.getId(), device_url);
+            device.setWebsite(device_url);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateDeviceName(Device device, String device_name) {
+        if(device_name == null)return false;
+        if( (device.getName() == null && device_name != null) ||
+            (device.getName() != null && device.getName().equals(device_name) == false)){
+            _sgbd.updateDeviceName(device.getId(), device_name);
+            device.setName(device_name);
+            return true;
+        }
+        return false;
     }
 }

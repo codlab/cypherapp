@@ -14,6 +14,8 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.crashlytics.android.Crashlytics;
+
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
@@ -47,6 +49,7 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
         addPreferencesFromResource(R.xml.settings);
 
         if (Build.VERSION.SDK_INT >= 11)

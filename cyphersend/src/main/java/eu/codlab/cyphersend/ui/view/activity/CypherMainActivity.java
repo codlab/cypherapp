@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -32,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -253,6 +255,8 @@ public class CypherMainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
+
 
         if(!MainActivityController.hasKey(this)){
             Intent intent = new Intent(this, GeneratingActivity.class);
@@ -496,6 +500,7 @@ public class CypherMainActivity extends ActionBarActivity
         ;
     }
 
+    private Handler _handler;
     @Override
     public void onNewIntent(Intent intent) {
         // onResume gets called after this to handle the intent
@@ -505,6 +510,11 @@ public class CypherMainActivity extends ActionBarActivity
                 Intent.ACTION_VIEW.equals(intent.getAction())) {
             processIntent(intent);
 
+
+            _handler = new Handler(Looper.getMainLooper());
+
+            //todo alert with ask for new name
+            //todo alert with ask for new url
 
             int saved = getController().onNewUri(this, getIntent().getData());
 

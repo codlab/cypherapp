@@ -64,4 +64,12 @@ public class Device {
     public boolean hasWebSite() {
         return ! (getWebsite() == null || getWebsite().length() < 4);
     }
+
+    public void setWebsite(String website) {
+        this._website = website;
+    }
+
+    public void setName(String name) {
+        this._name = name;
+    }
 }
