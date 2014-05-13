@@ -14,7 +14,7 @@
     tools:context=".ShareFriendsActivity">
 
     <eu.codlab.cyphersend.ui.RobotoTextview
-        typeface="thin"
+        roboto="thin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

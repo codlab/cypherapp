@@ -37,8 +37,7 @@
                 android:layout_width="100dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center_vertical"
-                android:adjustViewBounds="true"
-                android:src="@drawable/device" />
+                android:adjustViewBounds="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -48,13 +47,11 @@
             android:orientation="vertical">
 
             <eu.codlab.cyphersend.ui.RobotoTextview
-                typeface="thin"
+                roboto="thin"
                 android:id="@+id/guided_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:dividerHeight="10dp"
-                android:text="@string/guided_tour_1"
                 android:textColor="@android:color/black" />
         </LinearLayout>
 

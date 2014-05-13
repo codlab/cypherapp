@@ -1,6 +1,6 @@
 <resources>
     <declare-styleable name="RobotoTextView">
-        <attr name="typeface" format="string" />
+        <attr name="roboto" format="string" />
         <!-- possible : thin or regular - default thin-->
     </declare-styleable>
 

@@ -28,7 +28,7 @@ public class RobotoTextview extends TextView {
         </resources>
          */
         TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.RobotoTextView);
-        String fontName = styledAttrs.getString(R.styleable.RobotoTextView_typeface);
+        String fontName = styledAttrs.getString(R.styleable.RobotoTextView_roboto);
         styledAttrs.recycle();
 
         if ("regular".equals(fontName)) {

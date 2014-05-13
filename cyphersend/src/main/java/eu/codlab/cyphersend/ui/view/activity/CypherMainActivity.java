@@ -749,8 +749,8 @@ public class CypherMainActivity extends ActionBarActivity
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-                        9000).show();
+                /*GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        9000).show();*/
             } else {
                 finish();
             }

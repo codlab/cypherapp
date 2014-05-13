@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.security.Base64Coder;
@@ -50,7 +52,10 @@ public class SettingsActivity extends PreferenceActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
-        addPreferencesFromResource(R.xml.settings);
+        if( GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS)
+            addPreferencesFromResource(R.xml.settings);
+        else
+            addPreferencesFromResource(R.xml.settings_no_play);
 
         if (Build.VERSION.SDK_INT >= 11)
             getActionBar().setDisplayHomeAsUpEnabled(true);

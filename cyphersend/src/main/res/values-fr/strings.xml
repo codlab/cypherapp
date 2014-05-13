@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="generating">Generating your information...</string>
+    <string name="generating">Génération de vos informations locales...</string>
 
     <string name="app_name" >CypherSend</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_update">Update messages</string>
-    <string name="action_guided">Guided Tour</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_update">Télécharger les messages</string>
+    <string name="action_guided">Guide</string>
 
-    <string name="app_cypher_and_send">Encrypt and send via target\'s server</string>
-    <string name="app_cypher_and_apps">Encrypt and send via third party</string>
+    <string name="app_cypher_and_send">Envoyer par le serveur</string>
+    <string name="app_cypher_and_apps">Envoyer via une application tierce</string>
 
     <!-- main interface string definition-->
-    <string name="main_send">Share your public infos with a friend</string>
-    <string name="main_web_send">Send using the web</string>
-    <string name="main_share_send">Send encrypted using other app</string>
+    <string name="main_send">Partage de vos informations publiques</string>
+    <string name="main_web_send">Envoyer un message par web</string>
+    <string name="main_share_send">Envoyer par une application tierce</string>
 
-    <string name="main_send_no_friends_title">Error</string>
-    <string name="main_send_no_friends_message">You have currently no friends registered. Ask them for their public infos before clicking here.</string>
+    <string name="main_send_no_friends_title">Erreur</string>
+    <string name="main_send_no_friends_message">Vous n\'avez pas d\'amis enregistrés. Demandez leur de vous envoyer les informations publiques, scannez les puis retentez.</string>
 
-    <string name="follow_me">Follow me on twitter</string>
+    <string name="follow_me">Me suivre</string>
 
-    <string name="personnal_data_subject">I\'m sharing my personnal CypherSend\'s public data with you</string>
-    <string name="personnal_data_subject_third_party">Sharing an encrypted message with your public information</string>
+    <string name="personnal_data_subject">Partage de mes informations publiques</string>
+    <string name="personnal_data_subject_third_party">Partage d\'un message chiffré avec vos informations</string>
 
-    <string name="select_the_device_to_send_to">Select the device to send the message to</string>
+    <string name="select_the_device_to_send_to">Choisissez l\'ami à qui envoyer le message</string>
     <string name="select_the_device_to_send_to_and_share">Select the recipient device and you will then be able to use any Android\'s app to share the encrypted message</string>
-    <string name="share_via">Share via</string>
-    <string name="action_share">Share</string>
+    <string name="share_via">Partager par</string>
+    <string name="action_share">Partager</string>
 
-    <string name="title_section_default">Main</string>
-    <string name="title_section_friends">Friends</string>
-    <string name="title_section_help">Help</string>
+    <string name="title_section_default">Accueil</string>
+    <string name="title_section_friends">Amis</string>
+    <string name="title_section_help">Aide</string>
 
-    <string name="no_intent">Please select another way to share the message</string>
+    <string name="no_intent">Merci de sélectionner un autre moyen de partage</string>
 
-    <string name="no_friends">You currently have no friends saved on this device.</string>
+    <string name="no_friends">Vous n\'avez actuellement aucun amis sur cet appareil.</string>
     <string name="guided_tour_1">Use this application to share private messages with your Android device !</string>
     <string name="guided_tour_1_shortcut"></string>
     <string name="guided_tour_2">First step is to share your public information with some friends. These information look like a simple URL. Tell them to click on it while having the app installed.</string>
@@ -60,26 +60,26 @@
     <string name="help_part_6_title">Contact</string>
     <string name="help_part_6_content">You can contact me directly here:\nmail : codlabtech@gmail.com\ntwitter : http://twitter.com/codlab \nweb in general : search for codlab B)\n</string>
 
-    <string name="not_suppose_to_be_this_device">The message was not suppose to be decrypted by this device!</string>
+    <string name="not_suppose_to_be_this_device">Le message ne semble pas être destiné à votre appareil. (erreur de clés)</string>
 
-    <string name="device_send_message">New message</string>
-    <string name="device_web_send_message">New Web message</string>
+    <string name="device_send_message">Nouveau message</string>
+    <string name="device_web_send_message">Nouveau message web</string>
 
-    <string name="settings_device_title">This Device name</string>
-    <string name="settings_device_summary">It will be sent to your friend to help them identify your device</string>
+    <string name="settings_device_title">Nom de cet appareil</string>
+    <string name="settings_device_summary">Il sera envoyé à vos amis pour vous identifier rapidement</string>
 
     <string name="settings_website_title">Website root/url</string>
     <string name="settings_website_summary">The website url with / (!) to use as root to retrieve new messages</string>
 
-    <string name="settings_register_title">Register to the server</string>
-    <string name="settings_register_summary">Register device info to register to this server with your default device serial</string>
+    <string name="settings_register_title">Enregistrement sur le serveur</string>
+    <string name="settings_register_summary">Vous enregistrer permet à vos amis de vous envoyer des messages directement par le web</string>
 
     <string name="settings_force_title">Force whole new registering</string>
     <string name="settings_force_summary">Will generate new devices info AND link to the server. Use to force register - you will need to resend to your friend your data</string>
 
 
-    <string name="user_category">User</string>
-    <string name="server_state_category">Server state</string>
+    <string name="user_category">Utilisateur</string>
+    <string name="server_state_category">Serveur</string>
 
     <string name="device">device</string>
     <string name="website">website</string>
@@ -91,86 +91,86 @@
 
     <string name="default_server">https://cypher.codlab.eu/</string>
 
-    <string name="dialog_message_register_title">Force new register</string>
-    <string name="dialog_message_register_message_ok">You have been successfully registered to the server!</string>
-    <string name="dialog_message_register_message_ko">The server did not accept the request : it seems the device is already registered.</string>
-    <string name="dialog_message_register_message_timeout">The server is not up</string>
+    <string name="dialog_message_register_title">Enregistrement web</string>
+    <string name="dialog_message_register_message_ok">Vous avez été enregistré avec succès!</string>
+    <string name="dialog_message_register_message_ko">Le serveur n\'a pas accepté votre requête : l\'appareil est déjà enregistré?</string>
+    <string name="dialog_message_register_message_timeout">Le serveur n\'est pas accessible.</string>
 
     <string name="dialog_message_force_title">Force new register</string>
     <string name="dialog_message_force_message_ok">The new register is ok. Please resend to your friend the data!</string>
     <string name="dialog_message_force_message_ko">The server did not accept the info : correct server?</string>
 
-    <string name="successfully_saved">Saved successfully</string>
-    <string name="error_saved">Error while retrieveing the new value</string>
-    <string name="successfully_shared">Shared Successfully</string>
+    <string name="successfully_saved">Sauvegarde effectuée avec succès</string>
+    <string name="error_saved">Erreur lors de la récupération de nouvelles valeurs</string>
+    <string name="successfully_shared">Partagé avec succès</string>
 
-    <string name="dialog_message_received_title">New message received</string>
-    <string name="dialog_message_received_title_error">Message error</string>
-    <string name="dialog_message_received_message">Message from A : \nB</string>
-    <string name="dialog_message_received_content_error_decypher">Could not decypher a message :(</string>
-    <string name="dialog_message_received_content_error_null">An exception occured during a reception. Is the server running? Are you registered on the server?</string>
-    <string name="dialog_message_received_title_empty">No new message</string>
-    <string name="dialog_message_received_content_empty">No new message have been found on the server</string>
+    <string name="dialog_message_received_title">Nouveau message reçu</string>
+    <string name="dialog_message_received_title_error">Erreur message</string>
+    <string name="dialog_message_received_message">Message de A : \nB</string>
+    <string name="dialog_message_received_content_error_decypher">Un message n\'a pas pu être déchiffré :(</string>
+    <string name="dialog_message_received_content_error_null">Une exception est survenue pendant la récupération des messages. Est-ce que le réseau est actif? Etes-vous enregistrés?</string>
+    <string name="dialog_message_received_title_empty">Aucun message</string>
+    <string name="dialog_message_received_content_empty">Aucune message n\'a été trouvé sur le serveur</string>
 
-    <string name="dialog_message_send_title">Message send status</string>
-    <string name="dialog_message_send_content_ok">Your message have been successfully sent to the destination server</string>
-    <string name="dialog_message_send_content_error">An error occured while sending the message</string>
+    <string name="dialog_message_send_title">Statut de l\'émission</string>
+    <string name="dialog_message_send_content_ok">Votre message a été envoyé avec succès sur le serveur</string>
+    <string name="dialog_message_send_content_error">Une erreur est survenue pendant l\'émission du message</string>
 
     <string name="ok">Ok</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
     <string name="dialog_request_send_title">Message to send</string>
     <string name="dialog_request_send_message">Please provide the plain text message you want to send using a third party app</string>
     <string name="dialog_request_send_message_web">Please provide the plain text message you want to send using the receiver\'s webservice</string>
 
-    <string name="known_sender">Message sent from %s\n</string>
-    <string name="unknown_sender">Message sent from unknown sender</string>
+    <string name="known_sender">Message envoyé par %s.\n</string>
+    <string name="unknown_sender">Message envoyé par un utilisateur inconnu.\n</string>
 
-    <string name="gcm_title">New messages from the cloud</string>
-    <string name="gcm_message">Someone just send you a message. Click here to open the app and manually load the messages.</string>
+    <string name="gcm_title">Nouveau messages dans le cloud</string>
+    <string name="gcm_message">Quelqu\'un vient de vous envoyer un message. Cliquez ici pour lancer l\'application et charger les messages web.</string>
 
-    <string name="settings_gcm_title">GCM Push Notification</string>
-    <string name="settings_gcm_summary">Accept the GCM notification</string>
-    <string name="settings_gcm_summary_on">You will be notify in real time</string>
-    <string name="settings_gcm_summary_off">You will not be notified</string>
+    <string name="settings_gcm_title">Notifications Push</string>
+    <string name="settings_gcm_summary">Acceptation des notifications push</string>
+    <string name="settings_gcm_summary_on">Vous serez notifiés en temps réel.</string>
+    <string name="settings_gcm_summary_off">Aucune notification.</string>
 
-    <string name="no_info_title">Oups no settings detected</string>
-    <string name="no_info_text">You are currently using the default settings. You should edit the settings. Do you want to go to edit them?</string>
+    <string name="no_info_title">Oups! Paramètres par défaut détectés</string>
+    <string name="no_info_text">Vous utilisez les paramètres par défaut. Il est conseillé de configurer l\'application. VOulez-vous éditer les paramètres?</string>
 
-    <string name="gcm_acceptance">Do you accept using the GCM service? Note that using it makes Google be aware of every notification of new messages BUT does not give Google the message</string>
+    <string name="gcm_acceptance">Acceptez-vous les notifications push? Google peut connaitre quand vous obtenez de nouveaux messages mais ne peut absolument pas les lire</string>
 
-    <string name="keys_export_title">Export your keys</string>
-    <string name="keys_export_message">Export the keys into the file /sdcard/keys.zip</string>
+    <string name="keys_export_title">Exportez vos clés</string>
+    <string name="keys_export_message">Exporte vos clés dans /sdcard/keys.zip</string>
 
-    <string name="keys_import_title">Import your keys</string>
-    <string name="keys_import_message">Import the keys from the /sdcard/keys.zip file</string>
+    <string name="keys_import_title">Importez vos clés</string>
+    <string name="keys_import_message">Importez les clés. Le fichier /sdcard/keys.zip doit exister.</string>
 
     <string name="keys_import">keys_import</string>
     <string name="keys_export">keys_export</string>
 
-    <string name="keys_import_export">Manage your keys</string>
+    <string name="keys_import_export">Gérer vos informations</string>
 
-    <string name="keys_input_export">Set a password to export your keys</string>
-    <string name="keys_input_import">Give the password you provided</string>
-    <string name="keys_import_error">Error while importing your keys</string>
+    <string name="keys_input_export">Définissez un mot de passe pour exporter vos clés</string>
+    <string name="keys_input_import">Quel est le mot de passe de l\'archive?</string>
+    <string name="keys_import_error">Erreur pendant l\'importation. Archive existante? Mot de passe correct?</string>
 
-    <string name="error">Error !</string>
+    <string name="error">Erreur !</string>
 
     <string name="restart_app_title">Informations enregistrées</string>
     <string name="restart_app_message">L\'application nécessite d\'être redémarrée. CLiquez sur OK pour relancer l\'app automatiquement.</string>
 
-    <string name="bitcoin_donate">Make a bitcoin donation</string>
+    <string name="bitcoin_donate">Faire une donation bitcoin</string>
 
-    <string name="name_title">Device name</string>
-    <string name="name_message">What is your device\'s name?</string>
+    <string name="name_title">Nom de l\'appareil</string>
+    <string name="name_message">Quel est le nom de votre appareil?</string>
 
-    <string name="gcm_register_title">Push notification</string>
-    <string name="gcm_register_message">Do you want to receive push notification of new content available</string>
+    <string name="gcm_register_title">Notifications Push</string>
+    <string name="gcm_register_message">Voulez-vous recevoir des notifications de nouveau contenu?</string>
 
-    <string name="register_title">Online service</string>
-    <string name="register_message">Do you want to register onto the online service?</string>
+    <string name="register_title">Service en ligne</string>
+    <string name="register_message">Enregistrement sur le serveur web? (recevoir des messages par le web)</string>
 
-    <string name="register_password_title">Password</string>
-    <string name="register_password_message">Set a password for the online service</string>
+    <string name="register_password_title">Mot de passe</string>
+    <string name="register_password_message">Définir un mot de passe pour le service en ligne</string>
 </resources>

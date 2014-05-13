@@ -15,7 +15,7 @@
 
     <eu.codlab.cyphersend.ui.RobotoTextview
         android:id="@+id/decoded"
-        typeface="thin"
+        roboto="thin"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_margin="25dp"
