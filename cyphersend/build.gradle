@@ -25,6 +25,7 @@ dependencies {
     compile 'com.viewpagerindicator:library:2.4.1@aar'
     compile project(':bitcoin')
     compile 'com.crashlytics.android:crashlytics:1.+'
+    compile project(':libraries:android-pinview')
 
 }
 
