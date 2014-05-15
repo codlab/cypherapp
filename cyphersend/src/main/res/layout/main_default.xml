@@ -66,6 +66,16 @@
             android:text="@string/follow_me" />
 
         <eu.codlab.cyphersend.ui.RobotoButton
+            android:id="@+id/codlab"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:background="#dddddd"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/codlab_public" />
+        <!--
+        <eu.codlab.cyphersend.ui.RobotoButton
             android:id="@+id/main_donate"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -73,7 +83,7 @@
             android:background="#dddddd"
             android:padding="5dp"
             android:layout_marginLeft="10dp"
-            android:text="@string/bitcoin_donate" />
+            android:text="@string/bitcoin_donate" />-->
         </LinearLayout>
 
 

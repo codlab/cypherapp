@@ -1,5 +1,6 @@
 package eu.codlab.cyphersend.ui.view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -78,7 +79,20 @@ public class MainDefaultFragment extends Fragment {
             }
         });
 
-        Button donate = (Button) v.findViewById(R.id.main_donate);
+        Button codlab = (Button) v.findViewById(R.id.codlab);
+        if(codlab != null){
+            codlab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Activity activity = getActivity();
+                    if(activity != null && activity instanceof CypherMainActivity){
+                        ((CypherMainActivity) activity).onNewUri(Uri.parse("https://cypher.codlab.eu/me/Y29kbGFi/aHR0cHM6Ly9jeXBoZXIuY29kbGFiLmV1Lw==/RzJnM0RSd0tvemlpN2RnU1B1RDdQblFNTG45UWJ4eGk4Qm5FSzJYMk92eGtaNHdUbUpFdjExVTZ1MGUyck9aRkxpZVpucEJWaGxYMGlhcW55Nk5qNDlPcU94TkxncXVadzdPQjJiTGV6cDF1NHNwSVdhZkQ5R0Q0ZUxlY3VnZXRNbXlub21uWkRpazBNMlpDbU9LdkdSZkFaWVNURnp4UG9mc3FRVTFUeHFRNWJZVmIzNUk0clNTNkNRQk1QVUdMYjRMTWF0ODdzU1RPVkJndFB2Q1Nza09ObzI4djJtQzJuU0pHUmJwMUJhNlNiRGtVNWpnYmU0NUhZQVRLc0k3WTQ=/MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2y2_sh-adutxEhjsBcrdUnXmBX3vTi5-5Us_wVN4Jzru0U_r74b6aC0O5jBEY_AzsZYMQBc6WosHGE9NUyEhMx9R-a_M2kbX2BQXFWedSawLxGoEfOpAaTXNjBIcEpPCDTS1NhncTn08NEZofN9h3kDFzsJlIQTpfLKzQmgg2Wc2am3RdMecT0pjZ7HB7WzaTVTjhxrc_10gGk-hrrMonc_0Eatw9xu3iLeAR-5ZKlWHiJRY9sR2yKs15_FucWLndjgq6Tk_iwVUS5Rki74lI12irMzLJzJT_Akroj7mydnFjflblHazCr_K8eGc4iQiVgPim2mDHYVrZzoKWFdyowIDAQAB/"));
+                    }
+                }
+            });
+        }
+        Button donate = null;//(Button) v.findViewById(R.id.main_donate);
+        if(donate != null)
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

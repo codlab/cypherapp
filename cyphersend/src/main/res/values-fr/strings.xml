@@ -19,7 +19,7 @@
     <string name="main_send_no_friends_title">Erreur</string>
     <string name="main_send_no_friends_message">Vous n\'avez pas d\'amis enregistrés. Demandez leur de vous envoyer les informations publiques, scannez les puis retentez.</string>
 
-    <string name="follow_me">Me suivre</string>
+    <string name="follow_me">Suivre @codlab</string>
 
     <string name="personnal_data_subject">Partage de mes informations publiques</string>
     <string name="personnal_data_subject_third_party">Partage d\'un message chiffré avec vos informations</string>
@@ -120,9 +120,9 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
-    <string name="dialog_request_send_title">Message to send</string>
-    <string name="dialog_request_send_message">Please provide the plain text message you want to send using a third party app</string>
-    <string name="dialog_request_send_message_web">Please provide the plain text message you want to send using the receiver\'s webservice</string>
+    <string name="dialog_request_send_title">Envoyer un message</string>
+    <string name="dialog_request_send_message">Veuillez indiquer le texte que vous voulez ensuite par une application tierce</string>
+    <string name="dialog_request_send_message_web">Veuillez indiquer le message texte que vous envoyer en passant par le serveur du destinataire</string>
 
     <string name="known_sender">Message envoyé par %s.\n</string>
     <string name="unknown_sender">Message envoyé par un utilisateur inconnu.\n</string>
@@ -173,4 +173,16 @@
 
     <string name="register_password_title">Mot de passe</string>
     <string name="register_password_message">Définir un mot de passe pour le service en ligne</string>
+
+    <string name="codlab_public">Ajouter les infos de @codlab</string>
+    <string name="vault_title">Secure vault</string>
+    <string name="no_pin">You have no pin set. Please go to the configuration panel and set a pincode</string>
+    <string name="add_note">Add a new note</string>
+    <string name="note_name">Name</string>
+    <string name="note_content">Content</string>
+    <string name="note_confirm">Add</string>
+    <string name="note_remove">Delete</string>
+    <string name="note_copy">Copy content</string>
+
+    <string name="note_help">Each note can be copy to your clipboard. Incoming : copy note from whatever apps you are into!</string>
 </resources>

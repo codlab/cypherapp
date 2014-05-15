@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
@@ -293,9 +294,8 @@ public class CypherMainActivity extends ActionBarActivity
                 getController().getKeys(CypherMainActivity.this);
                 sendNfc();
                 getShareClass().onUpdate(getShareIntent());
-                CypherMainActivity.this.invalidateOptionsMenu();
+                CypherMainActivity.this.supportInvalidateOptionsMenu();
             }
-
         };
         t.run();
 
@@ -442,15 +442,7 @@ public class CypherMainActivity extends ActionBarActivity
 
         if (getIntent() != null && getIntent().getData() != null) {
 
-            int saved = getController().onNewUri(this, getIntent().getData());
-
-            if (MainActivityController.SAVED == saved) {
-                Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
-            } else if (MainActivityController.NOT_SAVED == saved) {
-                //nothing
-            } else {
-                Toast.makeText(getApplicationContext(), R.string.error_saved, Toast.LENGTH_LONG).show();
-            }
+            onNewUri(getIntent().getData());
         }
 
 
@@ -459,7 +451,7 @@ public class CypherMainActivity extends ActionBarActivity
                 getController().getKeys(CypherMainActivity.this);
                 sendNfc();
                 getShareClass().onUpdate(getShareIntent());
-                CypherMainActivity.this.invalidateOptionsMenu();
+                CypherMainActivity.this.supportInvalidateOptionsMenu();
             }
 
         };
@@ -467,6 +459,19 @@ public class CypherMainActivity extends ActionBarActivity
 
         checkAndOrStartGCM();
 
+    }
+
+    public void onNewUri(Uri uri){
+
+        int saved = getController().onNewUri(this, uri);
+
+        if (MainActivityController.SAVED == saved) {
+            Toast.makeText(getApplicationContext(), R.string.successfully_saved, Toast.LENGTH_LONG).show();
+        } else if (MainActivityController.NOT_SAVED == saved) {
+            //nothing
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.error_saved, Toast.LENGTH_LONG).show();
+        }
     }
 
 

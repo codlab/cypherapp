@@ -52,6 +52,7 @@ public class SettingsActivity extends PreferenceActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
+
         if( GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS)
             addPreferencesFromResource(R.xml.settings);
         else
@@ -239,11 +240,13 @@ public class SettingsActivity extends PreferenceActivity
 
     @Override
     public void onRegisterOk() {
+        SettingsActivityController.setDeviceUrl(this, SettingsActivityController.getDeviceURL(this));
         getDialogController().createDialogServerRegisterOk();
     }
 
     @Override
     public void onRegisterKo() {
+        SettingsActivityController.setDeviceUrl(this, SettingsActivityController.getDeviceURL(this));
         getDialogController().createDialogServerRegisterError();
     }
 

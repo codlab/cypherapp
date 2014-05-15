@@ -19,7 +19,7 @@
     <string name="main_send_no_friends_title">Error</string>
     <string name="main_send_no_friends_message">You have currently no friends registered. Ask them for their public infos before clicking here.</string>
 
-    <string name="follow_me">Follow me on twitter</string>
+    <string name="follow_me">Follow @codlab</string>
 
     <string name="personnal_data_subject">I\'m sharing my personnal CypherSend\'s public data with you</string>
     <string name="personnal_data_subject_third_party">Sharing an encrypted message with your public information</string>
@@ -173,4 +173,17 @@
 
     <string name="register_password_title">Password</string>
     <string name="register_password_message">Set a password for the online service</string>
+
+    <string name="codlab_public">Add @codlab\'s public infos</string>
+    <string name="vault_title">Secure vault</string>
+    <string name="no_pin">You have no pin set. Please go to the configuration panel and set a pincode</string>
+    <string name="add_note">Add a new note</string>
+    <string name="note_name">Name</string>
+    <string name="note_content">Content</string>
+    <string name="note_confirm">Add</string>
+    <string name="note_remove">Delete</string>
+    <string name="note_copy">Copy content</string>
+
+    <string name="note_help">Each note can be copy to your clipboard. Incoming : copy note from whatever apps you are into!</string>
+
 </resources>
