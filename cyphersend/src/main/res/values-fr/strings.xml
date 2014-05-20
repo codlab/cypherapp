@@ -175,14 +175,26 @@
     <string name="register_password_message">Définir un mot de passe pour le service en ligne</string>
 
     <string name="codlab_public">Ajouter les infos de @codlab</string>
-    <string name="vault_title">Secure vault</string>
-    <string name="no_pin">You have no pin set. Please go to the configuration panel and set a pincode</string>
-    <string name="add_note">Add a new note</string>
-    <string name="note_name">Name</string>
-    <string name="note_content">Content</string>
-    <string name="note_confirm">Add</string>
-    <string name="note_remove">Delete</string>
-    <string name="note_copy">Copy content</string>
+    <string name="vault_title">Coffre sécurisé</string>
+    <string name="no_pin">Vous n\'avez pas de code pin configuré. Veuillez vous diriger dans les paramètres pour en définir un. Notez qu\'actuellement, seule l\'aide sera affichée ;)</string>
+    <string name="add_note">Ajouter une nouvelle note</string>
+    <string name="note_empty">Vous n\'avez actuellement aucune note sur cet appareil. Notez qu\'actuellement, seule l\'aide sera affichée ;)</string>
+    <string name="note_name">Nom</string>
+    <string name="note_content">Contenu</string>
+    <string name="note_cancel">Annuler</string>
+    <string name="note_confirm">Ajouter</string>
+    <string name="note_remove">Effacer</string>
+    <string name="note_copy">Copier</string>
 
     <string name="note_help">Each note can be copy to your clipboard. Incoming : copy note from whatever apps you are into!</string>
+
+
+    <string name="vault_category">Paramètres coffre-fort</string>
+    <string name="pin_modify_title">Modifier le pin</string>
+    <string name="pin_modify_message">Un pin doit être inséré pour accèder au coffre fort</string>
+    <string name="keys_vault">vault</string>
+
+    <string name="decode_error_maybe_invalid">Une erreur est survenue pendant le déchiffrement du message. Etes-vous certains d\'être destinataire du message?\n\nSi vous connaissez l\'émetteur, contactez-le afin de le prévenir que vous avez certainement changé vos informations publiques et qu\'il doive les mettre à jour.\n\nSi jamais l\'erreur persiste, vous pouvez contacter le développeur sur codlabtech@gmail.com\n\nVeuillez excuser pour la gêne occasionnée</string>
+
+
 </resources>

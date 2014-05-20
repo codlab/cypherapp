@@ -63,6 +63,8 @@ import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
+import eu.codlab.pin.PinEntryFragment;
+import eu.codlab.pin.PinEntrySupportFragment;
 
 public class CypherMainActivity extends ActionBarActivity
         implements
@@ -81,11 +83,12 @@ public class CypherMainActivity extends ActionBarActivity
     private MainActivityDialogController _dialog_controller;
     private final static String CALLER = "me";
     static String CALLER_VALUE;
+    private boolean _need_refresh_pager;
 
     //TODO set jit instruction to optimize loader
     //approximation : 25ms
     private synchronized MainActivityController getController() {
-        if (_controller == null) _controller = new MainActivityController();
+        if (_controller == null) _controller = new MainActivityController(this);
         return _controller;
     }
 
@@ -181,6 +184,12 @@ public class CypherMainActivity extends ActionBarActivity
         createDialogRequestMessage(true);
     }
 
+    public void onPagerPinOk() {
+        _need_refresh_pager = true;
+        mViewPager.getAdapter().notifyDataSetChanged();
+
+    }
+
     private class UpdateShareClass {
         public void onUpdate(Intent intent) {
 
@@ -245,6 +254,12 @@ public class CypherMainActivity extends ActionBarActivity
         public CharSequence getPageTitle(int position) {
             return "OBJECT " + (position + 1);
         }
+
+        @Override
+        public int getItemPosition(Object object){
+            return _need_refresh_pager && object instanceof PinEntrySupportFragment ? POSITION_NONE : POSITION_UNCHANGED;
+        }
+
     }
 
     Pager pager;
@@ -256,6 +271,7 @@ public class CypherMainActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        _need_refresh_pager = false;
         Crashlytics.start(this);
 
 

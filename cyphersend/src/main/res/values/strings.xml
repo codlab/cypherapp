@@ -178,12 +178,21 @@
     <string name="vault_title">Secure vault</string>
     <string name="no_pin">You have no pin set. Please go to the configuration panel and set a pincode</string>
     <string name="add_note">Add a new note</string>
+    <string name="note_empty">You currently have no note saved on this device</string>
     <string name="note_name">Name</string>
     <string name="note_content">Content</string>
+    <string name="note_cancel">Cancel</string>
     <string name="note_confirm">Add</string>
     <string name="note_remove">Delete</string>
     <string name="note_copy">Copy content</string>
 
     <string name="note_help">Each note can be copy to your clipboard. Incoming : copy note from whatever apps you are into!</string>
+
+    <string name="vault_category">Vault settings</string>
+    <string name="pin_modify_title">Modify pin code</string>
+    <string name="pin_modify_message">A pin code prevent access the notes</string>
+    <string name="keys_vault">vault</string>
+
+    <string name="decode_error_maybe_invalid">An error occured while decoding the message. Are you sure you were the receiver of the message?\n\nIf you know who sent you the message, please verify with this person that he owns your current public infos and retry.\n\nIf not, contact the developer at codlabtech@gmail.com\n\nPlease accept our apologize for the inconvenient</string>
 
 </resources>

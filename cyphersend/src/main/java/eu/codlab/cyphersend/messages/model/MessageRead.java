@@ -49,10 +49,10 @@ public class MessageRead extends Message{
     }
 
     public MessageContent decode(PrivateKey key){
-        String result = Base64Coder.decodeString(CypherRSA.decrypt(Base64Coder.decode(getMessage()), key).replaceAll("\0", ""));
         try {
+            String result = Base64Coder.decodeString(CypherRSA.decrypt(Base64Coder.decode(getMessage()), key).replaceAll("\0", ""));
             return MessageContent.getMessageFromJSON(new JSONObject(result));
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

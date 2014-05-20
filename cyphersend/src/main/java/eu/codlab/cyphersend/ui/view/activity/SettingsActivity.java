@@ -18,6 +18,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import eu.codlab.cyphersend.Application;
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
@@ -29,11 +30,13 @@ import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityDialogController;
 import eu.codlab.cyphersend.utils.keys.KeyManager;
+import eu.codlab.pin.PinUpdateHelper;
 
 public class SettingsActivity extends PreferenceActivity
         implements ServerRegisterListener, ServerForceRegisterListener {
 
     private SettingsActivityController _controller;
+    private PinUpdateHelper _helper;
 
     private SettingsActivityController getController() {
         if (_controller == null) _controller = new SettingsActivityController();
@@ -158,6 +161,19 @@ public class SettingsActivity extends PreferenceActivity
                         }
                     };
                     createInputPassword(R.string.keys_input_import, edit, listener);
+                    return true;
+                }
+            });
+        }
+
+        Preference vault = findPreference(getString(R.string.keys_vault));
+       _helper = new PinUpdateHelper(Application.getInstance());
+        if(vault != null){
+            vault.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    _helper.register(Application.getInstance());
+                    _helper.startInput(SettingsActivity.this);
                     return true;
                 }
             });

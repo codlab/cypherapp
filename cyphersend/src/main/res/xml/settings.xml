@@ -37,4 +37,10 @@
             android:summary="@string/keys_import_message"
             android:title="@string/keys_import_title"></Preference>
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/vault_category">
+        <Preference
+            android:key="@string/keys_vault"
+            android:summary="@string/pin_modify_message"
+            android:title="@string/pin_modify_title"></Preference></PreferenceCategory>
 </PreferenceScreen>

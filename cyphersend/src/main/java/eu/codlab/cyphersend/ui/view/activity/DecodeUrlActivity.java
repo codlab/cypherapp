@@ -59,20 +59,24 @@ public class DecodeUrlActivity extends Activity {
 
             MessageContent decoded_msg = read.decode(MainActivityController.getKeys(this).getPrivate());
 
-            String msg = "";
+            if(decoded_msg == null){
+                decoded.setText(R.string.decode_error_maybe_invalid);
+            }else {
+                String msg = "";
 
-            if(decoded_msg instanceof MessageString){
-                msg = ((MessageString) decoded_msg).getMessage();
-            }
+                if (decoded_msg instanceof MessageString) {
+                    msg = ((MessageString) decoded_msg).getMessage();
+                }
 
-            String identifier = split[idx - 1];
+                String identifier = split[idx - 1];
 
-            Device device = controller.getDeviceFromSignature(identifier, msg);
+                Device device = controller.getDeviceFromSignature(identifier, msg);
 
-            if (device != null) {
-                decoded.setText(getString(R.string.known_sender).replace("%s", device.getName())+" "+msg);
-            }else{
-                decoded.setText(getString(R.string.unknown_sender)+" "+msg);
+                if (device != null) {
+                    decoded.setText(getString(R.string.known_sender).replace("%s", device.getName()) + " " + msg);
+                } else {
+                    decoded.setText(getString(R.string.unknown_sender) + " " + msg);
+                }
             }
         } else {
             finish();
