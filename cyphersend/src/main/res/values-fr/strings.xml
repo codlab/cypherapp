@@ -196,5 +196,7 @@
 
     <string name="decode_error_maybe_invalid">Une erreur est survenue pendant le déchiffrement du message. Etes-vous certains d\'être destinataire du message?\n\nSi vous connaissez l\'émetteur, contactez-le afin de le prévenir que vous avez certainement changé vos informations publiques et qu\'il doive les mettre à jour.\n\nSi jamais l\'erreur persiste, vous pouvez contacter le développeur sur codlabtech@gmail.com\n\nVeuillez excuser pour la gêne occasionnée</string>
 
+    <string name="progress_dialog_load_messages_title">Messages web</string>
+    <string name="progress_dialog_load_messages_message">Téléchargement de messages depuis le serveur</string>
 
 </resources>

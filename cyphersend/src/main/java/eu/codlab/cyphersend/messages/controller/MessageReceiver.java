@@ -2,6 +2,8 @@ package eu.codlab.cyphersend.messages.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,10 +26,17 @@ public class MessageReceiver{
     private String _url;
     private String _identifier;
     private String _pass;
-
     private MessageReceiveListener _listener;
     public void setMessageReceiveListener(MessageReceiveListener listener){
         _listener = listener;
+    }
+
+
+    public MessageReceiver(MessageReceiveListener listener, String url, String identifier, String pass){
+        _url = url;
+        _identifier = identifier;
+        _pass = pass;
+        setMessageReceiveListener(listener);
     }
 
     private Receiver _receiver;
@@ -96,6 +105,7 @@ public class MessageReceiver{
         @Override
         public void onPostExecute(ArrayList<MessageRead>  result){
             if(_listener != null){
+                _listener.onPostExecute();
                 if(result == null){
                     _listener.onReceiveError();
                 }else if(result.size() == 0){
@@ -108,13 +118,6 @@ public class MessageReceiver{
                 }
             }
         }
-    }
-
-    public MessageReceiver(MessageReceiveListener listener, String url, String identifier, String pass){
-        _url = url;
-        _identifier = identifier;
-        _pass = pass;
-        setMessageReceiveListener(listener);
     }
 
     public void retrieve(){

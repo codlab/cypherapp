@@ -26,6 +26,7 @@ import eu.codlab.pin.PinEntrySupportFragment;
  * Created by kevinleperf on 28/06/13.
  */
 public class MainActivityController implements IPinEntryListener {
+    public static String LOAD_WEB_MESSAGES = "eu.codlab.cyphersend.LOAD_WEB_MESSAGES";
     private CypherMainActivity _main_activity;
     private MainDefaultFragment _default_fragment;
     private MainFriendsFragment _friends_fragment;

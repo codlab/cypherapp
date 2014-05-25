@@ -2,6 +2,7 @@ package eu.codlab.cyphersend.ui.view.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -27,6 +28,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -274,6 +276,7 @@ public class CypherMainActivity extends ActionBarActivity
         _need_refresh_pager = false;
         Crashlytics.start(this);
 
+        manageExtras(getIntent());
 
         if(!MainActivityController.hasKey(this)){
             Intent intent = new Intent(this, GeneratingActivity.class);
@@ -364,6 +367,14 @@ public class CypherMainActivity extends ActionBarActivity
         });
     }
 
+    private void manageExtras(Intent intent) {
+        Log.d("MainActivity","manage extras? "+intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES));
+        if(intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES)){
+            intent.removeExtra(MainActivityController.LOAD_WEB_MESSAGES);
+            getWebMessages();
+        }
+    }
+
 
     public boolean isv14Sup() {
         return Build.VERSION.SDK_INT >= 14;
@@ -399,12 +410,7 @@ public class CypherMainActivity extends ActionBarActivity
                 startActivity(helps);
                 return true;
             case R.id.action_friends:
-                MessageReceiver receiver = new MessageReceiver(this,
-                        SettingsActivityController.getDeviceURL(this),
-                        Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this)),
-                        Base64Coder.encodeString(SettingsActivityController.getDevicePass(this))
-                );
-                receiver.retrieve();
+                getWebMessages();
                 return true;
         }
         return false;
@@ -414,6 +420,10 @@ public class CypherMainActivity extends ActionBarActivity
     public void onResume() {
         registerNfc();
         super.onResume();
+
+        if(_loading_web == true){
+            checkCreateProgressDialog();
+        }
 
         if (SettingsActivityController.isDeviceNameSet(this) == false) {
             if (_alert == null) {
@@ -507,6 +517,9 @@ public class CypherMainActivity extends ActionBarActivity
 
     @Override
     public void onPause() {
+        if(_loading_web){
+            closeProgressDialog();
+        }
         if (_alert != null) {
             _alert.dismiss();
             _alert = null;
@@ -527,6 +540,8 @@ public class CypherMainActivity extends ActionBarActivity
         // onResume gets called after this to handle the intent
         setIntent(intent);
 
+        Log.d("MainActivity", intent.toString());
+        manageExtras(intent);
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) ||
                 Intent.ACTION_VIEW.equals(intent.getAction())) {
             processIntent(intent);
@@ -629,6 +644,46 @@ public class CypherMainActivity extends ActionBarActivity
     @Override
     public void onEmpty() {
         getDialogController().createDialogReceivedNoNewMessage();
+    }
+
+
+    private void getWebMessages() {
+        MessageReceiver receiver = new MessageReceiver(this,
+                SettingsActivityController.getDeviceURL(this),
+                Base64Coder.encodeString(SettingsActivityController.getDeviceIdentifier(this)),
+                Base64Coder.encodeString(SettingsActivityController.getDevicePass(this))
+        );
+        _loading_web = true;
+        checkCreateProgressDialog();
+        receiver.retrieve();
+    }
+
+    @Override
+    public void onPostExecute() {
+        _loading_web = false;
+        closeProgressDialog();
+    }
+
+    private ProgressDialog _loading_progress_dialog;
+    private boolean _loading_web;
+
+    private void checkCreateProgressDialog(){
+        if(_loading_progress_dialog == null) {
+            _loading_progress_dialog = new ProgressDialog(this);
+            _loading_progress_dialog.setIndeterminate(true);
+            _loading_progress_dialog.setTitle(R.string.progress_dialog_load_messages_title);
+            _loading_progress_dialog.setMessage(getString(R.string.progress_dialog_load_messages_message));
+            _loading_progress_dialog.show();
+        }else if(!_loading_progress_dialog.isShowing()){
+            _loading_progress_dialog.show();
+        }
+    }
+
+    private void closeProgressDialog(){
+        if(_loading_progress_dialog != null && _loading_progress_dialog.isShowing()){
+            _loading_progress_dialog.dismiss();
+        }
+        _loading_progress_dialog = null;
     }
 
 

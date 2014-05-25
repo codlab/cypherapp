@@ -19,7 +19,7 @@ public class SHA
         }
         catch (NoSuchAlgorithmException e)
         {
-            throw new Error("No MD5 support in this VM.");
+            throw new Error("No SHA support in this VM.");
         }
 
         StringBuilder hashString = new StringBuilder();

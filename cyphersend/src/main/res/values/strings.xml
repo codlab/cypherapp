@@ -195,4 +195,7 @@
 
     <string name="decode_error_maybe_invalid">An error occured while decoding the message. Are you sure you were the receiver of the message?\n\nIf you know who sent you the message, please verify with this person that he owns your current public infos and retry.\n\nIf not, contact the developer at codlabtech@gmail.com\n\nPlease accept our apologize for the inconvenient</string>
 
+    <string name="progress_dialog_load_messages_title">Web messages</string>
+    <string name="progress_dialog_load_messages_message">Downloading possible messages from the webserver</string>
+
 </resources>
