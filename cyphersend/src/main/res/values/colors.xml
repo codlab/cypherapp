@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="more_grey">#a0a0a0</color>
     <color name="little_grey">#bbbbbb</color>
     <color name="light_grey">#dcdccd</color>
     <color name="light_light_grey">#eaeaea</color>
+
+
+    <color name="back">#ededed</color>
+    <color name="shadow">#FFE4E4E4</color>
+
+    <color name="OrangeTop">#FF9500</color>
+    <color name="OrangeBottom">#FF5E3A</color>
+    <color name="GreenTop">#87FC70</color>
+    <color name="GreenBottom">#0BD318</color>
+
+    <color name="green">#c1daa3</color>
 </resources>

@@ -42,7 +42,6 @@ public class ServerRegister {
         website += "service/register/" + _identifier
                 + "/" + _pass;
 
-        Log.d("website", website);
         return website;
 
     }
@@ -68,7 +67,6 @@ public class ServerRegister {
                     read = br.readLine();
                 }
 
-                Log.d("url received", sb.toString() + "");
                 JSONObject object = new JSONObject(sb.toString());
 
                 return object != null && object.has("output") && "ok".equals(object.optString("output",null));

@@ -11,10 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.controller.DevicesController;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.controller.DevicesController;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
-import eu.codlab.cyphersend.ui.view.fragment.MainFriendsFragment;
 import eu.codlab.cyphersend.utils.Color;
 
 /**
@@ -81,6 +80,9 @@ public class DeviceAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View v = ((LayoutInflater) (getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))).inflate(R.layout.device_item_list, viewGroup, false);
 
+        if(i == 0 && v.findViewById(R.id.header) != null){
+            v.findViewById(R.id.header).setVisibility(View.VISIBLE);
+        }
         View color = v.findViewById(R.id.color);
         color.setBackgroundColor(Color.getColor(i));
 

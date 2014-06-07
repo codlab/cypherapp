@@ -51,7 +51,6 @@ public class HelpMainActivity extends FragmentActivity {
             GuidedTour guided = new GuidedTour();
             Bundle b = new Bundle();
             b.putInt("res",res[i % res.length]);
-            Log.d("MainActivity", "set arguments " + str[i % str.length]);
             b.putString("str",getString(str[i % str.length]));
             guided.setArguments(b);
 

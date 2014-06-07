@@ -11,6 +11,10 @@
     <string name="app_cypher_and_send">Envoyer par le serveur</string>
     <string name="app_cypher_and_apps">Envoyer via une application tierce</string>
 
+    <string name="share_popup">Partagez un message avec une autre application</string>
+    <string name="discution_popup">Discutions ou messages jetables avec les amis utilisant le serveur</string>
+    <string name="vault_popup">Nothing here... for now ;)</string>
+
     <!-- main interface string definition-->
     <string name="main_send">Partage de vos informations publiques</string>
     <string name="main_web_send">Envoyer un message par web</string>
@@ -31,6 +35,7 @@
 
     <string name="title_section_default">Accueil</string>
     <string name="title_section_friends">Amis</string>
+    <string name="title_section_web">Web</string>
     <string name="title_section_help">Aide</string>
 
     <string name="no_intent">Merci de sélectionner un autre moyen de partage</string>
@@ -62,7 +67,7 @@
 
     <string name="not_suppose_to_be_this_device">Le message ne semble pas être destiné à votre appareil. (erreur de clés)</string>
 
-    <string name="device_send_message">Nouveau message</string>
+    <string name="device_send_message">Nouveau message partagé</string>
     <string name="device_web_send_message">Nouveau message web</string>
 
     <string name="settings_device_title">Nom de cet appareil</string>
@@ -199,4 +204,9 @@
     <string name="progress_dialog_load_messages_title">Messages web</string>
     <string name="progress_dialog_load_messages_message">Téléchargement de messages depuis le serveur</string>
 
+    <string name="incognito_on">Les messages s\'autodétruiront</string>
+    <string name="incognito_off">Les messages seront sauvegardés</string>
+
+    <string name="message_was_incognito">Le message n\'a pas été sauvegardé car il était en mode incognito</string>
+    <string name="message_was_not_incognito">Le message a été sauvegardé</string>
 </resources>

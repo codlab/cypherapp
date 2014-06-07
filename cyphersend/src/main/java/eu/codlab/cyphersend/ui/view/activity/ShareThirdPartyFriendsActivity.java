@@ -1,6 +1,5 @@
 package eu.codlab.cyphersend.ui.view.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +15,7 @@ import com.crashlytics.android.Crashlytics;
 import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.security.Base64Coder;
@@ -24,7 +23,6 @@ import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
-import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
 
 /**
@@ -140,7 +138,7 @@ public class ShareThirdPartyFriendsActivity extends FragmentActivity implements 
 
 
         MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver);
-        write.encodeMessage(_message);
+        write.encodeMessage(_message, true);
         //http://254.254.254.254/
         String share_string = UrlsHelper.getDecodeURL(write);
         CypherMainActivity.sendTextIntent(this, share_string);

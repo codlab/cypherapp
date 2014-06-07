@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bordered_item"
+    android:background="@drawable/card_with_shadow"
     android:gravity="center_horizontal|center_vertical"
     android:orientation="vertical"
     android:paddingTop="15dp">
@@ -22,7 +22,6 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:background="@color/little_grey"
             android:padding="5dp"
             android:text="@string/note_confirm"
             android:textSize="10dp" />
@@ -37,7 +36,6 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:background="@color/little_grey"
             android:padding="5dp"
             android:text="@string/note_cancel"
             android:textSize="10dp" />
@@ -84,7 +82,6 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@color/little_grey"
             android:padding="5dp"
             android:text="@string/note_confirm"
             android:textSize="10dp" />

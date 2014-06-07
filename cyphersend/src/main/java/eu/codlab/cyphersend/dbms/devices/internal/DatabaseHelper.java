@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.dbms.internal;
+package eu.codlab.cyphersend.dbms.devices.internal;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

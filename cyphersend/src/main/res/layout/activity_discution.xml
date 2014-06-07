@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/discution_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"></ListView>
+
+    <LinearLayout
+        android:id="@+id/incognito_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_top_green"
+        android:gravity="center_vertical"
+        android:padding="@dimen/default_inner_padding"
+        android:paddingLeft="@dimen/default_margin">
+
+        <CheckBox
+            android:id="@+id/incognito_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/incognito_selector"
+            android:button="@null" />
+
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            android:id="@+id/incognito_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+        <CheckBox
+            android:id="@+id/incognito_check_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <eu.codlab.cyphersend.ui.RobotoEditText
+            android:id="@+id/discution_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:lines="3" />
+
+        <Button
+            android:id="@+id/sender_button"
+            android:text="send"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+</LinearLayout>

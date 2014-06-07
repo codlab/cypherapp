@@ -19,8 +19,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#dddddd"
-        android:padding="5dp"
         android:text="@string/main_send" />
 
     <eu.codlab.cyphersend.ui.RobotoButton
@@ -28,8 +26,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#dddddd"
-        android:padding="5dp"
         android:text="@string/main_web_send" />
 
     <eu.codlab.cyphersend.ui.RobotoButton
@@ -37,8 +33,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#dddddd"
-        android:padding="5dp"
         android:text="@string/main_share_send" />
 
     <LinearLayout
@@ -60,7 +54,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent"
-            android:background="#dddddd"
             android:padding="5dp"
             android:layout_marginRight="10dp"
             android:text="@string/follow_me" />
@@ -70,7 +63,6 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent"
-            android:background="#dddddd"
             android:padding="5dp"
             android:layout_marginLeft="10dp"
             android:text="@string/codlab_public" />

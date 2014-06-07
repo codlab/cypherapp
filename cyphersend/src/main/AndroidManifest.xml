@@ -131,6 +131,8 @@
             android:label="@string/action_guided"
             android:theme="@style/DialogTheme"/>
 
+        <activity android:name=".ui.view.activity.DiscutionActivity" />
+
 
         <receiver
             android:name="eu.codlab.cyphersend.GcmBroadcastReceiver"

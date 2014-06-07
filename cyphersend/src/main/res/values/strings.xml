@@ -11,6 +11,10 @@
     <string name="app_cypher_and_send">Encrypt and send via target\'s server</string>
     <string name="app_cypher_and_apps">Encrypt and send via third party</string>
 
+    <string name="share_popup">Share a message with an other application</string>
+    <string name="discution_popup">Chat or throwable messages via friend\'s server</string>
+    <string name="vault_popup">Nothing here... for now ;)</string>
+
     <!-- main interface string definition-->
     <string name="main_send">Share your public infos with a friend</string>
     <string name="main_web_send">Send using the web</string>
@@ -30,7 +34,8 @@
     <string name="action_share">Share</string>
 
     <string name="title_section_default">Main</string>
-    <string name="title_section_friends">Friends</string>
+    <string name="title_section_friends">Partage</string>
+    <string name="title_section_web">Web</string>
     <string name="title_section_help">Help</string>
 
     <string name="no_intent">Please select another way to share the message</string>
@@ -62,7 +67,7 @@
 
     <string name="not_suppose_to_be_this_device">The message was not suppose to be decrypted by this device!</string>
 
-    <string name="device_send_message">New message</string>
+    <string name="device_send_message">New shared message</string>
     <string name="device_web_send_message">New Web message</string>
 
     <string name="settings_device_title">This Device name</string>
@@ -198,4 +203,9 @@
     <string name="progress_dialog_load_messages_title">Web messages</string>
     <string name="progress_dialog_load_messages_message">Downloading possible messages from the webserver</string>
 
+    <string name="incognito_on">Messages will autodestruct</string>
+    <string name="incognito_off">Messages will remain</string>
+
+    <string name="message_was_incognito">This message has not been saved since it was incognito</string>
+    <string name="message_was_not_incognito">This message has been saved to your device</string>
 </resources>

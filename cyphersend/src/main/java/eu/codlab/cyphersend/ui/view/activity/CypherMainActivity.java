@@ -44,9 +44,12 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import java.io.IOException;
 import java.security.PublicKey;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import eu.codlab.cyphersend.Application;
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.controller.DevicesController;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.controller.DevicesController;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
+import eu.codlab.cyphersend.dbms.discution.controller.DiscutionController;
 import eu.codlab.cyphersend.messages.controller.MessageReceiver;
 import eu.codlab.cyphersend.messages.controller.MessageSender;
 import eu.codlab.cyphersend.messages.listeners.MessageReceiveListener;
@@ -65,7 +68,6 @@ import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
-import eu.codlab.pin.PinEntryFragment;
 import eu.codlab.pin.PinEntrySupportFragment;
 
 public class CypherMainActivity extends ActionBarActivity
@@ -258,7 +260,7 @@ public class CypherMainActivity extends ActionBarActivity
         }
 
         @Override
-        public int getItemPosition(Object object){
+        public int getItemPosition(Object object) {
             return _need_refresh_pager && object instanceof PinEntrySupportFragment ? POSITION_NONE : POSITION_UNCHANGED;
         }
 
@@ -278,7 +280,7 @@ public class CypherMainActivity extends ActionBarActivity
 
         manageExtras(getIntent());
 
-        if(!MainActivityController.hasKey(this)){
+        if (!MainActivityController.hasKey(this)) {
             Intent intent = new Intent(this, GeneratingActivity.class);
             startActivity(intent);
             finish();
@@ -343,12 +345,18 @@ public class CypherMainActivity extends ActionBarActivity
             }
         };
 
-        bar.addTab(bar.newTab().setText(R.string.title_section_default)
+        //setText(R.string.title_section_default)
+        bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_main)
                 .setTabListener(tabListener));
-        bar.addTab(bar.newTab().setText(R.string.title_section_friends)
+        //setText(R.string.title_section_friends)
+        //setText(R.string.title_section_web)
+        bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_web)
                 .setTabListener(tabListener));
-        bar.addTab(bar.newTab().setText(R.string.title_section_help)
+        bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_share)
                 .setTabListener(tabListener));
+        //setText(R.string.title_section_help)
+        //bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_notes)
+        //         .setTabListener(tabListener));
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -358,6 +366,20 @@ public class CypherMainActivity extends ActionBarActivity
             @Override
             public void onPageSelected(int position) {
                 getSupportActionBar().setSelectedNavigationItem(position);
+                Crouton.cancelAllCroutons();
+                switch (position) {
+                    case 3:
+                        Crouton.makeText(CypherMainActivity.this, R.string.vault_popup, Application.INFO).show();
+                        break;
+                    case 2:
+                        Crouton.makeText(CypherMainActivity.this, R.string.discution_popup, Application.INFO).show();
+                        break;
+                    case 1:
+                        Crouton.makeText(CypherMainActivity.this, R.string.share_popup, Application.INFO).show();
+                        break;
+                    case 0:
+                    default:
+                }
             }
 
             @Override
@@ -368,8 +390,7 @@ public class CypherMainActivity extends ActionBarActivity
     }
 
     private void manageExtras(Intent intent) {
-        Log.d("MainActivity","manage extras? "+intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES));
-        if(intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES)){
+        if (intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES)) {
             intent.removeExtra(MainActivityController.LOAD_WEB_MESSAGES);
             getWebMessages();
         }
@@ -421,7 +442,7 @@ public class CypherMainActivity extends ActionBarActivity
         registerNfc();
         super.onResume();
 
-        if(_loading_web == true){
+        if (_loading_web == true) {
             checkCreateProgressDialog();
         }
 
@@ -487,7 +508,7 @@ public class CypherMainActivity extends ActionBarActivity
 
     }
 
-    public void onNewUri(Uri uri){
+    public void onNewUri(Uri uri) {
 
         int saved = getController().onNewUri(this, uri);
 
@@ -517,7 +538,7 @@ public class CypherMainActivity extends ActionBarActivity
 
     @Override
     public void onPause() {
-        if(_loading_web){
+        if (_loading_web) {
             closeProgressDialog();
         }
         if (_alert != null) {
@@ -535,12 +556,12 @@ public class CypherMainActivity extends ActionBarActivity
     }
 
     private Handler _handler;
+
     @Override
     public void onNewIntent(Intent intent) {
         // onResume gets called after this to handle the intent
         setIntent(intent);
 
-        Log.d("MainActivity", intent.toString());
         manageExtras(intent);
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) ||
                 Intent.ACTION_VIEW.equals(intent.getAction())) {
@@ -624,13 +645,26 @@ public class CypherMainActivity extends ActionBarActivity
         DevicesController controller = DevicesController.getInstance(this);
         Device device = controller.getDeviceFromSignature(signature, msg);
 
+        DiscutionController controller_discution = null;
+
+
         if (device != null) {
-            getDialogController().createDialogReceivedMessage(device.getName(), msg);
+            if(decoded.isIncognito() == false) {
+                controller_discution = DiscutionController.createNewInstance(this, device);
+                controller_discution.addMessage(msg, false, System.currentTimeMillis());
+            }
+            getDialogController().createDialogReceivedMessage(device.getName(), msg, decoded.isIncognito());
         } else {
             if (MD5.encode(msg).equals(CypherRSA.decrypt(Base64Coder.decode(signature), MainActivityController.getKeys(this).getPublic()))) {
-                getDialogController().createDialogReceivedMessage(SettingsActivityController.getDeviceName(this), msg);
+
+                if(message.isIncognito() == false) {
+                    controller_discution = DiscutionController.createNewInstance(this, SettingsActivityController.getDeviceIdentifier(this), SettingsActivityController.getDeviceIdentifier(this));
+                    controller_discution.addMessage(msg, false, System.currentTimeMillis());
+                }
+
+                getDialogController().createDialogReceivedMessage(SettingsActivityController.getDeviceName(this), msg, decoded.isIncognito());
             } else {
-                getDialogController().createDialogReceivedMessage("Unknown!", msg);
+                getDialogController().createDialogReceivedMessage("Unknown!", msg, true);
             }
         }
 
@@ -667,20 +701,20 @@ public class CypherMainActivity extends ActionBarActivity
     private ProgressDialog _loading_progress_dialog;
     private boolean _loading_web;
 
-    private void checkCreateProgressDialog(){
-        if(_loading_progress_dialog == null) {
+    private void checkCreateProgressDialog() {
+        if (_loading_progress_dialog == null) {
             _loading_progress_dialog = new ProgressDialog(this);
             _loading_progress_dialog.setIndeterminate(true);
             _loading_progress_dialog.setTitle(R.string.progress_dialog_load_messages_title);
             _loading_progress_dialog.setMessage(getString(R.string.progress_dialog_load_messages_message));
             _loading_progress_dialog.show();
-        }else if(!_loading_progress_dialog.isShowing()){
+        } else if (!_loading_progress_dialog.isShowing()) {
             _loading_progress_dialog.show();
         }
     }
 
-    private void closeProgressDialog(){
-        if(_loading_progress_dialog != null && _loading_progress_dialog.isShowing()){
+    private void closeProgressDialog() {
+        if (_loading_progress_dialog != null && _loading_progress_dialog.isShowing()) {
             _loading_progress_dialog.dismiss();
         }
         _loading_progress_dialog = null;
@@ -782,13 +816,13 @@ public class CypherMainActivity extends ActionBarActivity
 
 
         MessageWrite write = new MessageWrite(key, MainActivityController.getKeys(this).getPrivate(), idReceiver);
-        write.encodeMessage(message);
+        write.encodeMessage(message, true);
         //http://254.254.254.254/
         String share_string = UrlsHelper.getDecodeURL(write);
         sendTextIntent(this, share_string);
     }
 
-    static void sendTextIntent(Activity activity, String string){
+    static void sendTextIntent(Activity activity, String string) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(CALLER, createRandomString());
@@ -802,11 +836,11 @@ public class CypherMainActivity extends ActionBarActivity
         return CALLER_VALUE;
     }
 
-    static boolean isCallerMyself(Intent intent){
+    static boolean isCallerMyself(Intent intent) {
         return intent.hasExtra(CALLER);
     }
 
-    static String getStringIntent(Intent intent){
+    static String getStringIntent(Intent intent) {
         return intent.hasExtra(Intent.EXTRA_TEXT) ? intent.getStringExtra(Intent.EXTRA_TEXT)
                 : "";
     }

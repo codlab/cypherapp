@@ -2,7 +2,7 @@
     <item android:id="@+id/action_friends"
           android:title="@string/action_update"
           android:orderInCategory="99"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="always" />
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"

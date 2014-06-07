@@ -4,14 +4,47 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="50dp"
     android:layout_marginTop="50dp"
-
-    android:background="#ddffffff"
     android:gravity="center_vertical|center_horizontal"
-
     android:orientation="vertical"
     android:textColor="#000000"
 
     tools:context=".DecodeUrlActivity">
+
+
+    <LinearLayout
+        android:id="@+id/incognito_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_top_green"
+        android:gravity="center_vertical"
+        android:padding="@dimen/default_inner_padding"
+        android:paddingLeft="@dimen/default_margin">
+
+        <ImageView
+            android:id="@+id/incognito_disabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_incognito_unselected"/>
+        <ImageView
+            android:id="@+id/incognito_enabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_incognito"/>
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            android:id="@+id/incognito_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/message_was_incognito"
+            android:gravity="center_vertical" />
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            android:id="@+id/incognito_disabled_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/message_was_not_incognito"
+            android:gravity="center_vertical" />
+    </LinearLayout>
 
     <eu.codlab.cyphersend.ui.RobotoTextview
         android:id="@+id/decoded"

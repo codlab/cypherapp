@@ -18,10 +18,10 @@ public class MessageRead extends Message{
     protected String _b64_receiver_identifier;
 
 
-    public MessageRead(String b64_sender_identifier, String b64_receiver_identifier, String message){
+    public MessageRead(String b64_sender_identifier, String b64_receiver_identifier, String message, boolean incognito){
         setSenderIdentifier(b64_sender_identifier);
         setReceiverIdentifier(b64_receiver_identifier);
-        setMessage(message);
+        setMessage(message, incognito);
     }
 
     private void setPrivateKey(PrivateKey key){
@@ -51,6 +51,7 @@ public class MessageRead extends Message{
     public MessageContent decode(PrivateKey key){
         try {
             String result = Base64Coder.decodeString(CypherRSA.decrypt(Base64Coder.decode(getMessage()), key).replaceAll("\0", ""));
+
             return MessageContent.getMessageFromJSON(new JSONObject(result));
         } catch (Exception e) {
             e.printStackTrace();

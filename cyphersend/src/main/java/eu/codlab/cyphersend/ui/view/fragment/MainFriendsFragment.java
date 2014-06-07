@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
 import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
@@ -42,7 +42,7 @@ public class MainFriendsFragment extends Fragment implements RequestSendListener
     public void onViewCreated(View v, Bundle savedInstanceState){
 
         ListView list = (ListView)v.findViewById(R.id.main_friends_list);
-        _adapter = new DeviceAdapter(getActivity(), this, DeviceAdapter.BOTH);
+        _adapter = new DeviceAdapter(getActivity(), this, DeviceAdapter.SHARE_ONLY);
         if(_adapter.getCount() == 0){
             list.setVisibility(View.GONE);
             v.findViewById(R.id.main_friends_empty).setVisibility(View.VISIBLE);

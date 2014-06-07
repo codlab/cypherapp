@@ -16,7 +16,7 @@ import com.crashlytics.android.Crashlytics;
 import java.security.PublicKey;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.messages.controller.MessageSender;
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;

@@ -10,12 +10,27 @@ import java.net.URLConnection;
 
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
+import eu.codlab.cyphersend.ui.view.activity.DiscutionActivity;
+
 public class MessageSender {
     private String _url;
     private MessageWrite _message;
     private String _msg;
+    private boolean _incognito;
 
     private MessageSenderListener _listener;
+
+
+    public MessageSender(MessageSenderListener listener, String url, MessageWrite message, String msg) {
+        this(listener, url, message, msg, true);
+    }
+    public MessageSender(MessageSenderListener listener, String url, MessageWrite message, String msg, boolean incognito) {
+        _url = url;
+        _message = message;
+        _msg = msg;
+        _incognito = incognito;
+        setMessageSenderListener(listener);
+    }
 
     public void setMessageSenderListener(MessageSenderListener listener) {
         _listener = listener;
@@ -34,7 +49,7 @@ public class MessageSender {
             website += "/";
         }
 
-        _message.encodeMessage(_msg);
+        _message.encodeMessage(_msg, _incognito);
         website+="service/add/"+_message.getSenderIdentifier()
                 +"/"+_message.getReceiverIdentifier()+"/"+_message.getEncodedMessage();
 
@@ -71,13 +86,6 @@ public class MessageSender {
                 }
             }
         }
-    }
-
-    public MessageSender(MessageSenderListener listener, String url, MessageWrite message, String msg) {
-        _url = url;
-        _message = message;
-        _msg = msg;
-        setMessageSenderListener(listener);
     }
 
     public void send() {

@@ -89,7 +89,8 @@ public class MessageReceiver{
                         JSONObject object = array.optJSONObject(i);
                         if(object != null && object.has("message") && object.has("sender") && object.has("receiver")){
                             MessageRead message = new MessageRead(object.getString("sender"),
-                                    object.getString("receiver"), object.getString("message"));
+                                    object.getString("receiver"), object.getString("message"),
+                                    object.optBoolean("incognito", true));
                             messages.add(message);
                         }
                     }

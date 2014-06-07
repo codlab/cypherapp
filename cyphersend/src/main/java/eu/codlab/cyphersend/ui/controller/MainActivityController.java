@@ -8,14 +8,15 @@ import android.support.v4.app.Fragment;
 import java.security.KeyPair;
 
 import eu.codlab.cyphersend.Application;
-import eu.codlab.cyphersend.dbms.controller.DevicesController;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.controller.DevicesController;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
 import eu.codlab.cyphersend.ui.view.fragment.MainDefaultFragment;
 import eu.codlab.cyphersend.ui.view.fragment.MainFriendsFragment;
 import eu.codlab.cyphersend.ui.view.fragment.MainHelpFragment;
+import eu.codlab.cyphersend.ui.view.fragment.MainWebFriendsFragment;
 import eu.codlab.cyphersend.ui.view.fragment.VaultNoFragment;
 import eu.codlab.cyphersend.utils.UrlsHelper;
 import eu.codlab.pin.IPinEntryListener;
@@ -30,6 +31,7 @@ public class MainActivityController implements IPinEntryListener {
     private CypherMainActivity _main_activity;
     private MainDefaultFragment _default_fragment;
     private MainFriendsFragment _friends_fragment;
+    private MainWebFriendsFragment _web_friends_fragment;
     private MainHelpFragment _help_fragment;
     private PinCheckHelper _helper;
 
@@ -46,12 +48,33 @@ public class MainActivityController implements IPinEntryListener {
         return _default_fragment;
     }
 
+    private Fragment getWebFriendsFragment() {
+
+
+        if (_helper != null) _helper.unregister(Application.getInstance());
+        _helper = new PinCheckHelper(this);
+        _helper.register(Application.getInstance());
+        if (Application.getInstance().hasPinEntered()) {
+            if (_help_fragment == null) _help_fragment = new MainHelpFragment();
+            return _help_fragment;
+        } else if (Application.getInstance().hasPreviousPin() == true) {
+            return new PinEntrySupportFragment();
+        } else {
+            if (_help_fragment == null) _help_fragment = new MainHelpFragment();
+            return _help_fragment;
+        }
+
+
+        //if (_web_friends_fragment == null) _web_friends_fragment = new MainWebFriendsFragment();
+        //return _web_friends_fragment;
+    }
+
     private Fragment getFriendsFragment() {
         if (_friends_fragment == null) _friends_fragment = new MainFriendsFragment();
         return _friends_fragment;
     }
 
-    private Fragment getHelpFragment() {
+    /*private Fragment getHelpFragment() {
         if (_helper != null) _helper.unregister(Application.getInstance());
         _helper = new PinCheckHelper(this);
         _helper.register(Application.getInstance());
@@ -65,14 +88,16 @@ public class MainActivityController implements IPinEntryListener {
         }
         if (_help_fragment == null) _help_fragment = new MainHelpFragment();
         return _help_fragment;
-    }
+    }*/
 
     public Fragment getFragment(int id) {
         switch (id) {
-            case 1:
-                return getFriendsFragment();
             case 2:
-                return getHelpFragment();
+                return getFriendsFragment();
+            case 1:
+                return getWebFriendsFragment();
+            //case 3:
+            //    return getHelpFragment();
             default:
                 return getDefaultFragment();
         }

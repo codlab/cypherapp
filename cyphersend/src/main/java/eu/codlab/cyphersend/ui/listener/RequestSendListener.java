@@ -1,6 +1,6 @@
 package eu.codlab.cyphersend.ui.listener;
 
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 
 /**
  * Created by kevinleperf on 30/06/13.

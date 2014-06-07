@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.dbms.internal;
+package eu.codlab.cyphersend.dbms.devices.internal;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 
 /**
  * Created by kevinleperf on 28/06/13.

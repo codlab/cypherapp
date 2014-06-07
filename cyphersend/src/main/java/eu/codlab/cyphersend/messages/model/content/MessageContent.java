@@ -10,12 +10,20 @@ import org.json.JSONObject;
 public abstract class MessageContent {
     protected static int IMAGE = 1;
     protected static int STRING = 0;
+    protected boolean _incognito;
 
     public abstract void fromJSON(JSONObject object);
     public abstract JSONObject toJSON();
 
-    public MessageContent(){
+    private MessageContent(){
 
+    }
+    protected MessageContent(boolean incognito){
+        _incognito = incognito;
+    }
+
+    public boolean isIncognito(){
+        return _incognito;
     }
 
     public static MessageContent getMessageFromJSON(JSONObject object){
@@ -24,7 +32,7 @@ public abstract class MessageContent {
                 if(object.getInt("type") == IMAGE){
 
                 }else if(object.getInt("type") == STRING){
-                    MessageString msg = new MessageString();
+                    MessageString msg = new MessageString(true);
                     msg.fromJSON(object);
                     return msg;
                 }

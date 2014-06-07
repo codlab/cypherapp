@@ -34,7 +34,6 @@ public class GuidedTour extends Fragment {
             TextView str = (TextView)view.findViewById(R.id.guided_text);
             ImageView img = (ImageView)view.findViewById(R.id.guided_img);
             str.setText(getArguments().getString("str"));
-            Log.d("MainActivity", "have argument "+ getArguments().getString("str"));
             img.setImageResource(getArguments().getInt("res"));
         }
     }

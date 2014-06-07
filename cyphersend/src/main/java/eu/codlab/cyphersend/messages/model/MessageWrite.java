@@ -51,10 +51,15 @@ public class MessageWrite extends Message{
         return _b64_receiver_identifier;
     }
 
-    public void encodeMessage(String message){
-        MessageString msg = new MessageString(message);
+    public void encodeMessage(String message, boolean incognito){
+        MessageString msg = new MessageString(message, incognito);
+        _incognito = incognito;
         _signature = new String(Base64Coder.encode(CypherRSA.encrypt(MD5.encode(message), _private_key)));
         _encoded = new String(Base64Coder.encode(CypherRSA.encrypt(Base64Coder.encodeString(msg.toJSON().toString()), getPublicKey())));
+    }
+
+    public boolean isIncognito(){
+        return _incognito;
     }
 
     public  String getEncodedMessage(){

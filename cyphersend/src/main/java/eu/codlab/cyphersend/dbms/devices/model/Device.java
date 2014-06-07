@@ -1,6 +1,4 @@
-package eu.codlab.cyphersend.dbms.model;
-
-import android.util.Log;
+package eu.codlab.cyphersend.dbms.devices.model;
 
 import java.security.PublicKey;
 

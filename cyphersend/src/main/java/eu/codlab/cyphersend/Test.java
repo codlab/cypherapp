@@ -25,9 +25,6 @@ public class Test {
         final String plainText = CypherRSA.decrypt(cipherText, privateKey);
 
         // Printing the Original, Encrypted and Decrypted Text
-        Log.d("Encoded", "Original Text: " + originalText);
-        Log.d("Encoded", "Encrypted Text: " + new String(cipherText));
-        Log.d("Encoded","Decrypted Text: " + plainText);
         return plainText.equals(originalText);
 
     }

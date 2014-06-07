@@ -1,14 +1,13 @@
-package eu.codlab.cyphersend.dbms.controller;
+package eu.codlab.cyphersend.dbms.devices.controller;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 
-import eu.codlab.cyphersend.dbms.internal.SGBD;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.internal.SGBD;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.utils.MD5;
 
 /**

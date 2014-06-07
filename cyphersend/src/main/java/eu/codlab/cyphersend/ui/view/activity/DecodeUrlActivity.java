@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.dbms.controller.DevicesController;
-import eu.codlab.cyphersend.dbms.model.Device;
+import eu.codlab.cyphersend.dbms.devices.controller.DevicesController;
+import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.messages.model.MessageRead;
 import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.messages.model.content.MessageString;
@@ -48,6 +49,10 @@ public class DecodeUrlActivity extends Activity {
 
         if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
             DevicesController controller = DevicesController.getInstance(this);
+            View v = findViewById(R.id.incognito_layer);
+            if (v != null)
+                v.setVisibility(View.GONE);
+
             TextView decoded = (TextView) findViewById(R.id.decoded);
             String message = getIntent().getData().toString();
             String[] split = message.split("/");
@@ -55,13 +60,13 @@ public class DecodeUrlActivity extends Activity {
             if (message.endsWith("/"))
                 idx--;
 
-            MessageRead read = new MessageRead("", "", split[idx]);
+            MessageRead read = new MessageRead("", "", split[idx], true);
 
             MessageContent decoded_msg = read.decode(MainActivityController.getKeys(this).getPrivate());
 
-            if(decoded_msg == null){
+            if (decoded_msg == null) {
                 decoded.setText(R.string.decode_error_maybe_invalid);
-            }else {
+            } else {
                 String msg = "";
 
                 if (decoded_msg instanceof MessageString) {
