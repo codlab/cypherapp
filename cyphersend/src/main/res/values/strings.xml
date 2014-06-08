@@ -204,7 +204,7 @@
     <string name="progress_dialog_load_messages_message">Downloading possible messages from the webserver</string>
 
     <string name="incognito_on">Messages will autodestruct</string>
-    <string name="incognito_off">Messages will remain</string>
+    <string name="incognito_off">Messages will remain on the devices</string>
 
     <string name="message_was_incognito">This message has not been saved since it was incognito</string>
     <string name="message_was_not_incognito">This message has been saved to your device</string>

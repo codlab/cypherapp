@@ -141,15 +141,15 @@
     <string name="settings_gcm_summary_off">Aucune notification.</string>
 
     <string name="no_info_title">Oups! Paramètres par défaut détectés</string>
-    <string name="no_info_text">Vous utilisez les paramètres par défaut. Il est conseillé de configurer l\'application. VOulez-vous éditer les paramètres?</string>
+    <string name="no_info_text">Vous utilisez les paramètres par défaut. Il est conseillé de configurer l\'application. Voulez-vous éditer les paramètres?</string>
 
-    <string name="gcm_acceptance">Acceptez-vous les notifications push? Google peut connaitre quand vous obtenez de nouveaux messages mais ne peut absolument pas les lire</string>
+    <string name="gcm_acceptance">Acceptez-vous les notifications push? Google n\'est présent que pour indiquer à votre appareil que de nouveaux messages existent. C\'est par la suite que l\'appareil contacte "directement" le serveur.</string>
 
     <string name="keys_export_title">Exportez vos clés</string>
     <string name="keys_export_message">Exporte vos clés dans /sdcard/keys.zip</string>
 
     <string name="keys_import_title">Importez vos clés</string>
-    <string name="keys_import_message">Importez les clés. Le fichier /sdcard/keys.zip doit exister.</string>
+    <string name="keys_import_message">Importez les clés. Le fichier /sdcard/keys.zip doit exister. Il sera effacé!</string>
 
     <string name="keys_import">keys_import</string>
     <string name="keys_export">keys_export</string>
@@ -205,7 +205,7 @@
     <string name="progress_dialog_load_messages_message">Téléchargement de messages depuis le serveur</string>
 
     <string name="incognito_on">Les messages s\'autodétruiront</string>
-    <string name="incognito_off">Les messages seront sauvegardés</string>
+    <string name="incognito_off">Les messages seront sauvegardés sur les appareils</string>
 
     <string name="message_was_incognito">Le message n\'a pas été sauvegardé car il était en mode incognito</string>
     <string name="message_was_not_incognito">Le message a été sauvegardé</string>
