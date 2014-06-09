@@ -55,13 +55,13 @@ public class MainActivityController implements IPinEntryListener {
         _helper = new PinCheckHelper(this);
         _helper.register(Application.getInstance());
         if (Application.getInstance().hasPinEntered()) {
-            if (_help_fragment == null) _help_fragment = new MainHelpFragment();
-            return _help_fragment;
+            if (_web_friends_fragment == null) _web_friends_fragment = new MainWebFriendsFragment();
+            return _web_friends_fragment;
         } else if (Application.getInstance().hasPreviousPin() == true) {
             return new PinEntrySupportFragment();
         } else {
-            if (_help_fragment == null) _help_fragment = new MainHelpFragment();
-            return _help_fragment;
+            if (_web_friends_fragment == null) _web_friends_fragment = new MainWebFriendsFragment();
+            return _web_friends_fragment;
         }
 
 

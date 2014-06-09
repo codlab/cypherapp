@@ -127,7 +127,7 @@
 
     <string name="dialog_request_send_title">Envoyer un message</string>
     <string name="dialog_request_send_message">Veuillez indiquer le texte que vous voulez ensuite par une application tierce</string>
-    <string name="dialog_request_send_message_web">Veuillez indiquer le message texte que vous envoyer en passant par le serveur du destinataire</string>
+    <string name="dialog_request_send_message_web">Veuillez indiquer le message texte que vous voulez envoyer en passant par le serveur du destinataire</string>
 
     <string name="known_sender">Message envoyé par %s.\n</string>
     <string name="unknown_sender">Message envoyé par un utilisateur inconnu.\n</string>
