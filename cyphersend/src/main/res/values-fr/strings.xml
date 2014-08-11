@@ -125,6 +125,11 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
 
+    <string name="help_send">Utilisez le mode messagerie pour échanger vos messages persistents/éphémères in-app avec vos amis. Envoyez leur d\'abord vos infos publiques !</string>
+    <string name="help_share">Utilisez le mode partage pour utiliser n\'importe quelle application à vos amis. Envoyez leur d\'abord vos infos publiques !</string>
+
+    <string name="no_messages">Vous n\'avez ni reçu ni envoyé de messages. Commencez dès maintenant en envoyant à votre correspondant vos informations publiques.</string>
+
     <string name="dialog_request_send_title">Envoyer un message</string>
     <string name="dialog_request_send_message">Veuillez indiquer le texte que vous voulez ensuite par une application tierce</string>
     <string name="dialog_request_send_message_web">Veuillez indiquer le message texte que vous voulez envoyer en passant par le serveur du destinataire</string>

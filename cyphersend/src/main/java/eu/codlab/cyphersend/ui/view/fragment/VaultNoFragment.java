@@ -2,12 +2,9 @@ package eu.codlab.cyphersend.ui.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import eu.codlab.cyphersend.R;
 

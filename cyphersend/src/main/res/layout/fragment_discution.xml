@@ -5,17 +5,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/discution_list"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"></ListView>
+        android:layout_weight="1">
+
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/discution_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"></ListView>
+        <eu.codlab.cyphersend.ui.RobotoTextview
+            android:id="@+id/discution_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/no_messages"
+            android:padding="@dimen/default_margin"
+            android:gravity="center_horizontal|center_vertical"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/incognito_layer"
@@ -63,11 +78,11 @@
 
         <Button
             android:id="@+id/sender_button"
-            android:text="send"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:text="send" />
 
     </LinearLayout>
 </LinearLayout>

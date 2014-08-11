@@ -2,8 +2,6 @@ package eu.codlab.cyphersend.utils;
 
 import android.app.Activity;
 
-import java.security.PublicKey;
-
 import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;

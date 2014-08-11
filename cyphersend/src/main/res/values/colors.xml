@@ -9,10 +9,10 @@
     <color name="back">#ededed</color>
     <color name="shadow">#FFE4E4E4</color>
 
-    <color name="OrangeTop">#FF9500</color>
-    <color name="OrangeBottom">#FF5E3A</color>
-    <color name="GreenTop">#87FC70</color>
-    <color name="GreenBottom">#0BD318</color>
+    <color name="OrangeTop">#99FF9500</color>
+    <color name="OrangeBottom">#99FF6655</color>
+    <color name="GreenTop">#9987FC70</color>
+    <color name="GreenBottom">#990BD318</color>
 
     <color name="green">#c1daa3</color>
 </resources>

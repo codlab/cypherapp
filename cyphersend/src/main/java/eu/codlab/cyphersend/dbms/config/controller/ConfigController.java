@@ -2,7 +2,6 @@ package eu.codlab.cyphersend.dbms.config.controller;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import eu.codlab.cyphersend.dbms.config.internal.SGBD;
 import eu.codlab.cyphersend.dbms.config.model.Config;

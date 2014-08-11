@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import java.security.KeyPair;
 
@@ -18,7 +17,6 @@ import eu.codlab.cyphersend.ui.view.fragment.MainDefaultFragment;
 import eu.codlab.cyphersend.ui.view.fragment.MainFriendsFragment;
 import eu.codlab.cyphersend.ui.view.fragment.MainHelpFragment;
 import eu.codlab.cyphersend.ui.view.fragment.MainWebFriendsFragment;
-import eu.codlab.cyphersend.ui.view.fragment.VaultNoFragment;
 import eu.codlab.cyphersend.utils.UrlsHelper;
 import eu.codlab.pin.IPinEntryListener;
 import eu.codlab.pin.PinCheckHelper;

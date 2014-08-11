@@ -1,5 +1,6 @@
 package eu.codlab.cyphersend.ui.view.activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -51,6 +52,7 @@ public class SettingsActivity extends PreferenceActivity
         return _dialog_controller;
     }
 
+    @SuppressLint("AppCompatMethod")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +63,9 @@ public class SettingsActivity extends PreferenceActivity
         else
             addPreferencesFromResource(R.xml.settings_no_play);
 
-        if (Build.VERSION.SDK_INT >= 11)
+        if (Build.VERSION.SDK_INT >= 11) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 
         EditTextPreference device = (EditTextPreference) this.findPreference(getString(R.string.device));

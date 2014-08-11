@@ -2,8 +2,6 @@ package eu.codlab.cyphersend.messages.model.content;
 
 import org.json.JSONObject;
 
-import eu.codlab.cyphersend.messages.model.content.MessageContent;
-
 /**
  * Created by kevinleperf on 01/04/2014.
  */

@@ -1,6 +1,5 @@
 package eu.codlab.cyphersend.messages.listeners;
 
-import eu.codlab.cyphersend.messages.controller.MessageReceiver;
 import eu.codlab.cyphersend.messages.model.MessageRead;
 
 /**

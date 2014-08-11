@@ -2,7 +2,6 @@ package eu.codlab.cyphersend.settings.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -13,7 +12,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-import eu.codlab.cyphersend.settings.listener.ServerForceRegisterListener;
 import eu.codlab.cyphersend.settings.listener.ServerRegisterListener;
 
 public class ServerRegister {

@@ -10,9 +10,8 @@ import de.keyboardsurfer.android.widget.crouton.Configuration;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import eu.codlab.cyphersend.dbms.config.controller.ConfigController;
 import eu.codlab.cyphersend.dbms.config.model.Config;
-import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
+import eu.codlab.cyphersend.security.PRNGFixes;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityEnhancedController;
-import eu.codlab.cyphersend.ui.view.activity.SettingsActivity;
 import eu.codlab.pin.IPinEntryListener;
 import eu.codlab.pin.IPinUpdateListener;
 
@@ -41,6 +40,12 @@ public class Application extends android.app.Application implements IPinUpdateLi
 
         _has_pin_entered = false;
         _instance = this;
+
+        /**
+         * http://android-developers.blogspot.fr/2013/08/some-securerandom-thoughts.html
+         * Fix PRNG seed
+         */
+        PRNGFixes.apply();
 
         SettingsActivityEnhancedController.cleanValues(this);
 

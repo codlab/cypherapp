@@ -4,25 +4,48 @@ import android.content.Context;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import eu.codlab.cyphersend.Application;
-import eu.codlab.cyphersend.dbms.devices.internal.SGBD;
-import eu.codlab.cyphersend.utils.MD5;
-import eu.codlab.cyphersend.utils.SHA;
 
 /**
  * Created by kevinleperf on 28/06/13.
  */
 class DatabaseHelper {
+    private final static String CONTEXT_SHARED = "shared";
     private SQLiteDatabase _database;
 
-    private DatabaseHelper(Context context, String identifier, String user_id) {
+    private DatabaseHelper(Context context) {
         SQLiteDatabase.loadLibs(context);
 
-        _database = Application.getInstance().createDatabase("chat"+ SHA.encode(MD5.encode(identifier))+SHA.encode(identifier)+".db", user_id + identifier);
+        String serial = null;
+
+        if (hasPassword(context)) {
+            serial = getPassword(context);
+        } else {
+            serial = createPassword(context);
+        }
+
+
+        _database = Application.getInstance().createDatabase("chat.db", serial);
     }
+
+
+    boolean hasPassword(Context context) {
+        return getPassword(context) != null;
+    }
+
+    String getPassword(Context context) {
+        return context.getSharedPreferences(CONTEXT_SHARED, 0).getString(CONTEXT_SHARED, null);
+    }
+
+    String createPassword(Context context) {
+        context.getSharedPreferences(CONTEXT_SHARED, 0).edit()
+                .putString(CONTEXT_SHARED, UUID.randomUUID().toString()).commit();
+        return getPassword(context);
+    }
+
 
     SQLiteDatabase getWritableDatabase() {
         return _database;
@@ -30,18 +53,9 @@ class DatabaseHelper {
 
     private static ArrayList<String> _database_string = new ArrayList<String>();
     private static ArrayList<DatabaseHelper> _databases = new ArrayList<DatabaseHelper>();
-    public static DatabaseHelper getDatabaseHelper(Context context, String identifier, String user_id) {
+    public static DatabaseHelper getDatabaseHelper(Context context) {
         int i=0;
-        for(String str : _database_string){
-            if((identifier+"_"+user_id).equals(str)){
-                return _databases.get(i);
-            }
-            i++;
-        }
-
-        DatabaseHelper helper = new DatabaseHelper(context, identifier, user_id);
-        _databases.add(helper);
-        _database_string.add(identifier+"_"+user_id);
+        DatabaseHelper helper = new DatabaseHelper(context);
         return helper;
     }
 }

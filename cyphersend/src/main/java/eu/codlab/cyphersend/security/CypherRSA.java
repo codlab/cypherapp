@@ -1,7 +1,6 @@
 package eu.codlab.cyphersend.security;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.security.KeyFactory;

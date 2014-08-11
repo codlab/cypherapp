@@ -1,17 +1,11 @@
 package eu.codlab.cyphersend.dbms.discution.controller;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import java.util.ArrayList;
-
 import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.dbms.discution.internal.SGBD;
-import eu.codlab.cyphersend.security.Base64Coder;
-import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
-import eu.codlab.cyphersend.utils.MD5;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -41,11 +35,6 @@ public class DiscutionController {
 
 
     public long addMessage(String content, boolean sender, long timestamp){
-        try{
-            _sgbd.open();
-        }catch(Exception e){
-
-        }
         return _sgbd.addMessage(content, sender, timestamp);
     }
 

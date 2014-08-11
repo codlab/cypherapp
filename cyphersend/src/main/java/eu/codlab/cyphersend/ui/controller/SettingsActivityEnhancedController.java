@@ -6,9 +6,6 @@ import android.preference.PreferenceManager;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.config.controller.ConfigController;
-import eu.codlab.cyphersend.dbms.config.model.Config;
-import eu.codlab.cyphersend.security.Base64Coder;
-import eu.codlab.cyphersend.utils.RandomStrings;
 
 /**
  * Created by kevinleperf on 28/06/13.

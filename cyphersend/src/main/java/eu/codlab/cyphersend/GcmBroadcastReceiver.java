@@ -16,6 +16,7 @@ import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
  * Created by kevinleperf on 01/04/2014.
  */
 public class GcmBroadcastReceiver extends BroadcastReceiver {
+    private static int NOTIFICATION_ID = 424;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
 
@@ -51,7 +52,13 @@ public class GcmBroadcastReceiver extends BroadcastReceiver {
 
 
             mBuilder.setContentIntent(contentIntent);
-            mNotificationManager.notify(424, mBuilder.build());
+            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
         }
+    }
+
+    public static void removeNotification(Context context){
+        NotificationManager manager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(NOTIFICATION_ID);
     }
 }

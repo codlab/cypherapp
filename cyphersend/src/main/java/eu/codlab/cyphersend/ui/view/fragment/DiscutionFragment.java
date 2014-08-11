@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,14 +34,22 @@ import eu.codlab.cyphersend.ui.controller.DiscutionDialogController;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
+import eu.codlab.cyphersend.ui.event.NewMessagesHelper;
 
 /**
  * Created by kevinleperf on 07/04/2014.
  */
-public class DiscutionFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, TextView.OnEditorActionListener, MessageSenderListener {
+public class DiscutionFragment extends Fragment implements CompoundButton.OnCheckedChangeListener,
+        TextView.OnEditorActionListener, MessageSenderListener,
+        NewMessagesHelper.NewMessagesHelperReceiver {
+    private NewMessagesHelper _helper;
+
+    private NewMessagesHelper getHelper() {
+        if (_helper == null) _helper = new NewMessagesHelper(getActivity(), this);
+        return _helper;
+    }
 
     public static DiscutionFragment instantiate(Device device) {
-        Log.d("DISCUTION","instantiate "+device.getIdentifier());
         DiscutionFragment fragment = new DiscutionFragment();
         Bundle arguments = new Bundle();
         arguments.putString(TARGET_IDENTIFIER, device.getIdentifier());
@@ -54,6 +60,7 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
 
     public DiscutionFragment() {
         super();
+
     }
 
     @Override
@@ -64,7 +71,6 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        Log.d("DISCUTION", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
 
 
@@ -74,7 +80,6 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
             return;
         }
         _device = DevicesController.getInstance(getActivity()).getDevice(getArguments().getString(TARGET_IDENTIFIER));
-        Log.d("DISCUTION", "_device " + (_device == null));
         if (_device == null || !_device.hasWebSite()) {
             getActivity().finish();
             return;
@@ -117,6 +122,7 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
 
     @Override
     public void onPause() {
+        getHelper().unregister();
         //closeProgressDialog();
 
         try {
@@ -145,7 +151,12 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
         } else {
             ((DiscutionAdapter) _discution_list.getAdapter()).reset();
         }
+
+        refreshVisibility();
+
         _discution_list.smoothScrollToPosition(_discution_list.getAdapter().getCount() - 1);
+
+        getHelper().register();
     }
 
     @Override
@@ -153,6 +164,23 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
         super.onDestroy();
         if (_chat != null && !_chat.isClosed()) {
             _chat.close();
+        }
+    }
+
+    private void refreshVisibility() {
+        if (_discution_list != null && _discution_list.getAdapter() != null &&
+                getView() != null) {
+            try {
+                if (_discution_list.getAdapter().getCount() == 0) {
+                    _discution_list.setVisibility(View.GONE);
+                    getView().findViewById(R.id.discution_empty).setVisibility(View.VISIBLE);
+                } else {
+                    _discution_list.setVisibility(View.VISIBLE);
+                    getView().findViewById(R.id.discution_empty).setVisibility(View.GONE);
+                }
+            } catch (Exception e) {
+
+            }
         }
     }
 
@@ -195,6 +223,13 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
         if (_dialog_controller == null)
             _dialog_controller = new MainActivityDialogController(getActivity());
         return _dialog_controller;
+    }
+
+    @Override
+    public void onReceive() {
+        if(_discution_list != null && _discution_list.getAdapter() instanceof DiscutionAdapter) {
+            ((DiscutionAdapter) _discution_list.getAdapter()).reset();
+        }
     }
 
     private class DiscutionAdapter extends CursorAdapter {
@@ -309,6 +344,7 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
             if (!_incognito_mode.isChecked()) {
                 getDiscutionController().addMessage(message, true, System.currentTimeMillis());
                 ((DiscutionAdapter) _discution_list.getAdapter()).reset();
+                refreshVisibility();
             }
 
             String idReceiver = Base64Coder.encodeString(_device.getIdentifier());

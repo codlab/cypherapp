@@ -102,7 +102,7 @@
     <string name="dialog_message_register_message_timeout">The server is not up</string>
 
     <string name="dialog_message_force_title">Force new register</string>
-    <string name="dialog_message_force_message_ok">The new register is ok. Please resend to your friend the data!</string>
+    <string name="dialog_message_force_message_ok">The new register is OK. Please resend to your friend the data!</string>
     <string name="dialog_message_force_message_ko">The server did not accept the info : correct server?</string>
 
     <string name="successfully_saved">Saved successfully</string>
@@ -113,17 +113,22 @@
     <string name="dialog_message_received_title_error">Message error</string>
     <string name="dialog_message_received_message">Message from A : \nB</string>
     <string name="dialog_message_received_content_error_decypher">Could not decypher a message :(</string>
-    <string name="dialog_message_received_content_error_null">An exception occured during a reception. Is the server running? Are you registered on the server?</string>
+    <string name="dialog_message_received_content_error_null">An exception occurred during a reception. Is the server running? Are you registered on the server?</string>
     <string name="dialog_message_received_title_empty">No new message</string>
     <string name="dialog_message_received_content_empty">No new message have been found on the server</string>
 
     <string name="dialog_message_send_title">Message send status</string>
     <string name="dialog_message_send_content_ok">Your message have been successfully sent to the destination server</string>
-    <string name="dialog_message_send_content_error">An error occured while sending the message</string>
+    <string name="dialog_message_send_content_error">An error occurred while sending the message</string>
 
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="help_send">Use messaging functionnality to receive/send oneshot/persistent messages to your friends - send them your public infos !</string>
+    <string name="help_share">Use any other app to receive/send messages to/from your friends - send them your public infos !</string>
+
+    <string name="no_messages">You have neither received nor sent any messages to this user. Start now by sending him yout public infos and writing some messages.</string>
 
     <string name="dialog_request_send_title">Message to send</string>
     <string name="dialog_request_send_message">Please provide the plain text message you want to send using a third party app</string>
@@ -198,7 +203,7 @@
     <string name="pin_modify_message">A pin code prevent access the notes</string>
     <string name="keys_vault">vault</string>
 
-    <string name="decode_error_maybe_invalid">An error occured while decoding the message. Are you sure you were the receiver of the message?\n\nIf you know who sent you the message, please verify with this person that he owns your current public infos and retry.\n\nIf not, contact the developer at codlabtech@gmail.com\n\nPlease accept our apologize for the inconvenient</string>
+    <string name="decode_error_maybe_invalid">An error occurred while decoding the message. Are you sure you were the receiver of the message?\n\nIf you know who sent you the message, please verify with this person that he owns your current public infos and retry.\n\nIf not, contact the developer at codlabtech@gmail.com\n\nPlease accept our apologize for the inconvenient</string>
 
     <string name="progress_dialog_load_messages_title">Web messages</string>
     <string name="progress_dialog_load_messages_message">Downloading possible messages from the webserver</string>

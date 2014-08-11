@@ -1,5 +1,7 @@
 package eu.codlab.cyphersend.security;
 
+import android.annotation.SuppressLint;
+
 import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;
@@ -17,6 +19,7 @@ public class Cypher {
     private Cipher ecipher;
     private Cipher dcipher;
 
+    @SuppressLint("TrulyRandom")
     Cypher(String passPhrase, byte [] salt) throws Exception {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         KeySpec spec = new PBEKeySpec(passPhrase.toCharArray(), salt, ITERATION_COUNT, KEY_LENGTH);

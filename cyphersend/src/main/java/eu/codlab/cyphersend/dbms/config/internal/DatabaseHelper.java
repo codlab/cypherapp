@@ -4,15 +4,9 @@ import android.content.Context;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import java.io.File;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import eu.codlab.cyphersend.Application;
-import eu.codlab.cyphersend.dbms.devices.internal.SGBD;
-import eu.codlab.cyphersend.utils.MD5;
-import eu.codlab.cyphersend.utils.SHA;
 
 /**
  * Created by kevinleperf on 28/06/13.

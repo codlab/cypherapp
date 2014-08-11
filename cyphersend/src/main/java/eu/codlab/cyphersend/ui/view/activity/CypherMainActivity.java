@@ -5,38 +5,36 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Looper;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
@@ -50,6 +48,7 @@ import java.security.PublicKey;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import eu.codlab.cyphersend.Application;
+import eu.codlab.cyphersend.GcmBroadcastReceiver;
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.devices.controller.DevicesController;
 import eu.codlab.cyphersend.dbms.devices.model.Device;
@@ -69,6 +68,7 @@ import eu.codlab.cyphersend.settings.listener.GCMServerRegisterListener;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
+import eu.codlab.cyphersend.ui.event.NewMessagesHelper;
 import eu.codlab.cyphersend.ui.view.SwipableViewPager;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
@@ -470,6 +470,7 @@ public class CypherMainActivity extends ActionBarActivity
                 return true;
             case R.id.action_friends:
                 getWebMessages();
+                GcmBroadcastReceiver.removeNotification(this);
                 return true;
         }
         return false;
@@ -714,6 +715,7 @@ public class CypherMainActivity extends ActionBarActivity
                 controller_discution.addMessage(msg, false, System.currentTimeMillis());
             }
             getDialogController().createDialogReceivedMessage(device.getName(), msg, decoded.isIncognito());
+            NewMessagesHelper.sendEvent(this);
         } else {
             if (MD5.encode(msg).equals(CypherRSA.decrypt(Base64Coder.decode(signature), MainActivityController.getKeys(this).getPublic()))) {
 
@@ -723,8 +725,10 @@ public class CypherMainActivity extends ActionBarActivity
                 }
 
                 getDialogController().createDialogReceivedMessage(SettingsActivityController.getDeviceName(this), msg, decoded.isIncognito());
+                NewMessagesHelper.sendEvent(this);
             } else {
                 getDialogController().createDialogReceivedMessage("Unknown!", msg, true);
+                NewMessagesHelper.sendEvent(this);
             }
         }
 

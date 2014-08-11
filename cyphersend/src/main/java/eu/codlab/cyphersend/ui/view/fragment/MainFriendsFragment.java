@@ -1,5 +1,6 @@
 package eu.codlab.cyphersend.ui.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -42,6 +43,9 @@ public class MainFriendsFragment extends Fragment implements RequestSendListener
     public void onViewCreated(View v, Bundle savedInstanceState){
 
         ListView list = (ListView)v.findViewById(R.id.main_friends_list);
+        View header = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.header_view_share, null, false);
+        list.addHeaderView(header);
         _adapter = new DeviceAdapter(getActivity(), this, DeviceAdapter.SHARE_ONLY);
         if(_adapter.getCount() == 0){
             list.setVisibility(View.GONE);

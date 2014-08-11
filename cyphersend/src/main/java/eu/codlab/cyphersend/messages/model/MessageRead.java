@@ -1,6 +1,5 @@
 package eu.codlab.cyphersend.messages.model;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.PrivateKey;

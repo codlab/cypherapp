@@ -1,16 +1,21 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_friends"
-          android:title="@string/action_update"
-          android:orderInCategory="99"
-          android:showAsAction="always" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_friends"
+        android:icon="@drawable/ic_menu_refresh"
+        android:orderInCategory="99"
+        android:title="@string/action_update"
+        app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item
+        android:id="@+id/action_settings"
         android:orderInCategory="101"
-        android:showAsAction="never" />
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
-    <item android:id="@+id/action_guided"
-        android:title="@string/action_guided"
+    <item
+        android:id="@+id/action_guided"
         android:orderInCategory="102"
-        android:showAsAction="never" />
+        android:title="@string/action_guided"
+        app:showAsAction="never" />
 </menu>

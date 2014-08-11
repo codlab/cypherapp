@@ -2,8 +2,6 @@ package eu.codlab.cyphersend.messages.controller;
 
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

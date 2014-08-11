@@ -78,11 +78,16 @@ public class DeviceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        View v = ((LayoutInflater) (getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))).inflate(R.layout.device_item_list, viewGroup, false);
+        View v = view;
+
+        if(v == null) {
+            v = ((LayoutInflater) (getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))).inflate(R.layout.device_item_list, viewGroup, false);
+        }
 
         if(i == 0 && v.findViewById(R.id.header) != null){
             v.findViewById(R.id.header).setVisibility(View.VISIBLE);
         }
+
         View color = v.findViewById(R.id.color);
         color.setBackgroundColor(Color.getColor(i));
 

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 import eu.codlab.cyphersend.Application;
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.devices.model.Device;

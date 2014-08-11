@@ -1,9 +1,5 @@
 package eu.codlab.cyphersend.dbms.discution.model;
 
-import java.security.PublicKey;
-
-import eu.codlab.cyphersend.security.CypherRSA;
-
 /**
  * Created by kevinleperf on 28/06/13.
  */

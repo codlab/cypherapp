@@ -1,10 +1,9 @@
 package eu.codlab.cyphersend.ui.view.fragment;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -14,16 +13,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.devices.model.Device;
-import eu.codlab.cyphersend.dbms.discution.controller.DiscutionController;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
 import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
-import eu.codlab.cyphersend.ui.view.activity.DiscutionActivity;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -52,6 +48,9 @@ public class MainWebFriendsFragment extends Fragment implements RequestSendListe
     public void onViewCreated(View v, Bundle savedInstanceState) {
 
         ListView list = (ListView) v.findViewById(R.id.main_friends_list);
+        View header = ((LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.header_view_send, null, false);
+        list.addHeaderView(header);
         _adapter = new DeviceAdapter(getActivity(), this, DeviceAdapter.WEB_ONLY);
         if (_adapter.getCount() == 0) {
             list.setVisibility(View.GONE);

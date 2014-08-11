@@ -1,7 +1,5 @@
 package eu.codlab.cyphersend;
 
-import android.util.Log;
-
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;

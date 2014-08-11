@@ -1,7 +1,5 @@
 package eu.codlab.cyphersend.messages.model.content;
 
-import android.os.Message;
-
 import org.json.JSONObject;
 
 /**

@@ -10,7 +10,6 @@ import java.net.URLConnection;
 
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
-import eu.codlab.cyphersend.ui.view.activity.DiscutionActivity;
 
 public class MessageSender {
     private String _url;
