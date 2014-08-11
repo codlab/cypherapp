@@ -8,9 +8,11 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Looper;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -26,6 +28,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -33,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
@@ -65,6 +69,7 @@ import eu.codlab.cyphersend.settings.listener.GCMServerRegisterListener;
 import eu.codlab.cyphersend.ui.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
+import eu.codlab.cyphersend.ui.view.SwipableViewPager;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
@@ -74,6 +79,10 @@ public class CypherMainActivity extends ActionBarActivity
         implements
         MessageSenderListener,
         MessageReceiveListener, GCMServerRegisterListener {
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private SwipableViewPager _pager;
     private String regId;
     GoogleCloudMessaging gcm;
     public static final String EXTRA_MESSAGE = "message";
@@ -190,7 +199,7 @@ public class CypherMainActivity extends ActionBarActivity
 
     public void onPagerPinOk() {
         _need_refresh_pager = true;
-        mViewPager.getAdapter().notifyDataSetChanged();
+        _pager.getAdapter().notifyDataSetChanged();
 
     }
 
@@ -251,7 +260,7 @@ public class CypherMainActivity extends ActionBarActivity
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -267,7 +276,6 @@ public class CypherMainActivity extends ActionBarActivity
     }
 
     Pager pager;
-    ViewPager mViewPager;
 
     NfcAdapter.CreateNdefMessageCallback ndefCallback;
     NfcAdapter.OnNdefPushCompleteCallback ndefCompleteCallback;
@@ -306,9 +314,9 @@ public class CypherMainActivity extends ActionBarActivity
         pager =
                 new Pager(
                         getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.setAdapter(pager);
+        _pager = (SwipableViewPager) findViewById(R.id.pager);
+        _pager.setOffscreenPageLimit(3);
+        _pager.setAdapter(pager);
 
         Thread t = new Thread() {
             public void run() {
@@ -331,7 +339,7 @@ public class CypherMainActivity extends ActionBarActivity
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                mViewPager.setCurrentItem(tab.getPosition());
+                _pager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -345,20 +353,20 @@ public class CypherMainActivity extends ActionBarActivity
             }
         };
 
-        //setText(R.string.title_section_default)
-        bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_main)
-                .setTabListener(tabListener));
-        //setText(R.string.title_section_friends)
-        //setText(R.string.title_section_web)
+        ////setText(R.string.title_section_default)
+        //bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_main)
+        //        .setTabListener(tabListener));
+        ////setText(R.string.title_section_friends)
+        ////setText(R.string.title_section_web)
         bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_web)
                 .setTabListener(tabListener));
         bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_share)
                 .setTabListener(tabListener));
-        //setText(R.string.title_section_help)
-        //bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_notes)
-        //         .setTabListener(tabListener));
+        ////setText(R.string.title_section_help)
+        ////bar.addTab(bar.newTab().setIcon(R.drawable.ic_action_tab_notes)
+        ////         .setTabListener(tabListener));
 
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        _pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -368,16 +376,15 @@ public class CypherMainActivity extends ActionBarActivity
                 getSupportActionBar().setSelectedNavigationItem(position);
                 Crouton.cancelAllCroutons();
                 switch (position) {
-                    case 3:
+                    case 2:
                         Crouton.makeText(CypherMainActivity.this, R.string.vault_popup, Application.INFO).show();
                         break;
-                    case 2:
+                    case 0:
                         Crouton.makeText(CypherMainActivity.this, R.string.discution_popup, Application.INFO).show();
                         break;
                     case 1:
                         Crouton.makeText(CypherMainActivity.this, R.string.share_popup, Application.INFO).show();
                         break;
-                    case 0:
                     default:
                 }
             }
@@ -387,8 +394,36 @@ public class CypherMainActivity extends ActionBarActivity
 
             }
         });
+
+
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.drawable.ic_drawer, R.string.app_name, R.string.app_name) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
+
+    public void setViewPagerSwipable(boolean swipable){
+        if(_pager != null){
+            _pager.setPagingEnabled(swipable);
+        }
+    }
     private void manageExtras(Intent intent) {
         if (intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES)) {
             intent.removeExtra(MainActivityController.LOAD_WEB_MESSAGES);
@@ -421,6 +456,9 @@ public class CypherMainActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         switch (item.getItemId()) {
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
@@ -481,6 +519,13 @@ public class CypherMainActivity extends ActionBarActivity
             }
         }
 
+        /*FrameLayout fragment_main = (FrameLayout) findViewById(R.id.main_fragment);
+        if(fragment_main != null){
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.main_fragment, _controller.getDefaultFragment());
+        }*/
+
         try {
             getDialogController().onResume();
         } catch (Exception e) {
@@ -506,6 +551,21 @@ public class CypherMainActivity extends ActionBarActivity
 
         checkAndOrStartGCM();
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     public void onNewUri(Uri uri) {

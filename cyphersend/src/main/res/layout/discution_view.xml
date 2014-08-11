@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <View
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_margin" />
+
     <LinearLayout
         android:id="@+id/writer"
-        android:padding="10dp"
-        android:layout_gravity="left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@drawable/rounded_green"
         android:orientation="vertical"
-        android:background="@drawable/rounded_green">
+        android:padding="10dp">
+
         <TextView
             android:id="@+id/writer_text"
-            android:singleLine="false"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="false" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/sender"
-        android:layout_gravity="right"
-        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/rounded_orange">
+        android:layout_gravity="right"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_weight="4" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_orange"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
         <TextView
             android:id="@+id/sender_text"
-            android:singleLine="false"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:singleLine="false" />
+            </LinearLayout>
+    </LinearLayout>
+
     <View
         android:id="@+id/footer"
         android:layout_width="match_parent"

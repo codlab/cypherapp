@@ -1,14 +1,27 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_vertical|center_horizontal"
-              tools:context=".CypherMainActivity"
-              android:orientation="vertical">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        tools:context=".CypherMainActivity">
 
-</LinearLayout>
+        <eu.codlab.cyphersend.ui.view.SwipableViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="afterDescendants"/>
+
+    </LinearLayout>
+
+    <fragment
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:name="eu.codlab.cyphersend.ui.view.fragment.MainDefaultFragment"
+        android:layout_gravity="left" />
+</android.support.v4.widget.DrawerLayout>

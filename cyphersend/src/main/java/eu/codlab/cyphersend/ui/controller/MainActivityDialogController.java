@@ -47,75 +47,30 @@ public class MainActivityDialogController {
     public void createDialogReceivedErrorNull() {
         __instance = NODIALOG;
         Crouton.makeText(_view, R.string.dialog_message_received_content_error_null, Application.ERROR_LONG).show();
-        /*_alert_dialog = new AlertDialog.Builder(getView())
-                .setTitle(R.string.dialog_message_received_title_error)
-                .setMessage(R.string.dialog_message_received_content_error_null)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        _alert_dialog = null;
-                        dialog.dismiss();
-                    }
-                }).create();*/
         show();
     }
 
     public void createDialogReceivedErrorDecypher() {
         __instance = NODIALOG;
         Crouton.makeText(_view, R.string.dialog_message_received_content_error_decypher, Application.ERROR_LONG).show();
-        /*_alert_dialog = new AlertDialog.Builder(getView())
-                .setTitle(R.string.dialog_message_received_title_error)
-                .setMessage(R.string.dialog_message_received_content_error_decypher)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        _alert_dialog = null;
-                        dialog.dismiss();
-                    }
-                }).create();*/
         show();
     }
 
     public void createDialogReceivedNoNewMessage() {
         __instance = NODIALOG;
         Crouton.makeText(_view, R.string.dialog_message_received_content_empty, Application.OK_SHORT).show();
-        /*_alert_dialog = new AlertDialog.Builder(getView())
-                .setTitle(R.string.dialog_message_received_title_empty)
-                .setMessage(R.string.dialog_message_received_content_empty)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        _alert_dialog = null;
-                        dialog.dismiss();
-                    }
-                }).create();*/
         show();
     }
 
     public void createDialogSendError() {
         __instance = NODIALOG;
         Crouton.makeText(_view, R.string.dialog_message_send_content_error, Application.ERROR_LONG).show();
-        /*_alert_dialog = new AlertDialog.Builder(getView())
-                .setTitle(R.string.dialog_message_send_title)
-                .setMessage(R.string.dialog_message_send_content_error)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        _alert_dialog = null;
-                        dialog.dismiss();
-                    }
-                }).create();*/
         show();
     }
 
     public void createDialogSendOk() {
         __instance = NODIALOG;
         Crouton.makeText(_view, R.string.dialog_message_send_content_ok, Application.OK_SHORT).show();
-        /*_alert_dialog = new AlertDialog.Builder(getView())
-                .setTitle(R.string.dialog_message_send_title)
-                .setMessage(R.string.dialog_message_send_content_ok)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        _alert_dialog = null;
-                        dialog.dismiss();
-                    }
-                }).create();*/
         show();
     }
 

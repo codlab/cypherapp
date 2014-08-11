@@ -51,39 +51,4 @@ public class Cypher {
         return dcipher.doFinal(encrypt);
     }
 
-
-    /*
-    public static byte [] encrypt(byte[] seed, String cleartext) throws Exception {
-        return encrypt(getRawKey(seed), cleartext.getBytes());
-    }
-
-    public static byte[] decrypt(byte[] seed, byte[] encrypted) throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(getRawKey(seed), "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-        byte[] decrypted = cipher.doFinal(encrypted);
-        return decrypted;
-    }
-
-
-    private static byte[] getRawKey(byte[] seed) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        sr.setSeed(seed);
-        kgen.init(256, sr);
-        SecretKey skey = kgen.generateKey();
-        byte[] raw = skey.getEncoded();
-        return raw;
-    }
-
-
-    private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
-        SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(clear);
-        return encrypted;
-    }
-*/
-
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import java.security.KeyPair;
 
@@ -43,7 +44,7 @@ public class MainActivityController implements IPinEntryListener {
         _main_activity = mainActivity;
     }
 
-    private Fragment getDefaultFragment() {
+    public Fragment getDefaultFragment() {
         if (_default_fragment == null) _default_fragment = new MainDefaultFragment();
         return _default_fragment;
     }
@@ -63,10 +64,6 @@ public class MainActivityController implements IPinEntryListener {
             if (_web_friends_fragment == null) _web_friends_fragment = new MainWebFriendsFragment();
             return _web_friends_fragment;
         }
-
-
-        //if (_web_friends_fragment == null) _web_friends_fragment = new MainWebFriendsFragment();
-        //return _web_friends_fragment;
     }
 
     private Fragment getFriendsFragment() {
@@ -74,32 +71,15 @@ public class MainActivityController implements IPinEntryListener {
         return _friends_fragment;
     }
 
-    /*private Fragment getHelpFragment() {
-        if (_helper != null) _helper.unregister(Application.getInstance());
-        _helper = new PinCheckHelper(this);
-        _helper.register(Application.getInstance());
-        if (Application.getInstance().hasPinEntered()) {
-            //TODO show correct fragment
-        } else if (Application.getInstance().hasPreviousPin() == true) {
-            return new PinEntrySupportFragment();
-        } else {
-            //TODO show error no pin saved
-            return new VaultNoFragment();
-        }
-        if (_help_fragment == null) _help_fragment = new MainHelpFragment();
-        return _help_fragment;
-    }*/
-
     public Fragment getFragment(int id) {
         switch (id) {
-            case 2:
-                return getFriendsFragment();
             case 1:
-                return getWebFriendsFragment();
-            //case 3:
-            //    return getHelpFragment();
+                return getFriendsFragment();
+            case 0:
             default:
-                return getDefaultFragment();
+                return getWebFriendsFragment();
+            //default:
+            //    return getDefaultFragment();
         }
     }
 

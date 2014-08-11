@@ -6,4 +6,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="object_radius">2dp</dimen>
+
+    <dimen name="discution_width">240dp</dimen>
 </resources>

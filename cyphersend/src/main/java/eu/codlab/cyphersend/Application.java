@@ -8,6 +8,11 @@ import java.io.File;
 
 import de.keyboardsurfer.android.widget.crouton.Configuration;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import eu.codlab.cyphersend.dbms.config.controller.ConfigController;
+import eu.codlab.cyphersend.dbms.config.model.Config;
+import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
+import eu.codlab.cyphersend.ui.controller.SettingsActivityEnhancedController;
+import eu.codlab.cyphersend.ui.view.activity.SettingsActivity;
 import eu.codlab.pin.IPinEntryListener;
 import eu.codlab.pin.IPinUpdateListener;
 
@@ -37,7 +42,16 @@ public class Application extends android.app.Application implements IPinUpdateLi
         _has_pin_entered = false;
         _instance = this;
 
-        _pin = this.getSharedPreferences("__INTERNAL__", 0).getInt("code", -1);
+        SettingsActivityEnhancedController.cleanValues(this);
+
+        Config config = ConfigController.getInstance(this).getConfig("code");
+        if(config != null && config.isContentSet()){
+            try {
+                _pin = Integer.parseInt(config.getContent());
+            }catch(Exception e){
+
+            }
+        }
     }
 
     @Override
@@ -57,7 +71,7 @@ public class Application extends android.app.Application implements IPinUpdateLi
     @Override
     public boolean onPinChanged(int pin) {
         _has_pin_entered = false;
-        getSharedPreferences("__INTERNAL__", 0).edit().putInt("code", pin).commit();
+        ConfigController.getInstance(this).setConfig("code", Integer.toString(pin, 10));
         _pin = pin;
         return true;
     }

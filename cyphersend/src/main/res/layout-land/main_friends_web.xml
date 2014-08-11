@@ -1,0 +1,17 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_web"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/main_friends" />
+
+    <FrameLayout
+        android:id="@+id/frame_discution"
+        android:layout_width="@dimen/discution_width"
+        android:layout_height="match_parent"
+        android:background="@color/back"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="right" />
+</android.support.v4.widget.DrawerLayout>

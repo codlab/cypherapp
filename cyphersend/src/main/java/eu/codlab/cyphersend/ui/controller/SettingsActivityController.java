@@ -4,6 +4,8 @@ import android.content.Context;
 import android.preference.PreferenceManager;
 
 import eu.codlab.cyphersend.R;
+import eu.codlab.cyphersend.dbms.config.controller.ConfigController;
+import eu.codlab.cyphersend.dbms.config.model.Config;
 import eu.codlab.cyphersend.utils.RandomStrings;
 
 /**
@@ -36,24 +38,33 @@ public class SettingsActivityController {
     }
 
     public static void setDeviceIdentifier(Context context, String identifier){
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.identifier), identifier).commit();
+        ConfigController.getInstance(context).setConfig(context.getString(R.string.identifier), identifier);
     }
     public static String getDeviceIdentifier(Context activity) {
-        String identifier = PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.identifier), null);
-        if (identifier == null) {
+        Config config = ConfigController.getInstance(activity).getConfig(activity.getString(R.string.identifier));
+        String identifier;
+        if(config == null || !config.isContentSet()){
             identifier = createRandomIdentifier(activity, 256);
+        }else{
+            identifier = config.getContent();
         }
+
         return identifier;
     }
 
     public static void setDevicePass(Context context, String pass){
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(R.string.pass), pass).commit();
     }
+
     public static String getDevicePass(Context activity) {
-        String pass = PreferenceManager.getDefaultSharedPreferences(activity).getString(activity.getString(R.string.pass), null);
-        if (pass == null) {
+        Config config = ConfigController.getInstance(activity).getConfig(activity.getString(R.string.pass));
+        String pass;
+        if(config == null || !config.isContentSet()){
             pass = createRandomPass(activity, 256);
+        }else{
+            pass = config.getContent();
         }
+
         return pass;
     }
 
@@ -68,13 +79,13 @@ public class SettingsActivityController {
 
     public static String createRandomIdentifier(Context activity, int length){
         String identifier = RandomStrings.generate(256);
-        PreferenceManager.getDefaultSharedPreferences(activity).edit().putString(activity.getString(R.string.identifier), identifier).commit();
+        ConfigController.getInstance(activity).setConfig(activity.getString(R.string.identifier), identifier);
         return identifier;
     }
 
     public static String createRandomPass(Context activity, int length){
         String pass = RandomStrings.generate(256);
-        PreferenceManager.getDefaultSharedPreferences(activity).edit().putString(activity.getString(R.string.pass), pass).commit();
+        ConfigController.getInstance(activity).setConfig(activity.getString(R.string.pass), pass);
         return pass;
     }
 

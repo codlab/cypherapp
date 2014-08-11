@@ -68,6 +68,9 @@ public class KeyManager {
             params.setPassword(password);
             zip.createZipFile(outKeys,params);
 
+            outKeys.delete();
+            outZip.delete();
+
             copyAndDelete(outZip, outFile);
 
             return true;

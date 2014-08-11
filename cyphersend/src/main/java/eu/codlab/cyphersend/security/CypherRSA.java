@@ -1,7 +1,7 @@
 package eu.codlab.cyphersend.security;
 
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.security.KeyFactory;
@@ -17,6 +17,9 @@ import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+
+import eu.codlab.cyphersend.dbms.config.controller.ConfigController;
+import eu.codlab.cyphersend.dbms.config.model.Config;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -70,8 +73,9 @@ public class CypherRSA {
     public static void saveKeyPublicPrivate(Context context, PublicKey publicKey, PrivateKey privateKey){
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(publicKey.getEncoded());
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKey.getEncoded());
-        context.getSharedPreferences("Context", 0).edit().putString("public", new String(Base64Coder.encode(x509EncodedKeySpec.getEncoded())))
-                .putString("private", new String(Base64Coder.encode(pkcs8EncodedKeySpec.getEncoded()))).commit();
+        ConfigController.getInstance(context)
+                .setConfig(ConfigController.PUBLIC_KEY, new String(Base64Coder.encode(x509EncodedKeySpec.getEncoded())))
+                .setConfig(ConfigController.PRIVATE_KEY, new String(Base64Coder.encode(pkcs8EncodedKeySpec.getEncoded())));
     }
 
     public static void saveKeyPair(Context context, KeyPair keyPair) {
@@ -87,10 +91,10 @@ public class CypherRSA {
         if (!areKeysPresent(context))
             return null;
 
-        SharedPreferences pref = context.getSharedPreferences("Context", 0);
-
-        byte[] encodedPublicKey = Base64Coder.decode(pref.getString("public", ""));
-        byte[] encodedPrivateKey = Base64Coder.decode(pref.getString("private", ""));
+        Config pub = ConfigController.getInstance(context).getConfig(ConfigController.PUBLIC_KEY);
+        Config priv = ConfigController.getInstance(context).getConfig(ConfigController.PRIVATE_KEY);
+        byte[] encodedPublicKey = Base64Coder.decode(pub.getContent());
+        byte[] encodedPrivateKey = Base64Coder.decode(priv.getContent());
 
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
         X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(encodedPublicKey);
@@ -119,11 +123,9 @@ public class CypherRSA {
     }
 
     public static boolean areKeysPresent(Context context) {
-
-        if (context.getSharedPreferences("Context", 0).contains("public") &&
-                context.getSharedPreferences("Context", 0).contains("private"))
-            return true;
-        return false;
+        Config pub =ConfigController.getInstance(context).getConfig(ConfigController.PUBLIC_KEY);
+        Config priv =ConfigController.getInstance(context).getConfig(ConfigController.PRIVATE_KEY);
+        return pub != null && pub.isContentSet() && priv != null && priv.isContentSet();
     }
 
     private static byte[] append(byte[] prefix, byte[] suffix) {
