@@ -1,7 +1,9 @@
 package eu.codlab.cyphersend.ui.view.fragment;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -31,7 +33,7 @@ import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.ui.controller.DiscutionDialogController;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.ui.event.NewMessagesHelper;
@@ -238,6 +240,7 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
             super(context, c, autoRequery);
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public DiscutionAdapter(Context context, Cursor c, int flags) {
             super(context, c, flags);
         }

@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view;
+package eu.codlab.cyphersend.ui.view.components;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

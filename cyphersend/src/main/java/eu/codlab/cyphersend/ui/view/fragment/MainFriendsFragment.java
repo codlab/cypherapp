@@ -15,7 +15,7 @@ import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
-import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 28/06/13.

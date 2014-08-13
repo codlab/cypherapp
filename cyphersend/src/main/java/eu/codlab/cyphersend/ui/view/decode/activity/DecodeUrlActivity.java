@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view.activity;
+package eu.codlab.cyphersend.ui.view.decode.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import eu.codlab.cyphersend.messages.model.MessageRead;
 import eu.codlab.cyphersend.messages.model.content.MessageContent;
 import eu.codlab.cyphersend.messages.model.content.MessageString;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
 
 /**
@@ -79,8 +79,10 @@ public class DecodeUrlActivity extends Activity {
 
                 if (device != null) {
                     decoded.setText(getString(R.string.known_sender).replace("%s", device.getName()) + " " + msg);
-                } else {
+                } else if(msg != null) {
                     decoded.setText(getString(R.string.unknown_sender) + " " + msg);
+                } else {
+                    decoded.setText(getString(R.string.not_suppose_to_be_this_device) + " " + msg);
                 }
             }
         } else {

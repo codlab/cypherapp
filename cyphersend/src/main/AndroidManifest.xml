@@ -23,14 +23,14 @@
         android:name="eu.codlab.cyphersend.Application"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.view.activity.GeneratingActivity"
+            android:name=".ui.view.main.activity.GeneratingActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance">
         </activity>
 
 
         <activity
-            android:name=".ui.view.activity.CypherMainActivity"
+            android:name=".ui.view.main.activity.CypherMainActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.activity.DecodeUrlActivity"
+            android:name=".ui.view.decode.activity.DecodeUrlActivity"
             android:label="@string/app_name"
             android:theme="@style/DialogTheme">
             <intent-filter>
@@ -97,10 +97,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.activity.SettingsActivity"
+            android:name=".ui.view.setting.SettingsActivity"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".ui.view.activity.ShareFriendsActivity"
+            android:name=".ui.view.share.activity.ShareFriendsActivity"
             android:icon="@drawable/ic_encrypt"
             android:label="@string/app_cypher_and_send"
             android:theme="@style/DialogTheme">
@@ -111,7 +111,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.view.activity.ShareThirdPartyFriendsActivity"
+            android:name=".ui.view.share.activity.ShareThirdPartyFriendsActivity"
             android:icon="@drawable/ic_third_party"
             android:label="@string/app_cypher_and_apps"
             android:theme="@style/DialogTheme">
@@ -121,11 +121,9 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.view.activity.HelpMainActivity"
+        <activity android:name=".ui.view.main.activity.HelpMainActivity"
             android:label="@string/action_guided"
             android:theme="@style/DialogTheme"/>
-
-        <activity android:name=".ui.view.activity.DiscutionActivity" />
 
 
         <receiver

@@ -10,8 +10,8 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
-import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 01/04/2014.

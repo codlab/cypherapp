@@ -13,7 +13,7 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import eu.codlab.cyphersend.Application;
 import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.devices.model.Device;
-import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 29/06/13.

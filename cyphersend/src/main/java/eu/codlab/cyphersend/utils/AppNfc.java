@@ -1,7 +1,9 @@
 package eu.codlab.cyphersend.utils;
 
+import android.annotation.TargetApi;
 import android.net.Uri;
 import android.nfc.NdefRecord;
+import android.os.Build;
 
 /**
  * Created by kevinleperf on 28/06/13.
@@ -69,6 +71,7 @@ public class AppNfc {
         return recordBytes;
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public static NdefRecord createUri(Uri uri) {
         return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_URI, null, createUriByte(uri));
     }

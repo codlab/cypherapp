@@ -46,7 +46,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <eu.codlab.cyphersend.ui.RobotoTextview
+            <eu.codlab.cyphersend.ui.view.components.RobotoTextview
                 roboto="thin"
                 android:id="@+id/guided_text"
                 android:layout_width="fill_parent"

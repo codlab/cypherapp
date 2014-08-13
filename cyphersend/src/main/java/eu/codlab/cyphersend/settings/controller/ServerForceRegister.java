@@ -1,5 +1,6 @@
 package eu.codlab.cyphersend.settings.controller;
 
+import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
 
@@ -96,6 +97,7 @@ public class ServerForceRegister {
         setServerForceRegisterListener(listener);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void send() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getReceiver().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, _url);

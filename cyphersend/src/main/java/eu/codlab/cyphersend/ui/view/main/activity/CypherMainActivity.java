@@ -1,5 +1,6 @@
-package eu.codlab.cyphersend.ui.view.activity;
+package eu.codlab.cyphersend.ui.view.main.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -12,15 +13,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
-import android.nfc.NfcEvent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -65,11 +63,15 @@ import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.security.CypherRSA;
 import eu.codlab.cyphersend.settings.controller.GCMServerRegister;
 import eu.codlab.cyphersend.settings.listener.GCMServerRegisterListener;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.MainActivityDialogController;
+import eu.codlab.cyphersend.ui.view.main.controller.NfcController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.ui.event.NewMessagesHelper;
-import eu.codlab.cyphersend.ui.view.SwipableViewPager;
+import eu.codlab.cyphersend.ui.view.components.SwipableViewPager;
+import eu.codlab.cyphersend.ui.view.setting.SettingsActivity;
+import eu.codlab.cyphersend.ui.view.share.activity.ShareFriendsActivity;
+import eu.codlab.cyphersend.ui.view.share.activity.ShareThirdPartyFriendsActivity;
 import eu.codlab.cyphersend.utils.MD5;
 import eu.codlab.cyphersend.utils.RandomStrings;
 import eu.codlab.cyphersend.utils.UrlsHelper;
@@ -78,7 +80,7 @@ import eu.codlab.pin.PinEntrySupportFragment;
 public class CypherMainActivity extends ActionBarActivity
         implements
         MessageSenderListener,
-        MessageReceiveListener, GCMServerRegisterListener {
+        MessageReceiveListener, GCMServerRegisterListener, NfcController.NfcControllerListener {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -98,8 +100,12 @@ public class CypherMainActivity extends ActionBarActivity
     static String CALLER_VALUE;
     private boolean _need_refresh_pager;
 
-    //TODO set jit instruction to optimize loader
-    //approximation : 25ms
+    private NfcController _nfc_controller;
+    private synchronized  NfcController getNfcController(){
+        if(_nfc_controller == null)_nfc_controller = new NfcController(this);
+        return _nfc_controller;
+    }
+
     private synchronized MainActivityController getController() {
         if (_controller == null) _controller = new MainActivityController(this);
         return _controller;
@@ -111,28 +117,6 @@ public class CypherMainActivity extends ActionBarActivity
     }
 
     private AlertDialog _alert;
-
-    private void registerNfc() {
-        if (Build.VERSION.SDK_INT >= 14) {
-            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (nfcAdapter == null) return;  // NFC not available on this device
-            nfcAdapter.setNdefPushMessageCallback(ndefCallback, this);
-            nfcAdapter.setOnNdefPushCompleteCallback(ndefCompleteCallback, this);
-        }
-    }
-
-    private void sendNfc() {
-        if (getController().hasKeys() && Build.VERSION.SDK_INT >= 14) {
-            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (nfcAdapter == null) return;  // NFC not available on this device
-
-            /*NdefMessage nfcmessage = new NdefMessage(new NdefRecord[]{AppNfc.createUri(
-                    createUri())});*/
-
-            NdefMessage nfcmessage = new NdefMessage(new NdefRecord[]{NdefRecord.createUri(getController().createUri(this))});
-            nfcAdapter.setNdefPushMessage(nfcmessage, this);
-        }
-    }
 
     public void onRequestShare() {
         Intent intent = getShareIntent();
@@ -203,6 +187,22 @@ public class CypherMainActivity extends ActionBarActivity
 
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    @Override
+    public Uri getDefaultUri() {
+        return getController().createUri(CypherMainActivity.this);
+    }
+
+    @Override
+    public void onShared() {
+        //
+        Toast.makeText(this, R.string.successfully_shared, Toast.LENGTH_LONG).show();
+    }
+
     private class UpdateShareClass {
         public void onUpdate(Intent intent) {
 
@@ -220,6 +220,7 @@ public class CypherMainActivity extends ActionBarActivity
             return _provider;
         }
 
+        @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
         @Override
         public void onUpdate(Intent intent) {
             if (_provider != null)
@@ -277,9 +278,6 @@ public class CypherMainActivity extends ActionBarActivity
 
     Pager pager;
 
-    NfcAdapter.CreateNdefMessageCallback ndefCallback;
-    NfcAdapter.OnNdefPushCompleteCallback ndefCompleteCallback;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -296,21 +294,8 @@ public class CypherMainActivity extends ActionBarActivity
         }
         setContentView(R.layout.activity_main);
 
-        if (Build.VERSION.SDK_INT >= 14) {
-            ndefCallback = new NfcAdapter.CreateNdefMessageCallback() {
-                @Override
-                public NdefMessage createNdefMessage(NfcEvent nfcEvent) {
-                    NdefMessage nfcmessage = new NdefMessage(new NdefRecord[]{NdefRecord.createUri(getController().createUri(CypherMainActivity.this))});
-                    return nfcmessage;
-                }
-            };
-            ndefCompleteCallback = new NfcAdapter.OnNdefPushCompleteCallback() {
-                @Override
-                public void onNdefPushComplete(NfcEvent nfcEvent) {
-                    mHandler.obtainMessage(MESSAGE_SENT).sendToTarget();
-                }
-            };
-        }
+        getNfcController().onCreate();
+
         pager =
                 new Pager(
                         getSupportFragmentManager());
@@ -321,7 +306,7 @@ public class CypherMainActivity extends ActionBarActivity
         Thread t = new Thread() {
             public void run() {
                 getController().getKeys(CypherMainActivity.this);
-                sendNfc();
+                getNfcController().sendNfc(CypherMainActivity.this);
                 getShareClass().onUpdate(getShareIntent());
                 CypherMainActivity.this.supportInvalidateOptionsMenu();
             }
@@ -478,7 +463,7 @@ public class CypherMainActivity extends ActionBarActivity
 
     @Override
     public void onResume() {
-        registerNfc();
+        getNfcController().registerNfc(this);
         super.onResume();
 
         if (_loading_web == true) {
@@ -542,7 +527,7 @@ public class CypherMainActivity extends ActionBarActivity
         Thread t = new Thread() {
             public void run() {
                 getController().getKeys(CypherMainActivity.this);
-                sendNfc();
+                getNfcController().sendNfc(CypherMainActivity.this);
                 getShareClass().onUpdate(getShareIntent());
                 CypherMainActivity.this.supportInvalidateOptionsMenu();
             }
@@ -646,23 +631,6 @@ public class CypherMainActivity extends ActionBarActivity
 
         }
     }
-
-    private static final int MESSAGE_SENT = 1;
-
-    /**
-     * This handler receives a message from onNdefPushComplete
-     */
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MESSAGE_SENT:
-                    Toast.makeText(getApplicationContext(), R.string.successfully_shared, Toast.LENGTH_LONG).show();
-
-                    break;
-            }
-        }
-    };
 
     /**
      * Parses the NDEF Message from the intent and prints to the TextView
@@ -886,7 +854,7 @@ public class CypherMainActivity extends ActionBarActivity
         sendTextIntent(this, share_string);
     }
 
-    static void sendTextIntent(Activity activity, String string) {
+    public static void sendTextIntent(Activity activity, String string) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(CALLER, createRandomString());
@@ -900,7 +868,7 @@ public class CypherMainActivity extends ActionBarActivity
         return CALLER_VALUE;
     }
 
-    static boolean isCallerMyself(Intent intent) {
+    public static boolean isCallerMyself(Intent intent) {
         return intent.hasExtra(CALLER);
     }
 

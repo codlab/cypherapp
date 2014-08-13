@@ -13,7 +13,7 @@ import android.widget.Button;
 import de.schildbach.wallet.integration.android.BitcoinIntegration;
 import eu.codlab.cyphersend.BuildConfig;
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 28/06/13.

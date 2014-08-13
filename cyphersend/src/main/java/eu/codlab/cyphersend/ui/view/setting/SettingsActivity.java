@@ -1,6 +1,7 @@
-package eu.codlab.cyphersend.ui.view.activity;
+package eu.codlab.cyphersend.ui.view.setting;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -27,9 +28,10 @@ import eu.codlab.cyphersend.settings.controller.ServerForceRegister;
 import eu.codlab.cyphersend.settings.controller.ServerRegister;
 import eu.codlab.cyphersend.settings.listener.ServerForceRegisterListener;
 import eu.codlab.cyphersend.settings.listener.ServerRegisterListener;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityDialogController;
+import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 import eu.codlab.cyphersend.utils.keys.KeyManager;
 import eu.codlab.pin.PinUpdateHelper;
 
@@ -52,6 +54,7 @@ public class SettingsActivity extends PreferenceActivity
         return _dialog_controller;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @SuppressLint("AppCompatMethod")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

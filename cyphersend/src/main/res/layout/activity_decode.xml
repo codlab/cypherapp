@@ -30,14 +30,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_incognito"/>
-        <eu.codlab.cyphersend.ui.RobotoTextview
+        <eu.codlab.cyphersend.ui.view.components.RobotoTextview
             android:id="@+id/incognito_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/message_was_incognito"
             android:gravity="center_vertical" />
-        <eu.codlab.cyphersend.ui.RobotoTextview
+        <eu.codlab.cyphersend.ui.view.components.RobotoTextview
             android:id="@+id/incognito_disabled_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -46,7 +46,7 @@
             android:gravity="center_vertical" />
     </LinearLayout>
 
-    <eu.codlab.cyphersend.ui.RobotoTextview
+    <eu.codlab.cyphersend.ui.view.components.RobotoTextview
         android:id="@+id/decoded"
         roboto="thin"
         android:layout_width="fill_parent"

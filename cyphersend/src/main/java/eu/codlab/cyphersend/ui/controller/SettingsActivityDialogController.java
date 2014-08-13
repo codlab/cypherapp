@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.ui.view.activity.SettingsActivity;
+import eu.codlab.cyphersend.ui.view.setting.SettingsActivity;
 
 /**
  * Created by kevinleperf on 29/06/13.

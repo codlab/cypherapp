@@ -1,19 +1,19 @@
-package eu.codlab.cyphersend.ui;
+package eu.codlab.cyphersend.ui.view.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.Button;
+import android.widget.TextView;
 
 import eu.codlab.cyphersend.R;
 
 /**
  * Created by kevinleperf on 19/03/2014.
  */
-public class RobotoButton extends Button {
+public class RobotoTextview extends TextView {
 
-    public RobotoButton(Context context, AttributeSet attrs) {
+    public RobotoTextview(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         //Typeface.createFromAsset doesn't work in the layout editor. Skipping...

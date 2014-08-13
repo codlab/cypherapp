@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <eu.codlab.cyphersend.ui.RobotoTextview
+                <eu.codlab.cyphersend.ui.view.components.RobotoTextview
                     android:id="@+id/device_name"
                     roboto="thin"
                     android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                     android:text="name"
                     android:textSize="25dp" />
 
-                <eu.codlab.cyphersend.ui.RobotoTextview
+                <eu.codlab.cyphersend.ui.view.components.RobotoTextview
                     android:id="@+id/device_publickey"
                     roboto="thin"
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                 android:orientation="horizontal"
                 android:padding="15dp">
 
-                <eu.codlab.cyphersend.ui.RobotoButton
+                <eu.codlab.cyphersend.ui.view.components.RobotoButton
                     android:id="@+id/device_web_send"
                     android:layout_width="60dp"
                     android:layout_height="fill_parent"
@@ -84,7 +84,7 @@
                     android:text="@string/device_web_send_message"
                     android:textSize="10dp" />
 
-                <eu.codlab.cyphersend.ui.RobotoButton
+                <eu.codlab.cyphersend.ui.view.components.RobotoButton
                     android:id="@+id/device_send"
                     android:layout_width="60dp"
                     android:layout_height="fill_parent"

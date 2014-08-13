@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
 
-        <eu.codlab.cyphersend.ui.RobotoButton
+        <eu.codlab.cyphersend.ui.view.components.RobotoButton
             android:id="@+id/note_add"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <eu.codlab.cyphersend.ui.RobotoButton
+        <eu.codlab.cyphersend.ui.view.components.RobotoButton
             android:id="@+id/note_cancel"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <eu.codlab.cyphersend.ui.RobotoButton
+        <eu.codlab.cyphersend.ui.view.components.RobotoButton
             android:id="@+id/note_confirm"
             android:layout_width="60dp"
             android:layout_height="wrap_content"

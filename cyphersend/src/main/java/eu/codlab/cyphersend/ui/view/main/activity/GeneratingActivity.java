@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view.activity;
+package eu.codlab.cyphersend.ui.view.main.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.os.Looper;
 import com.crashlytics.android.Crashlytics;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
 
 /**
  * Created by kevinleperf on 11/05/2014.

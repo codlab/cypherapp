@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui;
+package eu.codlab.cyphersend.ui.view.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;

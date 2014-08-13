@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"></ListView>
-        <eu.codlab.cyphersend.ui.RobotoTextview
+        <eu.codlab.cyphersend.ui.view.components.RobotoTextview
             android:id="@+id/discution_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,7 +48,7 @@
             android:background="@drawable/incognito_selector"
             android:button="@null" />
 
-        <eu.codlab.cyphersend.ui.RobotoTextview
+        <eu.codlab.cyphersend.ui.view.components.RobotoTextview
             android:id="@+id/incognito_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <eu.codlab.cyphersend.ui.RobotoEditText
+        <eu.codlab.cyphersend.ui.view.components.RobotoEditText
             android:id="@+id/discution_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

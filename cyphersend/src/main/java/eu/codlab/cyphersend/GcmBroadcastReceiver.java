@@ -8,9 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
-import eu.codlab.cyphersend.ui.controller.MainActivityController;
+import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityController;
-import eu.codlab.cyphersend.ui.view.activity.CypherMainActivity;
+import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 01/04/2014.

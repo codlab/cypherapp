@@ -1,4 +1,4 @@
-package eu.codlab.cyphersend.ui.view.activity;
+package eu.codlab.cyphersend.ui.view.main.activity;
 
 import android.nfc.NfcAdapter;
 import android.os.Build;
@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import eu.codlab.cyphersend.R;
-import eu.codlab.cyphersend.ui.view.fragment.GuidedTour;
+import eu.codlab.cyphersend.ui.view.main.fragment.GuidedTour;
 
 public class HelpMainActivity extends FragmentActivity {
     public class Pager extends FragmentStatePagerAdapter {
