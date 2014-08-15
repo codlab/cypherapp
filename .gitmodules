@@ -1,3 +1,6 @@
 [submodule "libraries/android-pinview"]
 	path = libraries/android-pinview
 	url = git://github.com/codlab/android-pinview.git
+[submodule "libraries/netcipher"]
+	path = libraries/netcipher
+	url = https://github.com/codlab/NetCipher

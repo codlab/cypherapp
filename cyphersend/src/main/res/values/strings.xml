@@ -213,4 +213,9 @@
 
     <string name="message_was_incognito">This message has not been saved since it was incognito</string>
     <string name="message_was_not_incognito">This message has been saved to your device</string>
+    <string name="orbot_running">Orbot is running. Communications are encrypted normally and will use Tor for an enhanced security.</string>
+    <string name="orbot_not_running">Orbot is not running. Communications will pass through secured communications but on potential public channels.</string>
+    <string name="orbot_not_installed">Orbot is not installed. Communications are secured but does not use Tor.</string>
+    <string name="orbot_activate">Activate Orbot</string>
+    <string name="orbot_install">Install Orbot</string>
 </resources>

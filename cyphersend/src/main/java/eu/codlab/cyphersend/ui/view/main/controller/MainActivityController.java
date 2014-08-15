@@ -42,6 +42,13 @@ public class MainActivityController implements IPinEntryListener {
         _main_activity = mainActivity;
     }
 
+    public boolean onBackPressed(){
+        if(_web_friends_fragment != null) {
+            return _web_friends_fragment.onBackPressed();
+        }
+        return false;
+    }
+
     public Fragment getDefaultFragment() {
         if (_default_fragment == null) _default_fragment = new MainDefaultFragment();
         return _default_fragment;

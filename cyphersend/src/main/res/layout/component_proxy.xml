@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/default_inner_padding"
+    android:background="@drawable/rounded_orange">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/tor"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:scaleType="centerInside" />
+
+    <eu.codlab.cyphersend.ui.view.components.RobotoTextview
+        android:id="@+id/tor_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/default_inner_padding"
+        android:singleLine="false"
+        android:layout_gravity="fill"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/orbot_not_installed" />
+
+    <eu.codlab.cyphersend.ui.view.components.RobotoButton
+        android:id="@+id/tor_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/orbot_install"
+        android:padding="@dimen/default_inner_padding"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal|center_vertical" />
+</LinearLayout>

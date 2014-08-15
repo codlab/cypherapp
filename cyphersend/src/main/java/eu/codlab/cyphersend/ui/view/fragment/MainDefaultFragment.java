@@ -34,17 +34,8 @@ public class MainDefaultFragment extends Fragment {
         View v = inflater.inflate(R.layout.main_default, parent, false);
 
 
-        Button web_send = (Button) v.findViewById(R.id.main_web_send);
         Button share_send = (Button) v.findViewById(R.id.main_share_sendsend);
 
-        web_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getActivity() != null) {
-                    ((CypherMainActivity) getActivity()).onRequestWebSend();
-                }
-            }
-        });
         share_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

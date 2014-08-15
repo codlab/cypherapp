@@ -19,15 +19,25 @@ import eu.codlab.cyphersend.R;
 import eu.codlab.cyphersend.dbms.devices.model.Device;
 import eu.codlab.cyphersend.ui.controller.DeviceAdapter;
 import eu.codlab.cyphersend.ui.listener.RequestSendListener;
+import eu.codlab.cyphersend.ui.view.EventFragment;
 import eu.codlab.cyphersend.ui.view.main.activity.CypherMainActivity;
 
 /**
  * Created by kevinleperf on 28/06/13.
  */
-public class MainWebFriendsFragment extends Fragment implements RequestSendListener, DrawerLayout.DrawerListener {
+public class MainWebFriendsFragment extends EventFragment implements RequestSendListener, DrawerLayout.DrawerListener {
     private Handler _handler = new Handler(Looper.getMainLooper());
     private DeviceAdapter _adapter;
     private DrawerLayout _drawer_layout;
+
+    @Override
+    public boolean onBackPressed(){
+        if(_drawer_layout.isDrawerOpen(Gravity.RIGHT)){
+            _drawer_layout.closeDrawer(Gravity.RIGHT);
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void onCreate(Bundle bundle) {

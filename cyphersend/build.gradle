@@ -29,6 +29,9 @@ dependencies {
     }
 
     compile project(':bitcoin')
+    compile ( project(':libraries:netcipher:libnetcipher') ) {
+        exclude module: 'support-v4'
+    }
     compile ( project(':libraries:android-pinview') ) {
         exclude module: 'support-v4'
     }

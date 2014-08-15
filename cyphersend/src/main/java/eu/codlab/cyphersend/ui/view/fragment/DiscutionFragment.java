@@ -31,6 +31,7 @@ import eu.codlab.cyphersend.dbms.discution.controller.DiscutionController;
 import eu.codlab.cyphersend.messages.controller.MessageSender;
 import eu.codlab.cyphersend.messages.listeners.MessageSenderListener;
 import eu.codlab.cyphersend.messages.model.MessageWrite;
+import eu.codlab.cyphersend.proxy.ProxyView;
 import eu.codlab.cyphersend.security.Base64Coder;
 import eu.codlab.cyphersend.ui.controller.DiscutionDialogController;
 import eu.codlab.cyphersend.ui.view.main.controller.MainActivityController;
@@ -147,6 +148,10 @@ public class DiscutionFragment extends Fragment implements CompoundButton.OnChec
         } catch (Exception e) {
         }
 
+
+        if(getView().findViewById(R.id.tor) != null){
+            ((ProxyView)getView().findViewById(R.id.tor)).onResume();
+        }
 
         if (_discution_list.getAdapter() == null) {
             _discution_list.setAdapter(new DiscutionAdapter(getActivity(), _chat, true));

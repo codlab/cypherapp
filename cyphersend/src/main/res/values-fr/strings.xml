@@ -214,4 +214,9 @@
 
     <string name="message_was_incognito">Le message n\'a pas été sauvegardé car il était en mode incognito</string>
     <string name="message_was_not_incognito">Le message a été sauvegardé</string>
+    <string name="orbot_running">Orbot fonctionne. Les communications passent par un chiffrement habituel ainsi que le réseau Tor .</string>
+    <string name="orbot_not_running">Orbot ne fonctionne pas. Les communications passent par un canal chiffré et sécurisé normal.</string>
+    <string name="orbot_not_installed">Orbot n\'est pas installé. Seul le chiffrement des communications sera assuré.</string>
+    <string name="orbot_activate">Activer Orbot</string>
+    <string name="orbot_install">Installer Orbot</string>
 </resources>

@@ -10,6 +10,7 @@ import de.keyboardsurfer.android.widget.crouton.Configuration;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import eu.codlab.cyphersend.dbms.config.controller.ConfigController;
 import eu.codlab.cyphersend.dbms.config.model.Config;
+import eu.codlab.cyphersend.proxy.ProxyController;
 import eu.codlab.cyphersend.security.PRNGFixes;
 import eu.codlab.cyphersend.ui.controller.SettingsActivityEnhancedController;
 import eu.codlab.pin.IPinEntryListener;
@@ -19,6 +20,8 @@ import eu.codlab.pin.IPinUpdateListener;
  * Created by kevinleperf on 15/05/2014.
  */
 public class Application extends android.app.Application implements IPinUpdateListener, IPinEntryListener {
+
+    private ProxyController _proxy_controller;
     private static final Configuration c = new Configuration.Builder().setDuration(Configuration.DURATION_LONG).build();
     private static final Configuration s = new Configuration.Builder().setDuration(Configuration.DURATION_SHORT).build();
     public static final Style INFO = new Style.Builder().setBackgroundColorValue(Style.holoBlueLight).setPaddingDimensionResId(R.dimen.default_margin).build();
@@ -30,6 +33,11 @@ public class Application extends android.app.Application implements IPinUpdateLi
     public static Application getInstance() {
 
         return _instance;
+    }
+
+    public ProxyController getProxyController(){
+        if(_proxy_controller == null) _proxy_controller = new ProxyController(this);
+        return _proxy_controller;
     }
 
     private int _pin = -1;

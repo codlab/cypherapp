@@ -1,1 +1,1 @@
-include ':bitcoin', ':cyphersend', ':libraries:android-pinview'
+include ':bitcoin', ':cyphersend', ':libraries:android-pinview', 'libraries:netcipher:libnetcipher'

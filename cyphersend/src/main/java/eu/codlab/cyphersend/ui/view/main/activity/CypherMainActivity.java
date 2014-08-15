@@ -29,6 +29,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -360,7 +361,9 @@ public class CypherMainActivity extends ActionBarActivity
             public void onPageSelected(int position) {
                 getSupportActionBar().setSelectedNavigationItem(position);
                 Crouton.cancelAllCroutons();
-                switch (position) {
+
+
+                /*switch (position) {
                     case 2:
                         Crouton.makeText(CypherMainActivity.this, R.string.vault_popup, Application.INFO).show();
                         break;
@@ -371,7 +374,7 @@ public class CypherMainActivity extends ActionBarActivity
                         Crouton.makeText(CypherMainActivity.this, R.string.share_popup, Application.INFO).show();
                         break;
                     default:
-                }
+                }*/
             }
 
             @Override
@@ -413,6 +416,15 @@ public class CypherMainActivity extends ActionBarActivity
         if (intent.hasExtra(MainActivityController.LOAD_WEB_MESSAGES)) {
             intent.removeExtra(MainActivityController.LOAD_WEB_MESSAGES);
             getWebMessages();
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(mDrawerLayout != null && mDrawerLayout.isDrawerOpen(Gravity.LEFT)){
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        } else if(_controller == null || !_controller.onBackPressed()){
+            super.onBackPressed();
         }
     }
 
